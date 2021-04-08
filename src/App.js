@@ -1,25 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import GlobalStyle from "./style/global";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<h1 style={{ textAlign: "center" }}>está rodando tudo corretamente</h1>
+			<h3 style={{ textAlign: "center" }}> bom trabalho pessoal! </h3>
+			<p style={{ textAlign: "center" }}>
+				essas informações podem ser apagadas!
+			</p>
+			<GlobalStyle />
+		</>
+	);
 }
 
 export default App;
