@@ -23,12 +23,12 @@
     "yup": "^0.32.9"
   },
   "prettier": {
-		"trailingComma": "es5",
-		"tabWidth": 2,
-		"useTabs": true,
-		"semi": true,
-		"singleQuote": false
-	},
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "useTabs": true,
+    "semi": true,
+    "singleQuote": false
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
