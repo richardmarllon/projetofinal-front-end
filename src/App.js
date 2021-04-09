@@ -1,3 +1,4 @@
+import ReminderCard from "./components/reminderCard";
 import GlobalStyle from "./style/global";
 
 function App() {
@@ -8,6 +9,8 @@ function App() {
 			<p style={{ textAlign: "center" }}>
 				essas informações podem ser apagadas!
 			</p>
+
+			<ReminderCard />
 			<GlobalStyle />
 		</>
 	);
