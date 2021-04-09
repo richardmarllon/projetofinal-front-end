@@ -10,56 +10,51 @@ import "antd/dist/antd.css";
 
 
 
-const FormRegister = () => {
-
-  // const schema = yup.object().shape({
-  //   // email: yup.string().email("Email inválido").required("Campo obrigatório"),
-  //   _name: yup.string().required("Campo obrigatório"),
-  //   _surname: yup.string().required("Campo obrigatório"),
-  //   _password: yup
-  //     .string()
-  //     .min(6, "Mínimo de 6 dígitos")
-  //     .required("Campo obrigatório, 6 dígitos!")    
-  // });
-
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  // {
-  //   // resolver: yupResolver(schema),
-  // });
-
- 
+const FormRegister = () => {  
   
-  console.info("erros", errors)
+  const schema = yup.object().shape({
+    // email: yup.string().email("Email inválido").required("Campo obrigatório"),
+    name: yup.string().required("Campo obrigatório"),
+    _surname: yup.string().required("Campo obrigatório"),
+    _date: yup.date().required("Campo obrigatório"),
+    _password: yup
+      .string()
+      .min(6, "Mínimo de 6 dígitos")
+      .required("Campo obrigatório, 6 dígitos!")    
+  });
 
-  const handleForm = (data) => {
-    console.info('handleForm:',data)
-    reset();
-  }
+  const { register, handleSubmit, formState: { errors } } = useForm({  
+    resolver: yupResolver(schema)
+  });
+
+  console.info("erros", errors);
   
+  const handleForm = data => 
+    console.log('handleForm:',data);
+
   return(
     <form onSubmit={handleSubmit(handleForm)}>
       <h1> Cadastre-se</h1>
       <div>
         <TextField
-          required
-          id="outlined-required"
-          label="Nome"          
+          // required
+          // id="outlined-required"
+          label="Nome"
+          name="name"        
           variant="outlined"         
-          {...register("name", {required:"Obrigatório"})} 
-          // inputRef={register("name")}
-          error={!!errors.name}
-          helperText={errors.name?.message}       
-        />        
+          {...register("name",{require:true})}      
+        />         
+        <p>{errors.name?.message}</p>      
         <TextField
           required
           id="outlined-disabled"
           label="Último nome"        
           variant="outlined"         
           {...register("surname", {required:"Obrigatório"})}
-          // inputRef={register("surname")}
           error={!!errors.surname}         
           helperText={errors.surname?.message}
-        />
+        />      
+        <p>{errors.surname?.message}</p>        
         <TextField
           required
           id="date"
@@ -70,10 +65,12 @@ const FormRegister = () => {
             shrink: true,
           }}         
           {...register("date", {required:"Obrigatório"})}
-          // inputRef={register("date")}
-          error={!!errors.date}
-          helperText={errors.date?.message}
-        />        
+          // error={!!errors.date}
+          // helperText={errors.date?.message}
+        />
+        <div></div>
+        <p>{errors.date?.message}</p>      
+        
         <TextField
           required
           id="password"
@@ -82,10 +79,12 @@ const FormRegister = () => {
           variant="outlined"
           autoComplete="current-password"
           {...register("password", {required:"Obrigatório"})}
-          // inputRef={register("password")}
-          error={!!errors.password}
-          helperText={errors.password?.message}
-        />       
+          // error={!!errors.password}
+          // helperText={errors.password?.message}
+        /> 
+        <div></div>
+        <p>{errors.password?.message}</p>      
+        
         <TextField
           id="button-confirm"
           type="submit"
