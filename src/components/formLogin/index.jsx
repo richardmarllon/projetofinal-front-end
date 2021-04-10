@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useUsers } from "../../providers/UserProvider";
-import "antd/dist/antd.css";
+import { Button } from "antd"
+import { Link } from "react-router-dom"
 
 const schema = yup.object().shape({
 	email: yup.string().email("Email inválido").required("Campo obrigatório"),
@@ -28,14 +29,17 @@ const FormLogin = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<input {...register("email")} />
+		<form>
+			<h1>Seja bem vindo!</h1>
+			<p>insira seus dados e faça o login</p>
+			<input {...register("email")} type="email"/>
 			<p>{errors.email?.message}</p>
 
-			<input {...register("password")} />
+			<input {...register("password")} type="password"/>
 			<p>{errors.password?.message}</p>
 
-			<input value="Logar" type="submit" />
+			<Button onClick={handleSubmit(onSubmit)}>Entrar</Button>
+			<p>ainda não tem conta? <Link to="/register" >cadastra-se aqui!</Link></p>
 		</form>
 	);
 };
