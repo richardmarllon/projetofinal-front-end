@@ -1,18 +1,23 @@
-import React, { useEffect } from "react";
-import { Users } from "../../providers/userProvider";
+import React from "react";
+import { useExams } from "../../providers/ExamsProvider";
 import ReminderCard from "../reminderCard";
 import { ReminderContainer } from "./style";
+import moment from "moment";
 
 const ReminderSection = () => {
-	const { loggedUser } = Users();
-	useEffect(() => {
-		console.log(loggedUser, "esse");
-	}, [loggedUser]);
+	const { userExams } = useExams();
+	const today = moment();
+
+	const futureExams = userExams.filter((exam) => {
+		return moment(exam.date).isAfter(today);
+	});
 
 	return (
 		<>
 			<ReminderContainer>
-				<ReminderCard />
+				{futureExams.map((exam) => {
+					return <ReminderCard key={exam.id} exam={exam} />;
+				})}
 			</ReminderContainer>
 		</>
 	);

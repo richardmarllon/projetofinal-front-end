@@ -1,8 +1,8 @@
 import { Redirect, Route as ReactDOMRoute } from "react-router-dom";
-import { useUser } from "../Providers/User";
+import { useUsers } from "../providers/UserProvider";
 
 const Route = ({ isPrivate = false, component: Component, ...rest }) => {
-	const { userToken } = useUser();
+	const { userToken } = useUsers();
 
 	return (
 		<ReactDOMRoute

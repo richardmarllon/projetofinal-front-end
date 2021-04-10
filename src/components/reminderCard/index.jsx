@@ -1,22 +1,22 @@
 import React from "react";
 import { CardContainer, Info, InfoContainer, Title } from "./style";
 
-const ReminderCard = () => {
+const ReminderCard = ({ exam }) => {
 	return (
 		<>
 			<CardContainer>
 				<Title>consulta</Title>
 				<InfoContainer>
 					<Info>especialidade:</Info>
-					<Info>cardiologista</Info>
+					<Info>{exam.physicianSpecialty}</Info>
 				</InfoContainer>
 				<InfoContainer>
 					<Info>médico:</Info>
-					<Info>Rafaela</Info>
+					<Info>{exam.physicianName}</Info>
 				</InfoContainer>
 				<InfoContainer>
 					<Info>data:</Info>
-					<Info>19-07-2020</Info>
+					<Info>{exam.date}</Info>
 				</InfoContainer>
 			</CardContainer>
 		</>
