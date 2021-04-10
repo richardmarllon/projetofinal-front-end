@@ -15,6 +15,22 @@ export const UserProvider = (props) => {
 	const [user, setUser] = useState([]);
 	const [allUsers, setAllUsers] = useState([]);
 
+	const login = (userData) => {
+		saluteAPI
+			.post("/login", userData)
+			.then((response) => {
+				localStorage.setItem(
+					"token",
+					JSON.stringify(response.data.accessToken)
+				);
+				setUserToken(response.data.accessToken);
+				getLoggedUserData(decode(response.data.accessToken).sub);
+			})
+			.catch((error) => {
+				console.log(error.response);
+			});
+	};
+
 	const getLoggedUserData = (idLoggedUser) => {
 		saluteAPI
 			.get(`/users/${idLoggedUser}/`)
