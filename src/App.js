@@ -1,16 +1,16 @@
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import GlobalStyle from "./style/global";
-// import { useUsers } from "./providers/UserProvider";
+import { useUsers } from "./providers/UserProvider";
 function App() {
-	//login para teste
-	// const { login } = useUsers();
+	// login para teste
+	const { login } = useUsers();
 
-	// useEffect(() => {
-	// 	login({
-	// 		email: "suellendavinci@gmail.com",
-	// 		password: "123456",
-	// 	});
-	// }, []);
+	useEffect(() => {
+		login({
+			email: "suellendavinci@gmail.com",
+			password: "123456",
+		});
+	}, []);
 
 	return (
 		<>
