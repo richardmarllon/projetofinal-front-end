@@ -7,6 +7,7 @@ export const UserProvider = (props) => {
 	const [userToken, setUserToken] = useState(
 		JSON.parse(localStorage.getItem("token")) || ""
 	);
+
 	const [loggedUser, setLoggedUser] = useState(
 		JSON.parse(localStorage.getItem("loggedUser")) || ""
 	);
@@ -57,7 +58,6 @@ export const UserProvider = (props) => {
 			})
 			.catch((e) => e);
 	};
-	console.log(loggedUser);
 	return (
 		<UserContext.Provider
 			value={{
