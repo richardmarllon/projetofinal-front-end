@@ -1,5 +1,5 @@
 /* Converte data para unix timestamp
- Parametro : data
+ Parametro : data 
  return : unix timestamp (integer number) 
 */
 

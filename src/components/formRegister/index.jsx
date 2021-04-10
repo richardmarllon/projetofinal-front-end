@@ -5,6 +5,17 @@ import * as yup from "yup";
 import formatCPF from "../../util/formartCPF";
 import dateToTimestamp from '../../util/convertDateToTimestamp'
 import { saluteAPI } from "../../services/api";
+import {
+    StyledForm,
+    StyledButton, 
+    StyledParErr,
+    StyledType,
+    StyledInput,
+    StyledSelect,
+    StyledH3,
+    StyledPar,
+    StyledSpan
+  } from "./style";
 
 
 const FormRegister = () => {
@@ -29,9 +40,7 @@ const FormRegister = () => {
   
   const onSubmit = (data) => {
     
-    // validation userType    
-    // let cpf = "";
-
+    // validation userType          
     switch (data.userType) {
       case 'patient':
         let cpf = formatCPF(data.document)      
@@ -84,81 +93,78 @@ const FormRegister = () => {
  
   return (
     <>
-      <h3> Cadastre-se</h3>      
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
+         
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <StyledH3> Cadastre-se</StyledH3>   
+        <StyledInput
             required
             type='text'
-            size="16" 
+            size="25"           
             placeholder='Primeiro nome'       
             {...register("firstName")} 
           />
-           {errors.firstName && <p>{errors.firstName.message}</p>}
-          <span>&emsp;</span>
+           {errors.firstName && <StyledParErr >{errors.firstName.message}</StyledParErr>}
+          
 
-          <input
+          <StyledInput
             required
             type='text'
-            size="20"
+            size="25"
             placeholder='Último nome'       
             {...register("lastName")} 
           />
-           {errors.lastName && <p>{errors.lastName.message}</p>}
-          <span><br/><br/></span>
+           {errors.lastName && <StyledParErr >{errors.lastName.message}</StyledParErr>}
+          
 
-          <input 
+          <StyledInput 
             required
-            type='date'          
+            type='date'
             placeholder='dd / mm / aaaa'                
             {...register("date")} 
           />
-          {errors.date && <p>{errors.date.message}</p>}
-          <span>&emsp;</span>
+          {errors.date && <StyledParErr>{errors.date.message}</StyledParErr>}
+          
 
-          <input 
+          <StyledInput 
             required
             type='password'
-            size="20"
+            size="25"
             placeholder='Senha mínimo 6 digitos'                
             {...register("password", { required: true })} 
           />
-          {errors.password && <p>{errors.password.message}</p>}
-          <span><br/><br/></span>     
-
-          <input
+           {errors.password && <StyledParErr >{errors.password.message}</StyledParErr>}
+         
+           
+          <StyledInput
             required
             type='email'
-            size="41"
+            size="25"
             placeholder='email'       
             {...register("email", { required: true })} 
           />
-           {errors.email && <p>{errors.email.message}</p>}
-           <span><br/><br/></span>         
+           {errors.email && <StyledParErr inputColor="#EF7272">{errors.email.message}</StyledParErr>}
+          
 
-          <p>eu sou:</p>
-          <select       
-            {...register("userType")}
-          >
+          <StyledType>eu sou:</StyledType>
+          <StyledSelect            
+            {...register("userType")}          >
             <option value="patient" >Paciente</option>
             <option value="physician">Médico</option>        
-          </select>
-          <span><br/><br/></span>
+          </StyledSelect>          
 
-          <input
+          <StyledInput
             required
             type='text'
-            size="41" 
+            size="25" 
             placeholder='CPF ou CRM'       
             {...register("document")} 
           />
-           {errors.lastName && <p>{errors.lastName.message}</p>}
-          <span><br/><br/></span>
+           {errors.document && <StyledParErr >{errors.document.message}</StyledParErr>}
+          
+          <StyledButton  type="submit"/>           
 
-          <input  type="submit"/> 
-          {/* onClick={handleSubmit(onSubmit)}>Enviar</input> */}
-
-          <p> Já tem conta? <span className="linkToLogin" onClick={handleLogin}> Entre aqui! </span></p>
-      </form>
+          <StyledPar> Já tem conta? <StyledSpan onClick={handleLogin} inputColor="#EF7272"> Entre aqui! </StyledSpan></StyledPar>
+      </StyledForm>
     </>
   );
 }
