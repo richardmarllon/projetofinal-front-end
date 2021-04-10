@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-//import jwt_decode from "jwt-decode";
+import jwt_decode from "jwt-decode";
+
 import { decode } from "jsonwebtoken";
 import { saluteAPI } from "../../services/api";
-
-const UserContext = React.createContext();
+export const UserContext = React.createContext({});
 
 export const UserProvider = (props) => {
 	const [userToken, setUserToken] = useState(
@@ -58,8 +58,7 @@ export const UserProvider = (props) => {
 			})
 			.catch((e) => e);
 	};
-	console.log(loggedUser);
-	console.log(allUsers);
+
 	return (
 		<UserContext.Provider
 			value={{
@@ -71,7 +70,7 @@ export const UserProvider = (props) => {
 				allUsers,
 				setAllUsers,
 				getAllUsers,
-				login,
+				// login,
 				userToken,
 			}}
 		>
