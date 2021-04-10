@@ -14,6 +14,7 @@ export const UserProvider = (props) => {
 	const [allUsers, setAllUsers] = useState([]);
 
 	const login = (userData) => {
+		localStorage.removeItem("token");
 		saluteAPI
 			.post("/login", userData)
 			.then((response) => {
