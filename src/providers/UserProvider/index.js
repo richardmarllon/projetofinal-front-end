@@ -58,7 +58,8 @@ export const UserProvider = (props) => {
 			})
 			.catch((e) => e);
 	};
-
+	console.log(loggedUser);
+	console.log(allUsers);
 	return (
 		<UserContext.Provider
 			value={{
