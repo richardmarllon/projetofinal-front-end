@@ -1,4 +1,4 @@
-import ReminderCard from "./components/reminderCard";
+import ReminderSection from "./components/reminderSection";
 import GlobalStyle from "./style/global";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 
-			<ReminderCard />
+			<ReminderSection />
 			<GlobalStyle />
 		</>
 	);
