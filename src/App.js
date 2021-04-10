@@ -1,3 +1,4 @@
+import FormLogin from "./components/formLogin";
 import GlobalStyle from "./style/global";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
 			<p style={{ textAlign: "center" }}>
 				essas informações podem ser apagadas!
 			</p>
+			<FormLogin />
 			<GlobalStyle />
 		</>
 	);
