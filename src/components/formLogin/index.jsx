@@ -1,74 +1,42 @@
-//colocar h1, p , os textinhos e a rota pra cadastro*** 
-//react-router-dom  useHistory
-
-
+import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
-// import { useState } from "react";
-// import axios from "axios";
-// import { Button} from "antd";
-import {TextField} from "@material-ui/core";
+import { useUsers } from "../../providers/UserProvider";
 import "antd/dist/antd.css";
 
+const schema = yup.object().shape({
+	email: yup.string().email("Email inválido").required("Campo obrigatório"),
+	password: yup
+		.string()
+		.min(6, "Mínimo de 6 dígitos")
+		.required("Campo obrigatório e mínimo de 6 dígitos"),
+});
 
+const FormLogin = () => {
+	const { login } = useUsers();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(schema),
+	});
+	const onSubmit = (data) => {
+		console.log(data);
+		login(data);
+	};
 
-const FormLogin = () => {  
-  
-  const schema = yup.object().shape({
-    email: yup.string().email("Email inválido").required("Campo obrigatório"),
-    password: yup
-      .string()
-      .min(6, "Mínimo de 6 dígitos")
-      .required("Campo obrigatório, 6 dígitos!")    
-  });
+	return (
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<input {...register("email")} />
+			<p>{errors.email?.message}</p>
 
-  const { register, handleSubmit, formState: { errors } } = useForm({  
-    resolver: yupResolver(schema)
-  });
+			<input {...register("password")} />
+			<p>{errors.password?.message}</p>
 
-  console.info("erros", errors);
-  
-  const handleForm = data => 
-    console.log('handleForm:',data);
-
-  return(
-    <form onSubmit={handleSubmit(handleForm)}>
-      <h1> Login </h1>
-      <div>
-        <TextField
-          // required
-          // id="outlined-required"
-          label="email"
-          type = "email"       
-          variant="outlined"         
-          {...register("email",{require:true})} 
-          error={!!errors.email}         
-          helperText={errors.email?.message}     
-        />         
-        <div></div>   
-            
-        <TextField
-          required
-          id="password"
-          label="senha"
-          type="password"          
-          variant="outlined"
-          autoComplete="current-password"
-          {...register("password", {required:"Obrigatório"})}
-          error={!!errors.password}
-          helperText={errors.password?.message}
-        /> 
-        <div></div>
-        
-        <TextField
-          id="button-confirm"
-          type="submit"
-        />
-      </div>
-    </form>
-  );
-}
-
+			<input value="Logar" type="submit" />
+		</form>
+	);
+};
 export default FormLogin;

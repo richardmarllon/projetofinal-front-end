@@ -1,5 +1,5 @@
-import FormLogin from "./components/formLogin";
 import GlobalStyle from "./style/global";
+import Routes from "./routes";
 
 function App() {
 	return (
@@ -9,7 +9,7 @@ function App() {
 			<p style={{ textAlign: "center" }}>
 				essas informações podem ser apagadas!
 			</p>
-			<FormLogin />
+			<Routes />
 			<GlobalStyle />
 		</>
 	);

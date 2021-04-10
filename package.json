@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.15.0",
     "axios": "^0.21.1",
+    "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-awesome-reveal": "^3.7.1",
@@ -23,12 +24,12 @@
     "yup": "^0.32.9"
   },
   "prettier": {
-		"trailingComma": "es5",
-		"tabWidth": 2,
-		"useTabs": true,
-		"semi": true,
-		"singleQuote": false
-	},
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "useTabs": true,
+    "semi": true,
+    "singleQuote": false
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
