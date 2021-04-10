@@ -1,4 +1,4 @@
-import FormRegister from "./components/formRegister/FormRegister";
+import FormRegister from "./components/formRegister";
 import GlobalStyle from "./style/global";
 
 function App() {

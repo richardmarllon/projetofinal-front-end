@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 //import jwt_decode from "jwt-decode";
 import { decode } from "jsonwebtoken";
 import { saluteAPI } from "../../services/api";
-​
+
+
+
 export const UserContext = React.createContext({});
-​
+
 export const UserProvider = (props) => {
 	const [userToken, setUserToken] = useState(
 		JSON.parse(localStorage.getItem("token")) || ""
@@ -14,7 +16,7 @@ export const UserProvider = (props) => {
 	);
 	const [user, setUser] = useState([]);
 	const [allUsers, setAllUsers] = useState([]);
-​
+
 	const login = (userData) => {
 		saluteAPI
 			.post("/login", userData)
@@ -30,7 +32,7 @@ export const UserProvider = (props) => {
 				console.log(error.response);
 			});
 	};
-​
+
 	const getLoggedUserData = (idLoggedUser) => {
 		saluteAPI
 			.get(`/users/${idLoggedUser}/`)
@@ -40,7 +42,7 @@ export const UserProvider = (props) => {
 			})
 			.catch((e) => e);
 	};
-​
+
 	const getUserData = (id) => {
 		saluteAPI
 			.get(`/users/${id}/`)
@@ -49,7 +51,7 @@ export const UserProvider = (props) => {
 			})
 			.catch((e) => e);
 	};
-​
+
 	const getAllUsers = () => {
 		saluteAPI
 			.get(`/users/`)
@@ -58,7 +60,7 @@ export const UserProvider = (props) => {
 			})
 			.catch((e) => e);
 	};
-​
+
 	return (
 		<UserContext.Provider
 			value={{
@@ -78,6 +80,5 @@ export const UserProvider = (props) => {
 		</UserContext.Provider>
 	);
 };
-​
+
 export const useUsers = () => React.useContext(UserContext);
-Recolher
