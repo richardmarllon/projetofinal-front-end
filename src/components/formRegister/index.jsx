@@ -1,13 +1,10 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import formatCPF from "../../util/formartCPF";
-
-// import { Button} from "antd";
-
-
+import dateToTimestamp from '../../util/convertDateToTimestamp'
+import { saluteAPI } from "../../services/api";
 
 
 const FormRegister = () => {
@@ -25,16 +22,16 @@ const FormRegister = () => {
     document: yup.string().required('Campo obrigatório')  
   });
 
-  const { register, handleSubmit, formState: { errors } } = useForm({  
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({  
     resolver: yupResolver(schema)
   });
 
   
-  // console.log('[error]',errors);
-
   const onSubmit = (data) => {
     
-    // validation some cpf    
+    // validation userType    
+    // let cpf = "";
+
     switch (data.userType) {
       case 'patient':
         let cpf = formatCPF(data.document)      
@@ -53,16 +50,37 @@ const FormRegister = () => {
       default:
         break;
     }
-   
-    
 
-    // Convert date gmt to single 
-    console.log(data);
+    // format date for unix stamptime
+    let birthDate = dateToTimestamp(data.date);
+    data = {...data, birthDate};    
+
+    //finally data readdle to post =)   
+
+    const {firstName, lastName, password, userType, email, cpf, crm } = data;
+    const sendData = {firstName, lastName, birthDate, password, email, userType, cpf,crm }
+    setUserRegister(sendData);
   
+  };
+
+  const setUserRegister = (data) => {
+    saluteAPI
+      .post(`/users`, data)
+      .then((response) => {
+        // console.log(response);
+        // history.push("/");
+        reset();       
+      })
+      .catch((e) => {
+        window.alert('Ops.. algo deu errado! ="(". \n Por favor, confirme seus dados e internet',e);
+      });
   };
   
   
-  const handleLogin = () => console.log('history /login')
+  const handleLogin = () => {
+    console.log('history.push("/");')
+    // history.push("/");
+  }
  
   return (
     <>
@@ -105,8 +123,7 @@ const FormRegister = () => {
             {...register("password", { required: true })} 
           />
           {errors.password && <p>{errors.password.message}</p>}
-          <br/>
-          <br/>     
+          <span><br/><br/></span>     
 
           <input
             required
@@ -116,8 +133,7 @@ const FormRegister = () => {
             {...register("email", { required: true })} 
           />
            {errors.email && <p>{errors.email.message}</p>}
-          <br/>
-          <br/>
+           <span><br/><br/></span>         
 
           <p>eu sou:</p>
           <select       
@@ -126,8 +142,7 @@ const FormRegister = () => {
             <option value="patient" >Paciente</option>
             <option value="physician">Médico</option>        
           </select>
-          <br/>
-          <br/>
+          <span><br/><br/></span>
 
           <input
             required

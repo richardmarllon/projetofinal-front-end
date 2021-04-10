@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //import jwt_decode from "jwt-decode";
-import { decode } from "jsonwebtoken";
+// import { decode } from "jsonwebtoken";
 import { saluteAPI } from "../../services/api";
 
 
@@ -8,7 +8,7 @@ import { saluteAPI } from "../../services/api";
 export const UserContext = React.createContext({});
 
 export const UserProvider = (props) => {
-	const [userToken, setUserToken] = useState(
+	const [userToken] = useState(
 		JSON.parse(localStorage.getItem("token")) || ""
 	);
 	const [loggedUser, setLoggedUser] = useState(
