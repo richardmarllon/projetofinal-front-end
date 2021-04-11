@@ -6,15 +6,6 @@ import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 import Home from "./pages/home";
 function App() {
-	// login para teste
-	const { login } = useUsers();
-
-	useEffect(() => {
-		login({
-			email: "suellendavinci@gmail.com",
-			password: "123456",
-		});
-	}, []);
 
 	return (
 		<>
