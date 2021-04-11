@@ -5,10 +5,12 @@ import { useUsers } from "./providers/UserProvider";
 import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 import Home from "./pages/home";
-function App() {
+import SearchPatient from "./components/searchPatient";
 
+function App() {
 	return (
 		<>
+			<SearchPatient></SearchPatient>
 			<h1 style={{ textAlign: "center" }}>está rodando tudo corretamente</h1>
 			<h3 style={{ textAlign: "center" }}> bom trabalho pessoal! </h3>
 			<p style={{ textAlign: "center" }}>
