@@ -1,7 +1,11 @@
+import ReminderSection from "./components/reminderSection";
+import { useEffect } from "react";
 import GlobalStyle from "./style/global";
+import { useUsers } from "./providers/UserProvider";
 import Routes from "./routes";
-
+import Home from "./pages/home";
 function App() {
+
 	return (
 		<>
 			<h1 style={{ textAlign: "center" }}>está rodando tudo corretamente</h1>
@@ -9,6 +13,7 @@ function App() {
 			<p style={{ textAlign: "center" }}>
 				essas informações podem ser apagadas!
 			</p>
+			{/* <Routes /> */}
 			<Routes />
 			<GlobalStyle />
 		</>
