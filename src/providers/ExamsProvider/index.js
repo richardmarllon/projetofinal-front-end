@@ -10,16 +10,18 @@ export const ExamsProvider = ({ children }) => {
 	const [userExams, setUserExams] = useState([]);
 
 	useEffect(() => {
-		let userID = loggedUser.id;
+		if (loggedUser) {
+			let userID = loggedUser.data.id;
 
-		saluteAPI
-			.get(`/exams?userId=${userID}`)
-			.then((response) => {
-				setUserExams(response.data);
-			})
-			.catch((error) => {
-				console.log(error.response);
-			});
+			saluteAPI
+				.get(`/exams?userId=${userID}`)
+				.then((response) => {
+					setUserExams(response.data);
+				})
+				.catch((error) => {
+					console.log(error.response);
+				});
+		}
 	}, [loggedUser]);
 
 	return (

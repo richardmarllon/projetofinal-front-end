@@ -2,19 +2,10 @@ import ReminderSection from "./components/reminderSection";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
+import FormRegister from "./components/formRegister";
 import Routes from "./routes";
-import ListAllPhysicians from "./components/listAllPhysicians";
+import Home from "./pages/home";
 function App() {
-	// login para teste
-	const { login } = useUsers();
-
-	useEffect(() => {
-		login({
-			email: "suellendavinci@gmail.com",
-			password: "123456",
-		});
-	}, []);
-
 	return (
 		<>
 			<h1 style={{ textAlign: "center" }}>está rodando tudo corretamente</h1>
@@ -23,7 +14,7 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 			{/* <Routes /> */}
-			<ListAllPhysicians></ListAllPhysicians>
+			<FormRegister />
 			<GlobalStyle />
 		</>
 	);
