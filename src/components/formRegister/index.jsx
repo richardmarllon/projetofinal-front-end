@@ -27,49 +27,42 @@ const FormRegister = () => {
     date: yup.date('Formato dia/mes/ano').required("Campo obrigatório"),
     password: yup
       .string()
-      .min(6, "Mínimo de 6 dígitos")
+      .min(6, "Mínimo de 6 dígitos!")
       .required("Campo obrigatório, 6 dígitos!"),
-    userType: yup.string().required('Campo obrigatório'),
-    document: yup.string().required('Campo obrigatório')  
+    userType: yup.string().required('Campo obrigatório!'),
+    cpf: yup
+      .string()
+      .min(11,"CPF com erro!")
+      .max(14,"CPF com erro!")
+      .required('Campo obrigatório!'),    
   });
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({  
     resolver: yupResolver(schema)
   });
 
-  const [selected, setSelect] = useState(false);
+
+  const [isPhysician, setPhysician] = useState(false);
   
+
   const onSubmit = (data) => {
-    
-    // validation userType          
-    switch (data.userType) {
-      case 'patient':
-        let cpf = formatCPF(data.document)      
-        if(!cpf){
-          window.alert('CPF com erro, favor revisar!');
-          return;
-        }
-        data = {...data, cpf}  
-        break;    
-      
-      case 'physician':
-        let crm = data.document;
-        data = {...data, crm};
-        break;
-
-      default:
-        break;
+   
+    // format cpf
+    const _cpf = formatCPF(data.cpf)
+    if(!_cpf){
+      window.alert('CPF com erro, favor revisar!');
+      return;
     }
-
+    data.cpf = _cpf  
+   
     // format date for unix stamptime
     let birthDate = dateToTimestamp(data.date);
     data = {...data, birthDate};    
 
     //finally data readdle to post =) 
     const {firstName, lastName, password, userType, email, cpf, crm } = data;
-    const sendData = {firstName, lastName, birthDate, password, email, userType, cpf,crm }
-    setUserRegister(sendData);
-  
+    const sendData = {firstName, lastName, birthDate, password, email, userType, cpf,crm }    
+    setUserRegister(sendData);  
   };
 
   const setUserRegister = (data) => {
@@ -77,6 +70,8 @@ const FormRegister = () => {
       .post(`/users`, data)
       .then((response) => {        
         // history.push("/");
+        console.log('foi...')
+        setPhysician(false);
         reset();       
       })
       .catch((e) => {
@@ -96,7 +91,7 @@ const FormRegister = () => {
   const handleUserType = (event) => {    
     const option = event.target.options.selectedIndex;
     // target.options... if 0 is patient then false to show crm. 
-    option ? setSelect(true) : setSelect(false)   
+    option ? setPhysician(true) : setPhysician(false)   
   }
  
   return (
@@ -170,7 +165,7 @@ const FormRegister = () => {
           />
            {errors.cpf && <StyledSmall >{errors.cpf.message}</StyledSmall>}
           
-           {selected && 
+           {isPhysician && 
             <>
               <StyledInput
                required

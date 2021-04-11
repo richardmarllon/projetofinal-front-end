@@ -4,13 +4,14 @@ import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
 import FormRegister from "./components/formRegister";
 import Routes from "./routes";
+import Home from "./pages/home";
 function App() {
 	// login para teste
 	const { login } = useUsers();
 
 	useEffect(() => {
 		login({
-			email: "richard@richard.com",
+			email: "suellendavinci@gmail.com",
 			password: "123456",
 		});
 	}, []);
