@@ -8,14 +8,14 @@ import { saluteAPI } from "../../services/api";
 import {
     StyledForm,
     StyledButton, 
-    StyledParErr,
+    StyledSmall,
     StyledType,
     StyledInput,
-    StyledSelect,
-    StyledH3,
+    StyledSelect,    
     StyledPar,
     StyledSpan
   } from "./style";
+import { useState } from "react";
 
 
 const FormRegister = () => {
@@ -37,6 +37,7 @@ const FormRegister = () => {
     resolver: yupResolver(schema)
   });
 
+  const [selected, setSelect] = useState(false);
   
   const onSubmit = (data) => {
     
@@ -91,12 +92,18 @@ const FormRegister = () => {
     console.log('history.push("/");')
     // history.push("/");
   }
+
+  const handleUserType = (event) => {    
+    const option = event.target.options.selectedIndex;
+    // target.options... if 0 is patient then false to show crm. 
+    option ? setSelect(true) : setSelect(false)   
+  }
  
   return (
     <>
          
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <StyledH3> Cadastre-se</StyledH3>   
+        <h3> Cadastre-se</h3>   
         <StyledInput
             required
             type='text'
@@ -104,7 +111,7 @@ const FormRegister = () => {
             placeholder='Primeiro nome'       
             {...register("firstName")} 
           />
-           {errors.firstName && <StyledParErr >{errors.firstName.message}</StyledParErr>}
+           {errors.firstName && <StyledSmall >{errors.firstName.message}</StyledSmall>}
           
 
           <StyledInput
@@ -114,7 +121,7 @@ const FormRegister = () => {
             placeholder='Último nome'       
             {...register("lastName")} 
           />
-           {errors.lastName && <StyledParErr >{errors.lastName.message}</StyledParErr>}
+           {errors.lastName && <StyledSmall >{errors.lastName.message}</StyledSmall>}
           
 
           <StyledInput 
@@ -123,7 +130,7 @@ const FormRegister = () => {
             placeholder='dd / mm / aaaa'                
             {...register("date")} 
           />
-          {errors.date && <StyledParErr>{errors.date.message}</StyledParErr>}
+          {errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}
           
 
           <StyledInput 
@@ -133,7 +140,7 @@ const FormRegister = () => {
             placeholder='Senha mínimo 6 digitos'                
             {...register("password", { required: true })} 
           />
-           {errors.password && <StyledParErr >{errors.password.message}</StyledParErr>}
+           {errors.password && <StyledSmall >{errors.password.message}</StyledSmall>}
          
            
           <StyledInput
@@ -143,12 +150,13 @@ const FormRegister = () => {
             placeholder='email'       
             {...register("email", { required: true })} 
           />
-           {errors.email && <StyledParErr inputColor="#EF7272">{errors.email.message}</StyledParErr>}
+           {errors.email && <StyledSmall inputColor="#EF7272">{errors.email.message}</StyledSmall>}
           
 
           <StyledType>eu sou:</StyledType>
           <StyledSelect            
-            {...register("userType")}          >
+            {...register("userType")}
+            onChange={handleUserType}          >
             <option value="patient" >Paciente</option>
             <option value="physician">Médico</option>        
           </StyledSelect>          
@@ -157,11 +165,24 @@ const FormRegister = () => {
             required
             type='text'
             size="25" 
-            placeholder='CPF ou CRM'       
-            {...register("document")} 
+            placeholder='CPF'       
+            {...register("cpf")} 
           />
-           {errors.document && <StyledParErr >{errors.document.message}</StyledParErr>}
+           {errors.cpf && <StyledSmall >{errors.cpf.message}</StyledSmall>}
           
+           {selected && 
+            <>
+              <StyledInput
+               required
+               type='text'
+               size="25" 
+               placeholder='CRM'       
+               {...register("crm")} 
+              />
+              {errors.crm && <StyledSmall >{errors.crm.message}</StyledSmall>}
+            </>
+          }
+
           <StyledButton  type="submit"/>           
 
           <StyledPar> Já tem conta? <StyledSpan onClick={handleLogin} inputColor="#EF7272"> Entre aqui! </StyledSpan></StyledPar>

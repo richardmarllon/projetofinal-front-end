@@ -2,6 +2,7 @@ import ReminderSection from "./components/reminderSection";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
+import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 function App() {
 	// login para teste
@@ -22,6 +23,7 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 			{/* <Routes /> */}
+			<FormRegister />
 			<GlobalStyle />
 		</>
 	);

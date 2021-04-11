@@ -8,7 +8,7 @@ export const StyledH3 = styled.h3`
   padding: 0.25em 1em;  
 `;
 
-export const StyledParErr = styled.p`
+export const StyledSmall = styled.small`
   color: #EF7272;
   font-size: .9rem;
   font-weight: bold;
