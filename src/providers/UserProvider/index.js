@@ -37,7 +37,6 @@ export const UserProvider = (props) => {
 			.then((response) => {
 				localStorage.setItem("loggedUser", JSON.stringify(response));
 				setLoggedUser(response);
-				console.log(response);
 			})
 			.catch((e) => e);
 	};

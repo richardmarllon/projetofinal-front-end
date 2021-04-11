@@ -1,5 +1,4 @@
-import ReminderSection from "./components/reminderSection";
-// import ReminderCard from "./components/reminderCard";
+// import ReminderSection from "./components/reminderSection";
 import UserBasicInfo from "./components/userBasicInfo";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
@@ -19,14 +18,11 @@ function App() {
 
 	return (
 		<>
-			<ReminderSection></ReminderSection>
-
 			<h1 style={{ textAlign: "center" }}>está rodando tudo corretamente</h1>
 			<h3 style={{ textAlign: "center" }}> bom trabalho pessoal! </h3>
 			<p style={{ textAlign: "center" }}>
 				essas informações podem ser apagadas!
 			</p>
-			{/* <ReminderCard></ReminderCard> */}
 
 			<UserBasicInfo></UserBasicInfo>
 			{/* <Routes /> */}
