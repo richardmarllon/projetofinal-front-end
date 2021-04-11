@@ -10,6 +10,7 @@ export const ExamsProvider = ({ children }) => {
 	const [userExams, setUserExams] = useState([]);
 
 	useEffect(() => {
+		if (loggedUser) {
 		let userID = loggedUser.data.id;
 
 		saluteAPI
@@ -20,7 +21,9 @@ export const ExamsProvider = ({ children }) => {
 			.catch((error) => {
 				console.log(error.response);
 			});
+		}
 	}, [loggedUser]);
+
 
 	return (
 		<ExamsContext.Provider value={{ userExams }}>

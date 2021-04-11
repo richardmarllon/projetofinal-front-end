@@ -3,7 +3,9 @@ import UserBasicInfo from "./components/userBasicInfo";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
+import FormRegister from "./components/formRegister";
 import Routes from "./routes";
+import Home from "./pages/home";
 
 function App() {
 	// login para teste
@@ -26,6 +28,7 @@ function App() {
 
 			<UserBasicInfo></UserBasicInfo>
 			{/* <Routes /> */}
+			<FormRegister />
 			<GlobalStyle />
 		</>
 	);
