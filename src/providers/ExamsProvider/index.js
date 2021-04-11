@@ -10,7 +10,7 @@ export const ExamsProvider = ({ children }) => {
 	const [userExams, setUserExams] = useState([]);
 
 	useEffect(() => {
-		let userID = loggedUser.data.id;
+		let userID = loggedUser.id;
 
 		saluteAPI
 			.get(`/exams?userId=${userID}`)

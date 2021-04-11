@@ -54,10 +54,11 @@ export const UserProvider = (props) => {
 		saluteAPI
 			.get(`/users/`)
 			.then((response) => {
-				setAllUsers(response);
+				setAllUsers(response.data);
 			})
 			.catch((e) => e);
 	};
+	console.log(allUsers);
 	return (
 		<UserContext.Provider
 			value={{
