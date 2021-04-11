@@ -36,7 +36,7 @@ export const UserProvider = (props) => {
 			.get(`/users/${idLoggedUser}/`)
 			.then((response) => {
 				localStorage.setItem("loggedUser", JSON.stringify(response));
-				setLoggedUser(response);
+				setLoggedUser(response.data);
 			})
 			.catch((e) => e);
 	};
@@ -58,6 +58,7 @@ export const UserProvider = (props) => {
 			})
 			.catch((e) => e);
 	};
+	console.log(loggedUser);
 	console.log(allUsers);
 	return (
 		<UserContext.Provider

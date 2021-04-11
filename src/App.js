@@ -3,13 +3,14 @@ import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
 import Routes from "./routes";
+import ListAllPhysicians from "./components/listAllPhysicians";
 function App() {
 	// login para teste
 	const { login } = useUsers();
 
 	useEffect(() => {
 		login({
-			email: "richard@richard.com",
+			email: "suellendavinci@gmail.com",
 			password: "123456",
 		});
 	}, []);
@@ -22,6 +23,7 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 			{/* <Routes /> */}
+			<ListAllPhysicians></ListAllPhysicians>
 			<GlobalStyle />
 		</>
 	);

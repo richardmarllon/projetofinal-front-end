@@ -1,25 +1,34 @@
 import { useEffect } from "react";
 import { useUsers } from "../../providers/UserProvider";
-import PhysicianCard from "../physicianCard";
+import "antd/dist/antd.css";
+import { Pagination } from "antd";
 
 const ListAllPhysicians = () => {
 	const { allUsers, getAllUsers } = useUsers();
-	let usersPhysicians = [];
 	const FilterPhysician = (a) => {
-		if (a.userType === "patient") {
+		if (a.userType === "physician") {
 			return a;
 		}
 	};
+	let usersPhysicians = allUsers?.filter(FilterPhysician);
+
 	useEffect(() => {
 		getAllUsers();
 	}, []);
-
+	console.log(usersPhysicians);
 	return (
 		<>
-			{allUsers?.map((user, index) => (
-				<PhysicianCard key={index} userPhysician={user}></PhysicianCard>
+			{usersPhysicians?.map((user, index) => (
+				<div>
+					Espcialidade:
+					{user.specialty}
+					CRM:
+					{user.crm}
+					Contato:
+					{user.cellphoneNumber}
+				</div>
 			))}
-			Olá
+			<Pagination defaultCurrent={1} total={usersPhysicians.length} />
 		</>
 	);
 };
