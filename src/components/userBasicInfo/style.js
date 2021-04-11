@@ -10,4 +10,6 @@ export const P = styled.p``;
 
 export const Button = styled.button``;
 
-export const Avatar = styled.img``;
+export const AvatarPatient = styled.img``;
+
+export const AvatarDoctor = styled.img``;

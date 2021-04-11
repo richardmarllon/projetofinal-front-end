@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useUsers } from "../../providers/UserProvider";
-import { ContainerUser, NameUser, Div, P, Button, Avatar } from "./style";
+import {
+	ContainerUser,
+	NameUser,
+	Div,
+	P,
+	Button,
+	AvatarPatient,
+	AvatarDoctor,
+} from "./style";
 
 const UserBasicInfo = () => {
 	const { loggedUser, user } = useUsers();
@@ -31,7 +39,13 @@ const UserBasicInfo = () => {
 	return (
 		<>
 			<ContainerUser>
-				<Avatar src=" https://picsum.photos/seed/picsum/100/100"></Avatar>
+				<Div>
+					{loggedUser.data.userType === "patient" ? (
+						<AvatarPatient src=" https://picsum.photos/seed/picsum/100/100"></AvatarPatient>
+					) : (
+						<AvatarDoctor src=" https://picsum.photos/seed/picsum/100/100"></AvatarDoctor>
+					)}
+				</Div>
 				<Button onClick={() => setOpen(true)}>config</Button>
 				<NameUser>
 					{loggedUser.data.firstName}, {calcAge(loggedUser.data.birthDate)}{" "}

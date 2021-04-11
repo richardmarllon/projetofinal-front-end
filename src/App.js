@@ -1,5 +1,5 @@
 // import ReminderSection from "./components/reminderSection";
-// import UserBasicInfo from "./components/userBasicInfo";
+import UserBasicInfo from "./components/userBasicInfo";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
@@ -24,7 +24,7 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 
-			{/* <UserBasicInfo></UserBasicInfo> */}
+			<UserBasicInfo></UserBasicInfo>
 			{/* <Routes /> */}
 			<GlobalStyle />
 		</>
