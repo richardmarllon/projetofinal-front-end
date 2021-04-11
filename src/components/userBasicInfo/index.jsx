@@ -6,15 +6,36 @@ const UserBasicInfo = () => {
 	const { loggedUser, user } = useUsers();
 
 	useEffect(() => {
-		console.log(user);
+		// console.log(user);
+		console.log(loggedUser.data.birthDate);
 	}, [user]);
+
+	function calcAge(date) {
+		let bornDate = date.slice(0, 10).split("-"),
+			bornYear = bornDate[0],
+			bornMonth = bornDate[1],
+			currentDate = new Date(),
+			currentYear = currentDate.getFullYear(),
+			currentMonth = currentDate.getMonth(),
+			currentDay = currentDate.getDate(),
+			totalAge = currentYear - bornYear;
+
+		if (
+			currentMonth < bornMonth ||
+			(currentMonth === bornMonth && currentDay < totalAge--)
+		) {
+			return totalAge < 0 ? 0 : totalAge;
+		}
+	}
 
 	return (
 		<>
 			<ContainerUser>
 				<Avatar src=" https://picsum.photos/seed/picsum/100/100"></Avatar>
 				<Button>config</Button>
-				<NameUser>{loggedUser.data.firstName}, teste </NameUser>
+				<NameUser>
+					{loggedUser.data.firstName}, {calcAge(loggedUser.data.birthDate)}{" "}
+				</NameUser>
 				<Div>
 					sangue:
 					<P>{loggedUser.data.bloodType + loggedUser.data.rhFactor}</P>
