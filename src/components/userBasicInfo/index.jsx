@@ -16,7 +16,7 @@ const UserBasicInfo = () => {
 			bornMonth = bornDate[1],
 			currentDate = new Date(),
 			currentYear = currentDate.getFullYear(),
-			currentMonth = currentDate.getMonth(),
+			currentMonth = currentDate.getMonth() + 1,
 			currentDay = currentDate.getDate(),
 			totalAge = currentYear - bornYear;
 
