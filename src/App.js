@@ -2,6 +2,7 @@ import ReminderSection from "./components/reminderSection";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
+import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 import Home from "./pages/home";
 function App() {
@@ -23,7 +24,7 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 			{/* <Routes /> */}
-			<Routes />
+			<FormRegister />
 			<GlobalStyle />
 		</>
 	);
