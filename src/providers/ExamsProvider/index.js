@@ -11,7 +11,7 @@ export const ExamsProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (loggedUser) {
-			let userID = loggedUser.data.id;
+			let userID = loggedUser.id;
 
 			saluteAPI
 				.get(`/exams?userId=${userID}`)
