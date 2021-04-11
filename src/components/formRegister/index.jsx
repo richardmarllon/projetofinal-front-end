@@ -64,8 +64,7 @@ const FormRegister = () => {
     let birthDate = dateToTimestamp(data.date);
     data = {...data, birthDate};    
 
-    //finally data readdle to post =)   
-
+    //finally data readdle to post =) 
     const {firstName, lastName, password, userType, email, cpf, crm } = data;
     const sendData = {firstName, lastName, birthDate, password, email, userType, cpf,crm }
     setUserRegister(sendData);
@@ -75,8 +74,7 @@ const FormRegister = () => {
   const setUserRegister = (data) => {
     saluteAPI
       .post(`/users`, data)
-      .then((response) => {
-        // console.log(response);
+      .then((response) => {        
         // history.push("/");
         reset();       
       })
