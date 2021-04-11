@@ -52,7 +52,7 @@ export const StyledForm = styled.form`
 export const StyledButton = styled.input`
   color: #0D1B2A;
   font-size: 2em;
-  margin: .5rem .5rem;
+  margin: .5rem 61px;
   padding: 0.25em 1em;
   width: 208px;
   height: 64px;  

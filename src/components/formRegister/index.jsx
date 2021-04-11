@@ -81,7 +81,10 @@ const FormRegister = () => {
         reset();       
       })
       .catch((e) => {
-        window.alert('Ops.. algo deu errado! ="(". \n Por favor, confirme seus dados e internet',e);
+        window.alert(
+          'Ops.. algo deu errado! =(. \n' + 
+          'Por favor, confirme seus dados!\n'+
+          'Provavelmente email já cadastrado.',e);
       });
   };
   
