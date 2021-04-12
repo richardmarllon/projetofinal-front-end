@@ -57,11 +57,6 @@ export const UserProvider = (props) => {
 			})
 			.catch((e) => e);
 	};
-<<<<<<< HEAD
-	console.log(allUsers);
-=======
-
->>>>>>> development
 	return (
 		<UserContext.Provider
 			value={{
