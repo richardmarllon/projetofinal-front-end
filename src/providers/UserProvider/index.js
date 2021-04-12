@@ -7,7 +7,6 @@ export const UserProvider = (props) => {
 	const [userToken, setUserToken] = useState(
 		JSON.parse(localStorage.getItem("token")) || ""
 	);
-
 	const [loggedUser, setLoggedUser] = useState(
 		JSON.parse(localStorage.getItem("loggedUser")) || ""
 	);
@@ -36,7 +35,7 @@ export const UserProvider = (props) => {
 			.get(`/users/${idLoggedUser}/`)
 			.then((response) => {
 				localStorage.setItem("loggedUser", JSON.stringify(response));
-				setLoggedUser(response.data);
+				setLoggedUser(response);
 			})
 			.catch((e) => e);
 	};
@@ -54,12 +53,11 @@ export const UserProvider = (props) => {
 		saluteAPI
 			.get(`/users/`)
 			.then((response) => {
-				setAllUsers(response.data);
+				setAllUsers(response);
 			})
 			.catch((e) => e);
 	};
-	console.log(loggedUser);
-	console.log(allUsers);
+
 	return (
 		<UserContext.Provider
 			value={{
