@@ -1,6 +1,4 @@
 import { Link, useHistory } from "react-router-dom";
-import { useUsers } from "../../providers/UserProvider";
-import { useState } from "react";
 import { HeaderContainer, LogoContainer, LogoutContainer } from "./style";
 import logoHeader from "../../images/headerLogo.svg";
 const Header = () => {

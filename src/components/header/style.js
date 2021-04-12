@@ -7,7 +7,6 @@ export const HeaderContainer = styled.header`
 		display: inherit;
 		height: 15vh;
 		max-height: 160px;
-		/* position: fixed; */
 		width: 100%;
 		background: rgba(114, 217, 224, 0.7);
 		display: flex;

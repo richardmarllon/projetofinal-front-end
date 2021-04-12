@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const FooterContainer = styled.footer`
 	display: none;
 	@media (min-width: 1000px) {
+		/* position: absolute;
+		bottom: 0; */
 		display: flex;
 		min-width: 100%;
 		justify-content: space-between;
