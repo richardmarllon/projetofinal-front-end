@@ -39,7 +39,6 @@ const FormLogin = () => {
 		resolver: yupResolver(schema),
 	});
 	const onSubmit = (data) => {
-		console.log(data);
 		login(data);
 	};
 

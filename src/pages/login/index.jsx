@@ -1,15 +1,28 @@
 import FormLogin from "../../components/formLogin";
-import { BrandContainer, BrandTag } from "./style";
+import {
+	BrandMobileContainer,
+	BrandTag,
+	ContentContainer,
+	FamilyContainer,
+	FamilyTag,
+	LoginContainer,
+} from "./style";
 import brand from "../../images/brand.svg";
+import family from "../../images/familyLogin.svg";
 
 const Login = () => {
 	return (
-		<>
-			<BrandContainer>
+		<ContentContainer>
+			<FamilyContainer>
+				<FamilyTag src={family} />
+			</FamilyContainer>
+			<BrandMobileContainer>
 				<BrandTag src={brand} />
-			</BrandContainer>
-			<FormLogin />
-		</>
+			</BrandMobileContainer>
+			<LoginContainer>
+				<FormLogin />
+			</LoginContainer>
+		</ContentContainer>
 	);
 };
 
