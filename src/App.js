@@ -6,9 +6,9 @@ import { useUsers } from "./providers/UserProvider";
 import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 import Home from "./pages/home";
+import SearchDisease from "./components/searchDisease";
 
 function App() {
-	// login para teste
 	const { login } = useUsers();
 
 	useEffect(() => {
@@ -29,6 +29,7 @@ function App() {
 			{/* <UserBasicInfo></UserBasicInfo> */}
 			{/* <Routes /> */}
 			<FormRegister />
+			<SearchDisease />
 			<GlobalStyle />
 		</>
 	);
