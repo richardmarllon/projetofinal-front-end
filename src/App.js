@@ -7,7 +7,7 @@ import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
 import Header from "./components/header";
-
+import Footer from "./components/footer";
 function App() {
 	// const { login } = useUsers();
 
@@ -26,10 +26,10 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 			{/* <Routes /> */}
-			<Header></Header>
 			{/* <FormRegister />
 			<SearchDisease />
 			<GlobalStyle /> */}
+			{/* <Footer></Footer> */}
 		</>
 	);
 }

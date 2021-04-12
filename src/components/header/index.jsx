@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
 import { useUsers } from "../../providers/UserProvider";
-import { PageHeader, Button } from "antd";
 import { useState } from "react";
 const Header = () => {
-	const { userToken, login } = useUsers();
-	const [token] = useState(localStorage.getItem("token") || []);
+	//Apenas para teste
+	// const { login } = useUsers();
+
 	const logoutUser = () => {
 		localStorage.removeItem("token");
-		localStorage.removeItem("token");
+		localStorage.removeItem("loggedUser");
 	};
 
 	return (
@@ -14,18 +15,26 @@ const Header = () => {
 			<div>
 				<div>
 					{localStorage.getItem("token") ? (
-						<Button
-							onClick={() =>
-								login({
-									email: "suellendavinci@gmail.com",
-									password: "123456",
-								})
-							}
-						>
-							Login
-						</Button>
+						<Link to="/" onClick={logoutUser}>
+							Logout
+						</Link>
 					) : (
-						<Button onClick={logoutUser}>Logout</Button>
+						// <Button
+						// // onClick={() =>
+						// // 	login({
+						// // 		email: "suellendavinci@gmail.com",
+						// // 		password: "123456",
+						// // 	})
+						// // }
+						// ></Button>
+						<div>
+							<Link to="/" onClick={logoutUser}>
+								Login
+							</Link>
+							<Link to="/register" onClick={logoutUser}>
+								Register
+							</Link>
+						</div>
 					)}
 				</div>
 			</div>
