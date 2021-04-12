@@ -18,7 +18,7 @@ const ListAllPhysicians = () => {
 		}
 	};
 
-	let usersPhysicians = allUsers?.filter(FilterPhysician);
+	const usersPhysicians = allUsers?.filter(FilterPhysician);
 
 	const handleChange = (value) => {
 		setMinValue((value - 1) * numEachPage);
@@ -40,30 +40,16 @@ const ListAllPhysicians = () => {
 	return (
 		<>
 			<div>
-				<div>
-					Espcialidade:
-					{usersPhysicians[0]?.specialty}
-					CRM:
-					{usersPhysicians[0]?.crm}
-					Contato:
-					{usersPhysicians[0]?.cellphoneNumber}
-				</div>
-				<div>
-					Espcialidade:
-					{usersPhysicians[1]?.specialty}
-					CRM:
-					{usersPhysicians[1]?.crm}
-					Contato:
-					{usersPhysicians[1]?.cellphoneNumber}
-				</div>
-				<div>
-					Espcialidade:
-					{usersPhysicians[2]?.specialty}
-					CRM:
-					{usersPhysicians[2]?.crm}
-					Contato:
-					{usersPhysicians[2]?.cellphoneNumber}
-				</div>
+				{usersPhysicians?.slice(0, 3)?.map((user, index) => (
+					<div>
+						Espcialidade:
+						{user?.specialty}
+						CRM:
+						{user?.crm}
+						Contato:
+						{user?.cellphoneNumber}
+					</div>
+				))}
 			</div>
 			<Button type="primary" onClick={showModal}>
 				Ver Mais

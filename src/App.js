@@ -25,9 +25,9 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 			{/* <Routes /> */}
-			<FormRegister />
+			{/* <FormRegister />
 			<SearchDisease />
-			<GlobalStyle />
+			<GlobalStyle /> */}
 		</>
 	);
 }
