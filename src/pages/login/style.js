@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-
-
-
-
 export const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -11,7 +7,9 @@ export const ContentContainer = styled.div`
 	@media (min-width: 1000px) {
 		flex-direction: row;
 		justify-content: space-around;
-		/* border: 1px solid red; */
+		width: 99vw;
+		max-width: 1500px;
+		margin: 0 auto;
 	}
 `;
 
@@ -34,7 +32,6 @@ export const FamilyContainer = styled.div`
 	display: none;
 	@media (min-width: 1000px) {
 		box-sizing: border-box;
-		/* border: 1px solid red; */
 		display: flex;
 		justify-content: center;
 		width: 50%;
@@ -42,8 +39,8 @@ export const FamilyContainer = styled.div`
 `;
 export const FamilyTag = styled.img`
 	@media (min-width: 1000px) {
-		/* max-width: 50%; */
 		height: 35vw;
+		max-width: 900px;
 	}
 `;
 
@@ -51,7 +48,6 @@ export const LoginContainer = styled.div`
 	width: 100%;
 	max-width: 600px;
 	@media (min-width: 1000px) {
-		/* border: 1px solid red; */
 		width: 40%;
 	}
 `;
