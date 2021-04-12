@@ -3,10 +3,14 @@ import styled from "styled-components";
 export const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	min-width: 70%;
 	align-items: center;
+
 	@media (min-width: 1000px) {
+		height: 80vh;
 		flex-direction: row;
 		justify-content: space-around;
+		align-items: flex-end;
 		width: 99vw;
 		max-width: 1500px;
 		margin: 0 auto;
@@ -33,6 +37,7 @@ export const FamilyContainer = styled.div`
 	@media (min-width: 1000px) {
 		box-sizing: border-box;
 		display: flex;
+		align-self: center;
 		justify-content: center;
 		width: 50%;
 	}

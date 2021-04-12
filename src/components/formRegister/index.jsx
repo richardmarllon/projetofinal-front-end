@@ -23,8 +23,10 @@ import {
 } from "./style";
 import { useState } from "react";
 import logo from "../../images/logoMobile.svg";
+import { useHistory } from "react-router";
 
 const FormRegister = () => {
+	const history = useHistory();
 	const schema = yup.object().shape({
 		email: yup.string().email("Email inválido").required("Campo obrigatório"),
 		firstName: yup.string().required("Campo obrigatório"),
@@ -85,24 +87,17 @@ const FormRegister = () => {
 		saluteAPI
 			.post(`/users`, data)
 			.then((response) => {
-				// history.push("/");
-				console.log("foi...");
+				history.push("/");
 				setPhysician(false);
 				reset();
 			})
 			.catch((e) => {
-				window.alert(
-					"Ops.. algo deu errado! =(. \n" +
-						"Por favor, confirme seus dados!\n" +
-						"Provavelmente email já cadastrado.",
-					e
-				);
+				console.log("ocorreu um erro: ", e);
 			});
 	};
 
 	const handleLogin = () => {
-		console.log('history.push("/");');
-		// history.push("/");
+		history.push("/");
 	};
 
 	const handleUserType = (event) => {
