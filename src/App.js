@@ -6,7 +6,7 @@ import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
-// import SearchPatient from "./components/searchPatient";
+import SearchPatient from "./components/searchPatient";
 
 function App() {
 	const { login } = useUsers();

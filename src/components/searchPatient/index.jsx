@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { saluteAPI } from "../../services/api";
-// import { useHistory } from "react-router-dom";
 
 const SearchPatient = () => {
 	const [submitError, setSubmitError] = useState(false);
-	// const history = useHistory();
+	const [patientId, setPatientId] = useState("");
+	const [patientName, setPatientName] = useState("");
 
 	const schema = yup.object().shape({
 		email: yup.string().email("Email inválido").required("Campo obrigatório"),
@@ -29,11 +29,12 @@ const SearchPatient = () => {
 		saluteAPI
 			.get(`/users?email=${data.email}`)
 			.then((response) => {
-				localStorage.setItem(
-					`searchUserId`,
-					JSON.stringify(response.data[0].id) // deixei no storage
+				setPatientId(response.data[0].id);
+				setPatientName(
+					`${response.data[0].firstName}  ${response.data[0].lastName}`
 				);
-				// history.push(`/users/${response.data[0].id}`); //caso mude de rota
+				console.log(patientName);
+				console.log(patientId);
 			})
 			.catch((e) => {
 				setSubmitError(true);
@@ -57,7 +58,11 @@ const SearchPatient = () => {
 					<Div>{errors.email?.message}</Div>
 					{submitError && <Div>Usuário não cadastrado</Div>}
 					<Div>
-						<Button type="submit" onClick={handleSubmit(onSubmit)}>
+						<Button
+							type="submit"
+							patientInfo={{ patientName, patientId }}
+							onClick={handleSubmit(onSubmit)}
+						>
 							Buscar Paciente
 						</Button>
 					</Div>
