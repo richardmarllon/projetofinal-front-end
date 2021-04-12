@@ -12,17 +12,19 @@ import family from "../../images/familyLogin.svg";
 
 const Login = () => {
 	return (
-		<ContentContainer>
-			<FamilyContainer>
-				<FamilyTag src={family} />
-			</FamilyContainer>
-			<BrandMobileContainer>
-				<BrandTag src={brand} />
-			</BrandMobileContainer>
-			<LoginContainer>
-				<FormLogin />
-			</LoginContainer>
-		</ContentContainer>
+		<>
+			<ContentContainer>
+				<FamilyContainer>
+					<FamilyTag src={family} />
+				</FamilyContainer>
+				<BrandMobileContainer>
+					<BrandTag src={brand} />
+				</BrandMobileContainer>
+				<LoginContainer>
+					<FormLogin />
+				</LoginContainer>
+			</ContentContainer>
+		</>
 	);
 };
 
