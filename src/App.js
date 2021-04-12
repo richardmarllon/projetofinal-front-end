@@ -6,6 +6,7 @@ import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
+import UserDiseasesList from "./components/userDiseasesList";
 
 function App() {
 	const { login } = useUsers();
@@ -27,6 +28,7 @@ function App() {
 			{/* <Routes /> */}
 			<FormRegister />
 			<SearchDisease />
+			<UserDiseasesList />
 			<GlobalStyle />
 		</>
 	);
