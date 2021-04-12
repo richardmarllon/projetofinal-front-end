@@ -6,16 +6,17 @@ import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
+import Header from "./components/header";
 
 function App() {
-	const { login } = useUsers();
+	// const { login } = useUsers();
 
-	useEffect(() => {
-		login({
-			email: "suellendavinci@gmail.com",
-			password: "123456",
-		});
-	}, []);
+	// useEffect(() => {
+	// 	login({
+	// 		email: "suellendavinci@gmail.com",
+	// 		password: "123456",
+	// 	});
+	// }, []);
 
 	return (
 		<>
@@ -25,9 +26,10 @@ function App() {
 				essas informações podem ser apagadas!
 			</p>
 			{/* <Routes /> */}
-			<FormRegister />
+			<Header></Header>
+			{/* <FormRegister />
 			<SearchDisease />
-			<GlobalStyle />
+			<GlobalStyle /> */}
 		</>
 	);
 }
