@@ -18,9 +18,10 @@ import {
 	LogoContainer,
 	LogoTag,
 	StyledLabel,
+	StyledH1,
+	SendBtnContainer,
 } from "./style";
 import { useState } from "react";
-import { StyledH1 } from "../formLogin/style";
 import logo from "../../images/logoMobile.svg";
 
 const FormRegister = () => {
@@ -151,7 +152,7 @@ const FormRegister = () => {
 					/>
 					{errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}
 				</InputContainer>
-				<InputContainer>
+				<InputContainer className="password">
 					<StyledInput
 						required
 						type="password"
@@ -163,7 +164,7 @@ const FormRegister = () => {
 						<StyledSmall>{errors.password.message}</StyledSmall>
 					)}
 				</InputContainer>
-				<InputContainer>
+				<InputContainer className="email">
 					<StyledInput
 						required
 						type="email"
@@ -177,14 +178,14 @@ const FormRegister = () => {
 						</StyledSmall>
 					)}
 				</InputContainer>
-				<InputContainer>
+				<InputContainer className="type">
 					<StyledType>eu sou:</StyledType>
 					<StyledSelect {...register("userType")} onChange={handleUserType}>
 						<option value="patient">Paciente</option>
 						<option value="physician">Médico</option>
 					</StyledSelect>
 				</InputContainer>
-				<InputContainer>
+				<InputContainer className={!isPhysician && "personal"}>
 					<StyledInput
 						required
 						type="text"
@@ -207,8 +208,9 @@ const FormRegister = () => {
 						{errors.crm && <StyledSmall>{errors.crm.message}</StyledSmall>}
 					</InputContainer>
 				)}
-
-				<StyledButton type="submit" />
+				<SendBtnContainer>
+					<StyledButton type="submit" />
+				</SendBtnContainer>
 
 				<StyledPar>
 					{" "}
