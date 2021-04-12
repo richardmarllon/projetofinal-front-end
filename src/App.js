@@ -9,7 +9,7 @@ import SearchDisease from "./components/searchDisease";
 import UserDiseasesList from "./components/userDiseasesList";
 
 function App() {
-	const { login } = useUsers();
+	// const { login } = useUsers();
 
 	// useEffect(() => {
 	// 	login({
