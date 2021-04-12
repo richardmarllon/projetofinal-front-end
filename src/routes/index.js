@@ -3,11 +3,13 @@ import Route from "./route";
 import Login from "../pages/login";
 import ReminderPage from "../pages/viewAllReminders";
 import Home from "../pages/home";
+import Register from "../pages/register";
 
 const Routes = () => {
 	return (
 		<Switch>
 			<Route exact path="/" component={Login} />
+			<Route exact path="/register" component={Register} />
 			<Route exact path="/home" component={Home} isPrivate />
 			<Route exact path="/reminders" component={ReminderPage} isPrivate />
 		</Switch>
