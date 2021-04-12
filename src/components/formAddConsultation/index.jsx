@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import moment from "moment";
-
-import dateToTimestamp from '../../util/convertDateToTimestamp'
+import useUsers from "../../providers/UserProvider";
+import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
 
 
@@ -23,7 +23,7 @@ import { useState } from "react";
 
 
 
-const FormAddConsultation = () => {
+const FormAddConsultation = ({patientId, patientName}) => {
 
   /* VER COMO SERÁ COLETADO OS DADOS DO médico / paciente 
     
@@ -33,17 +33,18 @@ const FormAddConsultation = () => {
   
   */
 
-  // const {loggedUser} = useUsers;
-  const  patientName = 'Suellen Camargo';
-  const patientId = 1;
+  // Ainda chumbados para testes...
+  patientName = 'Suellen Camargo';
+  patientId = 1;
 
-  const physicianName = 'Alanna Ajzental'
-  const physicianId = 2;
-  const medicalSpecialty = 'trauma surgeon'
+  const {loggedUser} = useUsers;
+  const {firstName, lastName, idUser, medicalSpecialty} = loggedUser;
+
+  const physicianName = 'Alanna Ajzental'; // firstName + lastName
+  const physicianId = 2; // id
+  const specialty = 'trauma surgeon'; // medicalSpecialty
     
   const schema = yup.object().shape({
-    
-    // overview: yup.string().required("Campo obrigatório!"),
     description: yup.string().required("Obrigatório descrição do exame!"),
     date: yup.date('Formato dia/mes/ano').required("Campo obrigatório!")   
   });
@@ -53,30 +54,32 @@ const FormAddConsultation = () => {
   });
 
   const [overview, setOverview] = useState("");
-
   const [exams, setExams] = useState([]);
   const [isLoadExams, setIsLoadExams] = useState(false);
   
-  
-  
+    
   const onSubmit = (data) => {
          
     // format date for unix stamptime
     data.date = dateToTimestamp(data.date);
+    
+    //  set other data
     data.userId = patientId;
     data.physicianId = physicianId;
     data.physicianName = physicianName;
-    data.physicianSpecialty = medicalSpecialty;
+    data.physicianSpecialty = specialty;
     data.examFinished= false;
+    
+    // send to api
     setExams([...exams, data]);    
-    setUserRegister(data); 
+    sendExamsToAPI(data); 
 
   };
 
-  const setUserRegister = (data) => {
+  const sendExamsToAPI = (data) => {
     console.log('Enviar pedido de exame', data);
     setIsLoadExams(true); 
-    //  envia pedido do exame;
+    
     saluteAPI
       .post(`exams?userId=${patientId}`, data)
       .then((response) => {        
@@ -99,7 +102,7 @@ const FormAddConsultation = () => {
   }
 
   const closeConsultation = () => {
-    // verificar onde é salvo o laudo...
+    // verificar onde é salvo a consulta...
     console.log('salvando consulta',overview);
     console.log('Exames solicitados', exams);
     console.log('Fechado formuláro ....');    
@@ -115,7 +118,7 @@ const FormAddConsultation = () => {
     <SytledContainer>
       <SytledHead>Nova consulta</SytledHead>
       <StyledPar> Adicionando consulta ao paciente: {patientName}</StyledPar>
-      <StyledPar> Médico(a) {physicianName}, especialidade: {medicalSpecialty}</StyledPar>
+      <StyledPar> Médico(a) {physicianName}, especialidade: {specialty}</StyledPar>
       
       <StyleBlockDiv>
 
