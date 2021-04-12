@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import moment from "moment";
-import useUsers from "../../providers/UserProvider";
+// import {useUsers} from "../../providers/UserProvider";
 import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
 
@@ -37,8 +37,8 @@ const FormAddConsultation = ({patientId, patientName}) => {
   patientName = 'Suellen Camargo';
   patientId = 1;
 
-  const {loggedUser} = useUsers;
-  const {firstName, lastName, idUser, medicalSpecialty} = loggedUser;
+  // const {loggedUser} = useUsers || "";
+  // const {firstName, lastName, idUser, medicalSpecialty} = loggedUser.data || "";
 
   const physicianName = 'Alanna Ajzental'; // firstName + lastName
   const physicianId = 2; // id
@@ -70,11 +70,11 @@ const FormAddConsultation = ({patientId, patientName}) => {
     data.physicianSpecialty = specialty;
     data.examFinished= false;
     
-    // send to api
-    setExams([...exams, data]);    
-    sendExamsToAPI(data); 
-
+    // add exam
+    setExams([...exams, data]);
+    sendExamsToAPI(data);     
   };
+
 
   const sendExamsToAPI = (data) => {
     console.log('Enviar pedido de exame', data);
@@ -83,8 +83,9 @@ const FormAddConsultation = ({patientId, patientName}) => {
     saluteAPI
       .post(`exams?userId=${patientId}`, data)
       .then((response) => {        
-        console.log('Enviado com sucesso', response)        
-        reset();
+        console.log('Enviado com sucesso', response);
+        reset();        
+        
       })
       .catch((e) => {
         window.alert(
@@ -102,12 +103,12 @@ const FormAddConsultation = ({patientId, patientName}) => {
   }
 
   const closeConsultation = () => {
-    // verificar onde é salvo a consulta...
-    console.log('salvando consulta',overview);
+    // Save conssultation
+    console.log('salvando consulta',exams.length);
+    
     console.log('Exames solicitados', exams);
     console.log('Fechado formuláro ....');    
-    backToHome();
-    
+    backToHome();    
   }
 
   const writeOverview = (event) =>{     
