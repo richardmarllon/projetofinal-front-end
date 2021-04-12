@@ -12,15 +12,16 @@ import FormRegister from "./components/formRegister";
 function App() {
 	const { login } = useUsers();
 
-	useEffect(() => {
-		login({
-			email: "suellendavinci@gmail.com",
-			password: "123456",
-		});
-	}, []);
+	// useEffect(() => {
+	// 	login({
+	// 		email: "suellendavinci@gmail.com",
+	// 		password: "123456",
+	// 	});
+	// }, []);
 
 	return (
 		<>
+<<<<<<< HEAD
 			<h1 style={{ textAlign: "center" }}>está rodando tudo corretamente</h1>
 			<h3 style={{ textAlign: "center" }}> bom trabalho pessoal! </h3>
 			<p style={{ textAlign: "center" }}>
@@ -31,6 +32,12 @@ function App() {
 			{/* <SearchDisease /> */}
 			{/* <UserDiseasesList /> */}
 			<FormAddConsultation />
+=======
+			<Routes />
+			{/* <FormRegister />
+			<SearchDisease />
+			<UserDiseasesList /> */}
+>>>>>>> development
 			<GlobalStyle />
 		</>
 	);
