@@ -11,19 +11,18 @@ export const ExamsProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (loggedUser) {
-		let userID = loggedUser.data.id;
+			let userID = loggedUser.id;
 
-		saluteAPI
-			.get(`/exams?userId=${userID}`)
-			.then((response) => {
-				setUserExams(response.data);
-			})
-			.catch((error) => {
-				console.log(error.response);
-			});
+			saluteAPI
+				.get(`/exams?userId=${userID}`)
+				.then((response) => {
+					setUserExams(response.data);
+				})
+				.catch((error) => {
+					console.log(error.response);
+				});
 		}
 	}, [loggedUser]);
-
 
 	return (
 		<ExamsContext.Provider value={{ userExams }}>

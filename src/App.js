@@ -7,10 +7,12 @@ import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
 import UserDiseasesList from "./components/userDiseasesList";
-import FormRegister from "./components/formRegister";
+import Header from "./components/header";
+import Footer from "./components/footer";
+
 
 function App() {
-	const { login } = useUsers();
+	// const { login } = useUsers();
 
 	// useEffect(() => {
 	// 	login({
@@ -21,9 +23,11 @@ function App() {
 
 	return (
 		<>
+			<Header />
 			<Routes />
-			{/* <FormRegister /> */}
-			{/* <SearchDisease />
+			<Footer />
+			{/* <FormRegister />
+			<SearchDisease />
 			<UserDiseasesList /> */}
 			<FormAddConsultation />
 			<GlobalStyle />

@@ -7,15 +7,14 @@
 */
 
 const formatCPF = (text) => {
-  const badchars = /[^\d]/g
-  const mask = /(\d{3})(\d{3})(\d{3})(\d{2})/
-  const replace = text.replace(badchars, "");
-  const cpf = replace.replace(mask, "$1.$2.$3-$4");
+	const badchars = /[^\d]/g;
+	const mask = /(\d{3})(\d{3})(\d{3})(\d{2})/;
+	const replace = text.replace(badchars, "");
+	const cpf = replace.replace(mask, "$1.$2.$3-$4");
 
-  if (cpf.length !== 14)
-    return false;
+	if (cpf.length !== 14) return false;
 
-  return cpf;
-}
+	return cpf;
+};
 
 export default formatCPF;
