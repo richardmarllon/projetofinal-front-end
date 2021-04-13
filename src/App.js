@@ -9,17 +9,19 @@ import SearchDisease from "./components/searchDisease";
 import UserDiseasesList from "./components/userDiseasesList";
 import Header from "./components/header";
 import Footer from "./components/footer";
-
+import { useAppointments } from "./providers/AppointmentsProvider";
+import ListAppointments from "./components/listAppointments";
 
 function App() {
-	// const { login } = useUsers();
+	const { login } = useUsers();
+	// const { userAppointments } = useAppointments();
 
-	// useEffect(() => {
-	// 	login({
-	// 		email: "suellendavinci@gmail.com",
-	// 		password: "123456",
-	// 	});
-	// }, []);
+	useEffect(() => {
+		login({
+			email: "suellendavinci@gmail.com",
+			password: "123456",
+		});
+	}, []);
 
 	return (
 		<>
@@ -29,6 +31,7 @@ function App() {
 			{/* <FormRegister />
 			<SearchDisease />
 			<UserDiseasesList /> */}
+			<ListAppointments></ListAppointments>
 			<GlobalStyle />
 		</>
 	);
