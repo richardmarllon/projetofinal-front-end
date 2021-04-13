@@ -27,12 +27,10 @@ const UserBasicInfo = () => {
 			.filter((disease) => disease.chronicDisease)
 			.map((disease) => disease.nome);
 		setChronicDisease([listDiseases]);
-		console.log(listDiseases);
 	};
 
 	const calcAge = (date) => {
 		date = moment(Number(date)).format("DD/MM/YYYY");
-		console.log(date);
 		let bornDate = date.split("/"),
 			bornYear = bornDate[2],
 			bornMonth = bornDate[1],
@@ -46,9 +44,7 @@ const UserBasicInfo = () => {
 			currentMonth < bornMonth ||
 			(currentMonth === bornMonth && currentDay < totalAge--)
 		) {
-			console.log(totalAge);
-
-			return totalAge;
+			return totalAge < 0 ? 0 : totalAge;
 		}
 		return totalAge;
 	};

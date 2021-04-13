@@ -25,7 +25,7 @@ function App() {
 		<>
 			{/* <SearchDisease /> */}
 
-			<UserBasicInfo></UserBasicInfo>
+			{/* <UserBasicInfo></UserBasicInfo> */}
 			{/* <Routes /> */}
 			{/* <FormRegister /> */}
 
