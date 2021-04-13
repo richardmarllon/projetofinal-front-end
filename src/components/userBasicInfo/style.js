@@ -13,3 +13,7 @@ export const Button = styled.button``;
 export const AvatarPatient = styled.img``;
 
 export const AvatarDoctor = styled.img``;
+
+export const Ul = styled.ul``;
+
+export const Li = styled.li``;

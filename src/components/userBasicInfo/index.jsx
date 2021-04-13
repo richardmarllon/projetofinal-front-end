@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useUsers } from "../../providers/UserProvider";
+import dateToTimestamp from "../../util/convertDateToTimestamp";
+import moment from "moment";
 import {
 	ContainerUser,
 	NameUser,
@@ -8,19 +10,30 @@ import {
 	Button,
 	AvatarPatient,
 	AvatarDoctor,
+	Ul,
+	Li,
 } from "./style";
 
 const UserBasicInfo = () => {
 	const { loggedUser, user } = useUsers();
 	const [open, setOpen] = useState(false);
+	const [chronicDisease, setChronicDisease] = useState([]);
 
 	useEffect(() => {
-		// console.log(user);
+		listChronicDisease();
 	}, [user]);
 
+	const listChronicDisease = () => {
+		const listDiseases = loggedUser.data.previousDiseases
+			.filter((disease) => disease.chronicDisease)
+			.map((disease) => disease.nome);
+		setChronicDisease([listDiseases]);
+	};
+
 	const calcAge = (date) => {
-		let bornDate = date.slice(0, 10).split("-"),
-			bornYear = bornDate[0],
+		date = moment(Number(date)).format("DD/MM/YYYY");
+		let bornDate = date.split("/"),
+			bornYear = bornDate[2],
 			bornMonth = bornDate[1],
 			currentDate = new Date(),
 			currentYear = currentDate.getFullYear(),
@@ -32,8 +45,11 @@ const UserBasicInfo = () => {
 			currentMonth < bornMonth ||
 			(currentMonth === bornMonth && currentDay < totalAge--)
 		) {
-			return totalAge < 0 ? 0 : totalAge;
+			console.log(totalAge);
+
+			return totalAge;
 		}
+		return totalAge;
 	};
 
 	return (
@@ -48,7 +64,7 @@ const UserBasicInfo = () => {
 				</Div>
 				<Button onClick={() => setOpen(true)}>config</Button>
 				<NameUser>
-					{loggedUser.data.firstName}, {calcAge(loggedUser.data.birthDate)}{" "}
+					{loggedUser.data.firstName}, {calcAge(loggedUser.data.birthDate)}
 				</NameUser>
 				<Div>
 					sangue:
@@ -65,6 +81,13 @@ const UserBasicInfo = () => {
 						<P>alergico a: {loggedUser.data.allergies}</P>
 					)}
 					{loggedUser.data.pregnant && <P>Grávida: Sim</P>}
+					{loggedUser.data.previousDiseases && (
+						<Ul>
+							{chronicDisease.map((chronic, index) => (
+								<Li key={index}> {chronic} </Li>
+							))}
+						</Ul>
+					)}
 				</Div>
 
 				<Button>vacinas</Button>
