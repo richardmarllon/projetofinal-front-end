@@ -12,12 +12,12 @@ import UserDiseasesList from "./components/userDiseasesList";
 function App() {
 	const { login } = useUsers();
 
-	// useEffect(() => {
-	// 	login({
-	// 		email: "suellendavinci@gmail.com",
-	// 		password: "123456",
-	// 	});
-	// }, []);
+	useEffect(() => {
+		login({
+			email: "suellendavinci@gmail.com",
+			password: "123456",
+		});
+	}, []);
 
 	return (
 		<>
