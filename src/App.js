@@ -3,7 +3,7 @@ import UserBasicInfo from "./components/userBasicInfo";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
-import FormRegister from "./components/formRegister";
+import FormAddConsultation from "./components/formAddConsultation";
 import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
@@ -23,12 +23,13 @@ function App() {
 
 	return (
 		<>
-			{/* <SearchDisease /> */}
-
-			<UserBasicInfo></UserBasicInfo>
-			{/* <Routes /> */}
-			{/* <FormRegister /> */}
-
+			<Header />
+			<Routes />
+			<Footer />
+			{/* <FormRegister />
+			<SearchDisease />
+			<UserDiseasesList /> */}
+			<FormAddConsultation />
 			<GlobalStyle />
 		</>
 	);

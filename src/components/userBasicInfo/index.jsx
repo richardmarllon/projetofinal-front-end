@@ -27,7 +27,6 @@ const UserBasicInfo = () => {
 			.filter((disease) => disease.chronicDisease)
 			.map((disease) => disease.nome);
 		setChronicDisease(listDiseases);
-		console.log(chronicDisease);
 	};
 
 	const calcAge = (date) => {
@@ -81,11 +80,11 @@ const UserBasicInfo = () => {
 					{loggedUser.data.pregnant && <P>Grávida: Sim</P>}
 					{loggedUser.data.previousDiseases && (
 						<Div>
-							<ul>
+							<Ul>
 								{chronicDisease.map((chronic, index) => (
-									<li key={index}> teste {chronic} </li>
+									<Li key={index}>{chronic} </Li>
 								))}
-							</ul>
+							</Ul>
 						</Div>
 					)}
 				</Div>
