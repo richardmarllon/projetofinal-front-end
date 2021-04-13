@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useUsers } from "../../providers/UserProvider";
-import dateToTimestamp from "../../util/convertDateToTimestamp";
 import moment from "moment";
 import {
 	ContainerUser,
@@ -28,10 +27,12 @@ const UserBasicInfo = () => {
 			.filter((disease) => disease.chronicDisease)
 			.map((disease) => disease.nome);
 		setChronicDisease([listDiseases]);
+		console.log(listDiseases);
 	};
 
 	const calcAge = (date) => {
 		date = moment(Number(date)).format("DD/MM/YYYY");
+		console.log(date);
 		let bornDate = date.split("/"),
 			bornYear = bornDate[2],
 			bornMonth = bornDate[1],
