@@ -7,16 +7,19 @@ import FormRegister from "./components/formRegister";
 import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
+import UserDiseasesList from "./components/userDiseasesList";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
 function App() {
 	const { login } = useUsers();
 
-	useEffect(() => {
-		login({
-			email: "testeprevious@gmail.com",
-			password: "123456",
-		});
-	}, []);
+	// useEffect(() => {
+	// 	login({
+	// 		email: "testeprevious@gmail.com",
+	// 		password: "123456",
+	// 	});
+	// }, []);
 
 	return (
 		<>

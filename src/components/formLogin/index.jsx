@@ -3,66 +3,90 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useUsers } from "../../providers/UserProvider";
-import { useHistory } from "react-router-dom"
-// import { Button } from "antd";
-// import { Link } from "react-router-dom";
-// import { ContainerDiv } from "./style";
+import { useHistory } from "react-router-dom";
+import logo from "../../images/logoMobile.svg";
 
 import {
-    StyledForm,
-    StyledButton, 
-    StyledParErr,
-    StyledInput,
-    StyledH3,
+	StyledForm,
+	StyledButton,
+	StyledParErr,
+	StyledInput,
+	StyledH1,
 	StyledSpan,
-    StyledPar,
-  } from "./style";
+	StyledPar,
+	LogoTag,
+	LogoContainer,
+	InputContainer,
+} from "./style";
 
-		const schema = yup.object().shape({
-			email: yup.string().email("Email inválido").required("Campo obrigatório"),
-			password: yup
-				.string()
-				.min(6, "Mínimo de 6 dígitos")
-				.required("Campo obrigatório e mínimo de 6 dígitos")
-		});
-		
-		const FormLogin = () => {
+const schema = yup.object().shape({
+	email: yup.string().email("Email inválido").required("Campo obrigatório"),
+	password: yup
+		.string()
+		.min(6, "Mínimo de 6 dígitos")
+		.required("Campo obrigatório e mínimo de 6 dígitos"),
+});
 
-			let history = useHistory()
+const FormLogin = () => {
+	let history = useHistory();
 
-			const { login } = useUsers();
-			const {
-				register,
-				handleSubmit,
-				formState: { errors },
-			} = useForm({
-				resolver: yupResolver(schema),
-			});
-			const onSubmit = (data) => {
-				console.log(data);
-				login(data);
-			};
+	const { login } = useUsers();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(schema),
+	});
+	const onSubmit = (data) => {
+		login(data);
+	};
 
-		const handleRegister = () => {
-		  history.push("/register");
-		}
-	  
+	const handleRegister = () => {
+		history.push("/register");
+	};
 
 	return (
-		<StyledForm>
-			<StyledH3>Seja bem vindo!</StyledH3>
-			<StyledPar>insira seus dados e faça o login</StyledPar>
-			<StyledInput required {...register("email")} type="email" placeholder="email" />
-			<StyledParErr>{errors.email?.message}</StyledParErr>
+		<>
+			<StyledForm>
+				<LogoContainer>
+					<LogoTag src={logo} />
+				</LogoContainer>
+				<StyledH1>Seja bem vindo!</StyledH1>
+				<StyledPar>insira seus dados e faça o login</StyledPar>
+				<InputContainer>
+					<StyledInput
+						required
+						{...register("email")}
+						type="email"
+						placeholder="email"
+					/>
+					<StyledParErr>{errors.email?.message}</StyledParErr>
+				</InputContainer>
+				<InputContainer>
+					<StyledInput
+						required
+						{...register("password")}
+						type="password"
+						placeholder="senha"
+					/>
+					<StyledParErr>{errors.password?.message}</StyledParErr>
+				</InputContainer>
+				<StyledButton
+					type="submit"
+					onClick={handleSubmit(onSubmit)}
+					value="entrar"
+				/>
 
-			<StyledInput required {...register("password")} type="password" placeholder="senha"/>
-			<StyledParErr>{errors.password?.message}</StyledParErr>
-
-			<StyledButton type="submit" onClick={handleSubmit(onSubmit)} value="Entrar"/>
-
-			<StyledPar> ainda não tem conta? <StyledSpan onClick={handleRegister} inputColor="#EF7272"> Entre aqui! </StyledSpan></StyledPar>
-
-		</StyledForm>
+				<StyledPar>
+					ainda não tem conta?
+					<StyledSpan onClick={handleRegister} inputColor="#EF7272">
+						{" "}
+						Cadastre-se aqui!
+					</StyledSpan>
+				</StyledPar>
+			</StyledForm>
+		</>
 	);
 };
 
