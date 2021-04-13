@@ -61,9 +61,6 @@ const FormLogin = () => {
 						{...register("email")}
 						type="email"
 						placeholder="email"
-						onClick={() => {
-							// setSubmitError(false);
-						}}
 					/>
 					<StyledParErr>{errors.email?.message}</StyledParErr>
 				</InputContainer>
@@ -73,9 +70,6 @@ const FormLogin = () => {
 						{...register("password")}
 						type="password"
 						placeholder="senha"
-						onClick={() => {
-							// setSubmitError(false);
-						}}
 					/>
 					<StyledParErr>{errors.password?.message}</StyledParErr>
 				</InputContainer>
