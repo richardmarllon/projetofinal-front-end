@@ -2,7 +2,7 @@ import ReminderSection from "./components/reminderSection";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
-import FormRegister from "./components/formRegister";
+import FormAddConsultation from "./components/formAddConsultation";
 import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
@@ -31,7 +31,7 @@ function App() {
 			{/* <FormRegister />
 			<SearchDisease />
 			<UserDiseasesList /> */}
-			<ListAppointments></ListAppointments>
+			<FormAddConsultation />
 			<GlobalStyle />
 		</>
 	);
