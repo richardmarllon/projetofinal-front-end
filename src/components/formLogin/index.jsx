@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -29,7 +29,7 @@ const schema = yup.object().shape({
 
 const FormLogin = () => {
 	let history = useHistory();
-
+	const { submitError } = useUsers();
 	const { login } = useUsers();
 	const {
 		register,
@@ -38,6 +38,7 @@ const FormLogin = () => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
+
 	const onSubmit = (data) => {
 		login(data);
 	};
@@ -60,6 +61,9 @@ const FormLogin = () => {
 						{...register("email")}
 						type="email"
 						placeholder="email"
+						onClick={() => {
+							// setSubmitError(false);
+						}}
 					/>
 					<StyledParErr>{errors.email?.message}</StyledParErr>
 				</InputContainer>
@@ -69,15 +73,18 @@ const FormLogin = () => {
 						{...register("password")}
 						type="password"
 						placeholder="senha"
+						onClick={() => {
+							// setSubmitError(false);
+						}}
 					/>
 					<StyledParErr>{errors.password?.message}</StyledParErr>
 				</InputContainer>
+				{submitError && <StyledParErr>E-mail ou senha incorretos</StyledParErr>}
 				<StyledButton
 					type="submit"
 					onClick={handleSubmit(onSubmit)}
 					value="entrar"
 				/>
-
 				<StyledPar>
 					ainda não tem conta?
 					<StyledSpan onClick={handleRegister} inputColor="#EF7272">
