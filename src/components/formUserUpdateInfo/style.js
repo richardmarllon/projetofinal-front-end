@@ -89,6 +89,16 @@ export const StyledInput = styled.input`
 	}
 `;
 
+export const StyledTextarea = styled.input`
+	margin: 1rem 1rem;
+  padding: .5rem .5rem;
+  width: 96%;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  resize: none;
+  border: none;
+`
+
 export const StyledSelect = styled.select`
 	color: #0d1b2a;
 	font-size: 1.2rem;

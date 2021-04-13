@@ -7,6 +7,7 @@ import Routes from "./routes";
 import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
 import UserDiseasesList from "./components/userDiseasesList";
+import FormUserUpdateInfo from "./components/formUserUpdateInfo"
 import Header from "./components/header";
 import Footer from "./components/footer";
 
@@ -29,7 +30,8 @@ function App() {
 			{/* <FormRegister />
 			<SearchDisease />
 			<UserDiseasesList /> */}
-			<FormAddConsultation />
+			{/* <FormAddConsultation /> */}
+			<FormUserUpdateInfo />
 			<GlobalStyle />
 		</>
 	);

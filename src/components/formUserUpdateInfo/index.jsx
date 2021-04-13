@@ -6,21 +6,21 @@ import formatCPF from "../../util/formartCPF";
 import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
 import {
-	StyledForm,
+	StyledForm, 
 	StyledButton,
 	StyledSmall,
 	StyledType,
 	StyledInput,
-	StyledSelect,
-	StyledPar,
-	StyledSpan,
+	StyledSelect,	
 	InputContainer,
 	LogoContainer,
 	LogoTag,
 	StyledLabel,
 	StyledH1,
 	SendBtnContainer,
-} from "../formRegister/style";
+	StyledTextarea
+} from "../formUserUpdateInfo/style";
+
 import { useState } from "react";
 import logo from "../../images/logoMobile.svg";
 import { useHistory } from "react-router";
@@ -28,14 +28,10 @@ import { useHistory } from "react-router";
 const FormUserUpdateInfo = () => {
 	const history = useHistory();
 	const schema = yup.object().shape({
-		email: yup.string().email("Email inválido").required("Campo obrigatório"),
+		
 		firstName: yup.string().required("Campo obrigatório"),
 		lastName: yup.string().required("Campo obrigatório"),
-		date: yup.date("Formato dia/mes/ano").required("Campo obrigatório"),
-		password: yup
-			.string()
-			.min(6, "Mínimo de 6 dígitos!")
-			.required("Campo obrigatório, 6 dígitos!"),
+		date: yup.date("Formato dia/mes/ano").required("Campo obrigatório"),		
 		userType: yup.string().required("Campo obrigatório!"),
 		cpf: yup
 			.string()
@@ -53,13 +49,15 @@ const FormUserUpdateInfo = () => {
 		resolver: yupResolver(schema),
 	});
 
+	const [isWoman, setIsWoman] = useState(true);
 	const [isPhysician, setPhysician] = useState(false);
+	const [isCpfError, setIsCpfError] = useState(false);
 
 	const onSubmit = (data) => {
 		// format cpf
 		const _cpf = formatCPF(data.cpf);
 		if (!_cpf) {
-			window.alert("CPF com erro, favor revisar!");
+			setIsCpfError(true);			
 			return;
 		}
 		data.cpf = _cpf;
@@ -69,13 +67,11 @@ const FormUserUpdateInfo = () => {
 		data = { ...data, birthDate };
 
 		//finally data readdle to post =)
-		const { firstName, lastName, password, userType, email, cpf, crm } = data;
+		const { firstName, lastName, userType, cpf, crm, } = data;
 		const sendData = {
 			firstName,
 			lastName,
-			birthDate,
-			password,
-			email,
+			birthDate,						
 			userType,
 			cpf,
 			crm,
@@ -84,28 +80,41 @@ const FormUserUpdateInfo = () => {
 	};
 
 	const setUserRegister = (data) => {
-		saluteAPI
-			.post(`/users`, data)
-			.then((response) => {
-				history.push("/");
-				setPhysician(false);
-				reset();
-			})
-			.catch((e) => {
-				console.log("ocorreu um erro: ", e);
-			});
+		// saluteAPI
+		// 	.post(`/users`, data)
+		// 	.then((response) => {
+		// 		history.push("/");
+		// 		setPhysician(false);
+		// 		reset();
+		// 	})
+		// 	.catch((e) => {
+		// 		console.log("ocorreu um erro: ", e);
+		// 	});
 	};
 
-	const handleclose = () => {
-		console.log(history)
-		// history.push("/");
-	};
+	// const handleclose = () => {
+	// 	console.log(history)
+	// 	// history.push("/");
+	// };
 
 	const handleUserType = (event) => {
 		const option = event.target.options.selectedIndex;
 		// target.options... if 0 is patient then false to show crm.
 		option ? setPhysician(true) : setPhysician(false);
+	
 	};
+
+	const handleUserGender = (event) => {
+		const option = event.target.options.selectedIndex;
+		// target.options... if 0 is woman then show pregnant fied.
+		!option ? setIsWoman(true) : setIsWoman(false);
+	
+	};
+
+	const handleCpf = () => {
+		setIsCpfError(false);
+	}
+
 
 	return (
 		<>
@@ -114,9 +123,7 @@ const FormUserUpdateInfo = () => {
 					<LogoTag src={logo} />
 				</LogoContainer>
 				
-				<StyledH1>Atualizar Perfil</StyledH1>
-				{/* ver como fazer para este voltar */}
-				<button onClick={handleclose}>Voltar</button>
+				<StyledH1>Atualizar Perfil</StyledH1>			
 				
 				<InputContainer>
 					<StyledInput
@@ -130,6 +137,7 @@ const FormUserUpdateInfo = () => {
 						<StyledSmall>{errors.firstName.message}</StyledSmall>
 					)}
 				</InputContainer>
+
 				<InputContainer>
 					<StyledInput
 						required
@@ -141,6 +149,7 @@ const FormUserUpdateInfo = () => {
 					{errors.lastName && (
 						<StyledSmall>{errors.lastName.message}</StyledSmall>
 					)}
+
 				</InputContainer>
 				<InputContainer className="date">
 					<StyledLabel>Data de nascimento:</StyledLabel>
@@ -152,32 +161,26 @@ const FormUserUpdateInfo = () => {
 					/>
 					{errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}
 				</InputContainer>
-				<InputContainer className="password">
-					<StyledInput
-						required
-						type="password"
-						size="25"
-						placeholder="Senha mínimo 6 digitos"
-						{...register("password", { required: true })}
-					/>
-					{errors.password && (
-						<StyledSmall>{errors.password.message}</StyledSmall>
-					)}
+
+				<InputContainer className="type">
+					<StyledType>gênero:</StyledType>
+					<StyledSelect {...register("gender")} onChange={handleUserGender}>
+						<option value="woman">Mulher</option>
+						<option value="man">Homem</option>
+					</StyledSelect>
 				</InputContainer>
-				<InputContainer className="email">
-					<StyledInput
-						required
-						type="email"
-						size="25"
-						placeholder="email"
-						{...register("email", { required: true })}
-					/>
-					{errors.email && (
-						<StyledSmall inputColor="#EF7272">
-							{errors.email.message}
-						</StyledSmall>
-					)}
+
+				
+				{ isWoman && 
+				<InputContainer className="type">
+					<StyledType>está grávida:</StyledType>
+					<StyledSelect {...register("pregnant")}>
+						<option value="false">Não</option>
+						<option value="true">Sim</option>
+					</StyledSelect>
 				</InputContainer>
+				}
+
 				<InputContainer className="type">
 					<StyledType>eu sou:</StyledType>
 					<StyledSelect {...register("userType")} onChange={handleUserType}>
@@ -185,6 +188,7 @@ const FormUserUpdateInfo = () => {
 						<option value="physician">Médico</option>
 					</StyledSelect>
 				</InputContainer>
+
 				<InputContainer className={!isPhysician && "personal"}>
 					<StyledInput
 						required
@@ -192,8 +196,10 @@ const FormUserUpdateInfo = () => {
 						size="25"
 						placeholder="CPF"
 						{...register("cpf")}
+						onChange={handleCpf}
 					/>
 					{errors.cpf && <StyledSmall>{errors.cpf.message}</StyledSmall>}
+					{isCpfError && <StyledSmall>CPF com erro, favor revisar!</StyledSmall>}
 				</InputContainer>
 
 				{isPhysician && (
@@ -208,6 +214,134 @@ const FormUserUpdateInfo = () => {
 						{errors.crm && <StyledSmall>{errors.crm.message}</StyledSmall>}
 					</InputContainer>
 				)}
+
+
+{/* ------ MUDAR CLASSNAME */}
+
+				<InputContainer  className={!isPhysician && "personal"}>
+					<StyledInput					 	
+						type="text"							
+						placeholder="alergias"
+						{...register("allergies")}
+					/>				
+				</InputContainer>
+
+				
+				<InputContainer className="bloodType">
+					<StyledType>tipo sanguíneo:</StyledType>
+					<StyledSelect {...register("bloodType")}>
+						<option value="a-">A-</option>
+						<option value="a+">A+</option>						
+						<option value="ab-">AB-</option>
+						<option value="ab+">AB+</option>
+						<option value="b-">B-</option>
+						<option value="b+">B+</option>
+						<option value="o-">O-</option>
+						<option value="o+">O+</option>
+					</StyledSelect>
+				</InputContainer>
+				
+{/* ------ MUDAR CLASSNAME */}
+				<InputContainer  className={!isPhysician && "personal"}> 
+					<StyledInput																
+					 	type="text"
+						placeholder="doenças prévias"
+						{...register("previousDiseases")}
+					/>				
+				</InputContainer>
+		
+
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="rua/av"
+						{...register("street")}
+					/>
+					{errors.street && (
+						<StyledSmall>{errors.street.message}</StyledSmall>
+					)}
+				</InputContainer>	
+
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="15"
+						placeholder="number"
+						{...register("number")}
+					/>
+					{errors.number && (
+						<StyledSmall>{errors.number.message}</StyledSmall>
+					)}
+				</InputContainer>	
+
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="bairro"
+						{...register("district")}
+					/>
+					{errors.district && (
+						<StyledSmall>{errors.district.message}</StyledSmall>
+					)}
+				</InputContainer>	
+
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="cidade"
+						{...register("city")}
+					/>
+					{errors.city && (
+						<StyledSmall>{errors.city.message}</StyledSmall>
+					)}
+				</InputContainer>
+
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="cidade"
+						{...register("state")}
+					/>
+					{errors.state && (
+						<StyledSmall>{errors.state.message}</StyledSmall>
+					)}
+				</InputContainer>
+
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="CEP"
+						{...register("zipCode")}
+					/>
+					{errors.zipeCode && (
+						<StyledSmall>{errors.zipeCode.message}</StyledSmall>
+					)}
+				</InputContainer>		
+
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="telefone"
+						{...register("phone")}
+					/>
+					{errors.phone && (
+						<StyledSmall>{errors.phone.message}</StyledSmall>
+					)}
+				</InputContainer>
+
 				<SendBtnContainer>
 					<StyledButton type="submit" value="Salvar e atualizar"/>
 				</SendBtnContainer>
