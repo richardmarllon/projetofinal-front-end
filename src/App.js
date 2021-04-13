@@ -1,4 +1,5 @@
-import ReminderSection from "./components/reminderSection";
+// import ReminderSection from "./components/reminderSection";
+import UserBasicInfo from "./components/userBasicInfo";
 import { useEffect } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
@@ -8,6 +9,8 @@ import Home from "./pages/home";
 import SearchDisease from "./components/searchDisease";
 import SearchPatient from "./components/searchPatient";
 import UserDiseasesList from "./components/userDiseasesList";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
 function App() {
 	const { login } = useUsers();
