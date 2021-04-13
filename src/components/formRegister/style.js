@@ -46,17 +46,17 @@ export const StyledForm = styled.form`
 	justify-content: space-between;
 	align-items: center;
 	padding-bottom: 2rem;
+
 	@media (min-width: 600px) {
 		border: 3px solid #72d9e0;
 		border-bottom: none;
-		max-width: 800px;
+		min-width: 50%;
+		max-width: 650px;
+
 		flex-direction: row;
 		flex-wrap: wrap;
-		/* height: 60vh; */
+		height: fit-content;
 		justify-content: space-evenly;
-
-		/* justify-content: center; */
-		/* align-items: flex-start; */
 	}
 `;
 
@@ -112,16 +112,13 @@ export const InputContainer = styled.div`
 	}
 
 	@media (min-width: 600px) {
-		max-width: 300px;
+		max-width: 250px;
 		/* border: 1px solid red; */
-		&.password {
-			height: 6.5rem;
-			input {
-				align-self: flex-end;
-				margin-bottom: 3%;
-			}
-		}
+		height: 4rem;
 
+		&.date {
+			height: 4rem;
+		}
 		&.email {
 			min-width: 95%;
 		}
@@ -148,6 +145,9 @@ export const LogoContainer = styled.div`
 export const StyledLabel = styled.span`
 	width: 80%;
 	text-align: left;
+	@media (min-width: 600px) {
+		display: none;
+	}
 `;
 
 export const SendBtnContainer = styled.div`

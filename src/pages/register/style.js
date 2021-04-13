@@ -10,8 +10,12 @@ export const ContentContainer = styled.div`
 		width: fit-content;
 	}
 	@media (min-width: 1000px) {
+		height: 80vh;
 		flex-direction: row;
-		justify-content: space-around;
+		box-sizing: border-box;
+		flex-direction: row;
+		justify-content: space-evenly;
+		align-items: flex-end;
 		width: 99vw;
 		max-width: 1500px;
 		margin: 0 auto;
@@ -36,11 +40,10 @@ export const BrandTag = styled.img`
 export const DocContainer = styled.div`
 	display: none;
 	@media (min-width: 1000px) {
-		box-sizing: border-box;
-		align-self: flex-end;
-		display: flex;
-		justify-content: center;
+		display: inherit;
 		width: 50%;
+		height: 90%;
+		max-width: 600px;
 	}
 `;
 export const DocTag = styled.img`
@@ -52,5 +55,6 @@ export const DocTag = styled.img`
 export const RegContainer = styled.div`
 	width: 100%;
 	@media (min-width: 1000px) {
+		width: fit-content;
 	}
 `;

@@ -74,7 +74,7 @@ export const StyledInput = styled.input`
 		border: 2px double #3333a1;
 		box-shadow: 0px 0px 5px #867ec8;
 	}
-	
+
 	@media (min-width: 600px) {
 		animation-name: ${resizeInput};
 		animation-duration: 1000ms;
@@ -97,6 +97,4 @@ export const InputContainer = styled.div`
 	height: 6rem;
 	width: 100%;
 	text-align: center;
-	
 `;
-
