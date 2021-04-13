@@ -14,10 +14,19 @@ import {
 	StyledSelect,
 	StyledPar,
 	StyledSpan,
+	InputContainer,
+	LogoContainer,
+	LogoTag,
+	StyledLabel,
+	StyledH1,
+	SendBtnContainer,
 } from "./style";
 import { useState } from "react";
+import logo from "../../images/logoMobile.svg";
+import { useHistory } from "react-router";
 
 const FormRegister = () => {
+	const history = useHistory();
 	const schema = yup.object().shape({
 		email: yup.string().email("Email inválido").required("Campo obrigatório"),
 		firstName: yup.string().required("Campo obrigatório"),
@@ -78,25 +87,17 @@ const FormRegister = () => {
 		saluteAPI
 			.post(`/users`, data)
 			.then((response) => {
-				// history.push("/");
-				console.log("foi...");
+				history.push("/");
 				setPhysician(false);
 				reset();
 			})
 			.catch((e) => {
-				// window.alert(
-				console.log(
-					"Ops.. algo deu errado! =(. \n" +
-						"Por favor, confirme seus dados!\n" +
-						"Provavelmente email já cadastrado.",
-					e
-				);
+				console.log("ocorreu um erro: ", e);
 			});
 	};
 
 	const handleLogin = () => {
-		console.log('history.push("/");');
-		// history.push("/");
+		history.push("/");
 	};
 
 	const handleUserType = (event) => {
@@ -108,76 +109,90 @@ const FormRegister = () => {
 	return (
 		<>
 			<StyledForm onSubmit={handleSubmit(onSubmit)}>
-				<h3> Cadastre-se</h3>
-				<StyledInput
-					required
-					type="text"
-					size="25"
-					placeholder="Primeiro nome"
-					{...register("firstName")}
-				/>
-				{errors.firstName && (
-					<StyledSmall>{errors.firstName.message}</StyledSmall>
-				)}
-
-				<StyledInput
-					required
-					type="text"
-					size="25"
-					placeholder="Último nome"
-					{...register("lastName")}
-				/>
-				{errors.lastName && (
-					<StyledSmall>{errors.lastName.message}</StyledSmall>
-				)}
-
-				<StyledInput
-					required
-					type="date"
-					placeholder="dd / mm / aaaa"
-					{...register("date")}
-				/>
-				{errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}
-
-				<StyledInput
-					required
-					type="password"
-					size="25"
-					placeholder="Senha mínimo 6 digitos"
-					{...register("password", { required: true })}
-				/>
-				{errors.password && (
-					<StyledSmall>{errors.password.message}</StyledSmall>
-				)}
-
-				<StyledInput
-					required
-					type="email"
-					size="25"
-					placeholder="email"
-					{...register("email", { required: true })}
-				/>
-				{errors.email && (
-					<StyledSmall inputColor="#EF7272">{errors.email.message}</StyledSmall>
-				)}
-
-				<StyledType>eu sou:</StyledType>
-				<StyledSelect {...register("userType")} onChange={handleUserType}>
-					<option value="patient">Paciente</option>
-					<option value="physician">Médico</option>
-				</StyledSelect>
-
-				<StyledInput
-					required
-					type="text"
-					size="25"
-					placeholder="CPF"
-					{...register("cpf")}
-				/>
-				{errors.cpf && <StyledSmall>{errors.cpf.message}</StyledSmall>}
+				<LogoContainer>
+					<LogoTag src={logo} />
+				</LogoContainer>
+				<StyledH1>Cadastre-se</StyledH1>
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="Primeiro nome"
+						{...register("firstName")}
+					/>
+					{errors.firstName && (
+						<StyledSmall>{errors.firstName.message}</StyledSmall>
+					)}
+				</InputContainer>
+				<InputContainer>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="Último nome"
+						{...register("lastName")}
+					/>
+					{errors.lastName && (
+						<StyledSmall>{errors.lastName.message}</StyledSmall>
+					)}
+				</InputContainer>
+				<InputContainer className="date">
+					<StyledLabel>Data de nascimento:</StyledLabel>
+					<StyledInput
+						required
+						type="date"
+						placeholder="data de nascimento"
+						{...register("date")}
+					/>
+					{errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}
+				</InputContainer>
+				<InputContainer className="password">
+					<StyledInput
+						required
+						type="password"
+						size="25"
+						placeholder="Senha mínimo 6 digitos"
+						{...register("password", { required: true })}
+					/>
+					{errors.password && (
+						<StyledSmall>{errors.password.message}</StyledSmall>
+					)}
+				</InputContainer>
+				<InputContainer className="email">
+					<StyledInput
+						required
+						type="email"
+						size="25"
+						placeholder="email"
+						{...register("email", { required: true })}
+					/>
+					{errors.email && (
+						<StyledSmall inputColor="#EF7272">
+							{errors.email.message}
+						</StyledSmall>
+					)}
+				</InputContainer>
+				<InputContainer className="type">
+					<StyledType>eu sou:</StyledType>
+					<StyledSelect {...register("userType")} onChange={handleUserType}>
+						<option value="patient">Paciente</option>
+						<option value="physician">Médico</option>
+					</StyledSelect>
+				</InputContainer>
+				<InputContainer className={!isPhysician && "personal"}>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="CPF"
+						{...register("cpf")}
+					/>
+					{errors.cpf && <StyledSmall>{errors.cpf.message}</StyledSmall>}
+				</InputContainer>
 
 				{isPhysician && (
-					<>
+					<InputContainer>
 						<StyledInput
 							required
 							type="text"
@@ -186,10 +201,11 @@ const FormRegister = () => {
 							{...register("crm")}
 						/>
 						{errors.crm && <StyledSmall>{errors.crm.message}</StyledSmall>}
-					</>
+					</InputContainer>
 				)}
-
-				<StyledButton type="submit" />
+				<SendBtnContainer>
+					<StyledButton type="submit" />
+				</SendBtnContainer>
 
 				<StyledPar>
 					{" "}
