@@ -14,7 +14,7 @@ import ListAppointments from "./components/listAppointments";
 
 function App() {
 	const { login } = useUsers();
-	// const { userAppointments } = useAppointments();
+	const { userAppointments } = useAppointments();
 
 	useEffect(() => {
 		login({
@@ -31,8 +31,9 @@ function App() {
 			{/* <FormRegister />
 			<SearchDisease />
 			<UserDiseasesList /> */}
-			<FormAddConsultation />
+			{/* <FormAddConsultation /> */}
 			<GlobalStyle />
+			<ListAppointments></ListAppointments>
 		</>
 	);
 }

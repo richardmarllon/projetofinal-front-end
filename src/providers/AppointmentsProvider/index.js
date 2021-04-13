@@ -47,8 +47,6 @@ export const AppointmentsProvider = ({ children }) => {
 		}
 	}, [loggedUser]);
 
-	// console.log(userAppointments);
-
 	return (
 		<AppointmentsContext.Provider
 			value={{

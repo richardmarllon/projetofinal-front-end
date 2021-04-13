@@ -3,6 +3,7 @@ import { useAppointments } from "../../providers/AppointmentsProvider";
 import "antd/dist/antd.css";
 import { Modal, Button } from "antd";
 import { Pagination } from "antd";
+import moment from "moment";
 import AppointmentCard from "../appointmentCard";
 
 const ListAppointments = () => {
@@ -14,6 +15,12 @@ const ListAppointments = () => {
 
 	console.log("userAppointments", userAppointments);
 	// console.log("examsAppointment", examsAppointment);
+
+	const calcDate = (date) => {
+		date = moment(Number(date)).format("DD/MM/YYYY");
+
+		return date;
+	};
 
 	const showModal = () => {
 		setIsModalVisible(true);
@@ -30,7 +37,7 @@ const ListAppointments = () => {
 
 	return (
 		<>
-			<div>"Consultas"</div>
+			<div>"Histórico de consultas"</div>
 			<div>
 				{userAppointments
 					?.slice(minValue, maxValue)
@@ -51,25 +58,34 @@ const ListAppointments = () => {
 							</p>
 							<p>
 								Data:
-								{appointment?.date}
+								{calcDate(appointment?.date)}
 							</p>
-							<p>
-								Descrição:
-								{appointment?.overview}
-							</p>
+
 							<Button type="primary" onClick={showModal}>
 								Detalhes
 							</Button>
 							<Modal
-								title="Basic Modal"
+								title="Consulta"
 								visible={isModalVisible}
 								onCancel={handleCancel}
 								footer={null}
 							>
+								<p>
+									Médico:
+									{appointment?.physicianName}
+								</p>
+								<p>
+									Data:
+									{calcDate(appointment?.date)}
+								</p>
+								<p>
+									Descrição:
+									{appointment?.overview}
+								</p>
 								<AppointmentCard
-									physicianlD={appointment?.physicianlD}
+									// physicianlD={appointment?.physicianlD}
 									AppointmentId={appointment?.id}
-									appointmentDate={appointment?.date}
+									// appointmentDate={appointment?.date}
 								></AppointmentCard>
 							</Modal>
 						</div>
