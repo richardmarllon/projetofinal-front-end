@@ -1,6 +1,6 @@
 // import ReminderSection from "./components/reminderSection";
 import UserBasicInfo from "./components/userBasicInfo";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import GlobalStyle from "./style/global";
 import { useUsers } from "./providers/UserProvider";
 import FormRegister from "./components/formRegister";
@@ -11,23 +11,20 @@ import SearchPatient from "./components/searchPatient";
 import UserDiseasesList from "./components/userDiseasesList";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import { decode } from "jsonwebtoken";
+import { saluteAPI } from "./services/api";
 
 function App() {
 	const { login } = useUsers();
 
-	// useEffect(() => {
-	// 	login({
-	// 		email: "suellendavinci@gmail.com",
-	// 		password: "123456",
-	// 	});
-	// }, []);
-
 	return (
 		<>
 			{/* <SearchPatient /> */}
+
 			<Header />
 			<Routes />
 			<Footer />
+
 			{/* <FormRegister />
 			<SearchDisease />
 			<UserDiseasesList /> */}
