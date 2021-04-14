@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
+import {useUsers} from "../../providers/UserProvider";
 import formatCPF from "../../util/formartCPF";
 import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
@@ -17,34 +17,70 @@ import {
 	LogoTag,
 	StyledLabel,
 	StyledH1,
-	SendBtnContainer,
-	StyledTextarea
+	SendBtnContainer	
 } from "../formUserUpdateInfo/style";
 
 import { useState } from "react";
 import logo from "../../images/logoMobile.svg";
 import { useHistory } from "react-router";
+import moment from "moment";
 
 const FormUserUpdateInfo = () => {
-	const history = useHistory();
-	const schema = yup.object().shape({
-		
+	const history = useHistory();  
+	const { loggedUser } = useUsers();
+	
+	// moment só está aceitando unix milli...
+	loggedUser.data.birthDate.length === 9 ?
+		loggedUser.data.birthDate = moment(loggedUser.data.birthDate*1000).format("YYYY-MM-DD")
+	:
+		loggedUser.data.birthDate = moment(loggedUser.data.birthDate).format("YYYY-MM-DD");
+			
+	
+	const {
+		firstName, lastName, birthDate,
+		gender, pregnant, userType,
+		cpf, crm, medicalSpecialty,
+		allergies, bloodType, previousDiseases,
+		address,cellphoneNumber} = loggedUser.data;
+
+				
+
+	const [inputUser, setInputUser] = useState(
+		{
+			firstName: firstName,
+			lastName: lastName,
+			birthDate: birthDate,
+			gender,
+			pregnant,
+			userType,
+			cpf,
+			crm,
+			medicalSpecialty,
+			allergies,
+			bloodType,
+			previousDiseases,
+			address,
+			cellphoneNumber
+		});
+
+
+	const schema = yup.object().shape({		
 		firstName: yup.string().required("Campo obrigatório"),
 		lastName: yup.string().required("Campo obrigatório"),
-		date: yup.date("Formato dia/mes/ano").required("Campo obrigatório"),		
+		birthDate: yup.date("Formato dia/mes/ano").required("Campo obrigatório"),		
 		userType: yup.string().required("Campo obrigatório!"),
 		cpf: yup
 			.string()
 			.min(11, "CPF com erro!")
 			.max(14, "CPF com erro!")
 			.required("Campo obrigatório!"),
+		
 	});
 
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
-		reset,
+		formState: { errors }	
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
@@ -52,6 +88,7 @@ const FormUserUpdateInfo = () => {
 	const [isWoman, setIsWoman] = useState(true);
 	const [isPhysician, setPhysician] = useState(false);
 	const [isCpfError, setIsCpfError] = useState(false);
+	const [specialtyError, setSpecialtyError] = useState(medicalSpecialty);
 
 	const onSubmit = (data) => {
 		// format cpf
@@ -60,14 +97,18 @@ const FormUserUpdateInfo = () => {
 			setIsCpfError(true);			
 			return;
 		}
+		if(isPhysician && !medicalSpecialty) {
+			setSpecialtyError(true);
+			console.log("specialty Error", medicalSpecialty);
+		}
 		data.cpf = _cpf;
 
 		// format date for unix stamptime
-		let birthDate = dateToTimestamp(data.date);
-		data = { ...data, birthDate };
+		data.birthDate = dateToTimestamp(data.birthDate);
+		
 
 		//finally data readdle to post =)
-		const { firstName, lastName, userType, cpf, crm, } = data;
+		const { firstName, lastName, userType, cpf, crm, birthDate } = data;
 		const sendData = {
 			firstName,
 			lastName,
@@ -80,6 +121,7 @@ const FormUserUpdateInfo = () => {
 	};
 
 	const setUserRegister = (data) => {
+		console.log('atualizar dados',data)
 		// saluteAPI
 		// 	.post(`/users`, data)
 		// 	.then((response) => {
@@ -108,6 +150,7 @@ const FormUserUpdateInfo = () => {
 		const option = event.target.options.selectedIndex;
 		// target.options... if 0 is woman then show pregnant fied.
 		!option ? setIsWoman(true) : setIsWoman(false);
+		setInputUser([inputUser.gender, event.target.value]);	
 	
 	};
 
@@ -128,10 +171,13 @@ const FormUserUpdateInfo = () => {
 				<InputContainer>
 					<StyledInput
 						required
-						type="text"
-						size="25"
+						type="text"												
+						value = {inputUser.firstName}
 						placeholder="Primeiro nome"
 						{...register("firstName")}
+						onChange={event => {
+							setInputUser([inputUser.firstName, event.target.value]);							
+						}}
 					/>
 					{errors.firstName && (
 						<StyledSmall>{errors.firstName.message}</StyledSmall>
@@ -143,8 +189,12 @@ const FormUserUpdateInfo = () => {
 						required
 						type="text"
 						size="25"
+						value = {inputUser.lastName}
 						placeholder="Último nome"
 						{...register("lastName")}
+						onChange={event => {
+							setInputUser([inputUser.lastName, event.target.value]);							
+						}}
 					/>
 					{errors.lastName && (
 						<StyledSmall>{errors.lastName.message}</StyledSmall>
@@ -156,20 +206,29 @@ const FormUserUpdateInfo = () => {
 					<StyledInput
 						required
 						type="date"
+						value = {inputUser.birthDate}
 						placeholder="data de nascimento"
-						{...register("date")}
+						{...register("birthDate")}
+						onChange={event => {
+							setInputUser([inputUser.birthDate, event.target.value]);							
+						}}
+						
 					/>
-					{errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}
+					{errors.birthDate && <StyledSmall>{errors.birthDate.message}</StyledSmall>}
 				</InputContainer>
 
 				<InputContainer className="type">
 					<StyledType>gênero:</StyledType>
-					<StyledSelect {...register("gender")} onChange={handleUserGender}>
+					<StyledSelect 
+						{...register("gender")} 
+						value={inputUser.gender}
+						onChange={handleUserGender}
+						>
 						<option value="woman">Mulher</option>
 						<option value="man">Homem</option>
 					</StyledSelect>
 				</InputContainer>
-
+{/* parei aqui, falta checa qdo man , usestate pode dar problema. */}
 				
 				{ isWoman && 
 				<InputContainer className="type">
@@ -203,16 +262,30 @@ const FormUserUpdateInfo = () => {
 				</InputContainer>
 
 				{isPhysician && (
-					<InputContainer>
-						<StyledInput
-							required
-							type="text"
-							size="25"
-							placeholder="CRM"
-							{...register("crm")}
-						/>
-						{errors.crm && <StyledSmall>{errors.crm.message}</StyledSmall>}
-					</InputContainer>
+					<>
+						<InputContainer>
+							<StyledInput
+								required
+								type="text"
+								size="25"
+								placeholder="CRM"
+								{...register("crm")}
+							/>
+							{errors.crm && <StyledSmall>{errors.crm.message}</StyledSmall>}
+						</InputContainer>
+					
+						<InputContainer>
+								<StyledInput
+									required
+									type="text"
+									size="25"
+									placeholder="Especialidade"
+									{...register("medicalSpecialty")}
+								/>
+								{errors.medicalSpecialty && <StyledSmall>{errors.medicalSpecialty.message}</StyledSmall>}
+								{specialtyError && <StyledSmall>Obrigatório preencher especialidade!</StyledSmall>}
+						</InputContainer>
+					</>
 				)}
 
 
@@ -256,78 +329,13 @@ const FormUserUpdateInfo = () => {
 						required
 						type="text"
 						size="25"
-						placeholder="rua/av"
-						{...register("street")}
+						placeholder="Endereço"
+						{...register("address")}
 					/>
-					{errors.street && (
-						<StyledSmall>{errors.street.message}</StyledSmall>
+					{errors.address && (
+						<StyledSmall>{errors.address.message}</StyledSmall>
 					)}
 				</InputContainer>	
-
-				<InputContainer>
-					<StyledInput
-						required
-						type="text"
-						size="15"
-						placeholder="number"
-						{...register("number")}
-					/>
-					{errors.number && (
-						<StyledSmall>{errors.number.message}</StyledSmall>
-					)}
-				</InputContainer>	
-
-				<InputContainer>
-					<StyledInput
-						required
-						type="text"
-						size="25"
-						placeholder="bairro"
-						{...register("district")}
-					/>
-					{errors.district && (
-						<StyledSmall>{errors.district.message}</StyledSmall>
-					)}
-				</InputContainer>	
-
-				<InputContainer>
-					<StyledInput
-						required
-						type="text"
-						size="25"
-						placeholder="cidade"
-						{...register("city")}
-					/>
-					{errors.city && (
-						<StyledSmall>{errors.city.message}</StyledSmall>
-					)}
-				</InputContainer>
-
-				<InputContainer>
-					<StyledInput
-						required
-						type="text"
-						size="25"
-						placeholder="cidade"
-						{...register("state")}
-					/>
-					{errors.state && (
-						<StyledSmall>{errors.state.message}</StyledSmall>
-					)}
-				</InputContainer>
-
-				<InputContainer>
-					<StyledInput
-						required
-						type="text"
-						size="25"
-						placeholder="CEP"
-						{...register("zipCode")}
-					/>
-					{errors.zipeCode && (
-						<StyledSmall>{errors.zipeCode.message}</StyledSmall>
-					)}
-				</InputContainer>		
 
 				<InputContainer>
 					<StyledInput
@@ -335,10 +343,10 @@ const FormUserUpdateInfo = () => {
 						type="text"
 						size="25"
 						placeholder="telefone"
-						{...register("phone")}
+						{...register("cellphoneNumber")}
 					/>
-					{errors.phone && (
-						<StyledSmall>{errors.phone.message}</StyledSmall>
+					{errors.cellphoneNumber && (
+						<StyledSmall>{errors.cellphoneNumber.message}</StyledSmall>
 					)}
 				</InputContainer>
 

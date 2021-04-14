@@ -10,6 +10,7 @@ import SearchDisease from "./components/searchDisease";
 import SearchPatient from "./components/searchPatient";
 import UserDiseasesList from "./components/userDiseasesList";
 import FormUserUpdateInfo from "./components/formUserUpdateInfo"
+import FormAddConsultation from "./components/formAddConsultation";
 import Header from "./components/header";
 import Footer from "./components/footer";
 
@@ -25,12 +26,12 @@ function App() {
 
 	return (
 		<>
-			{/* <SearchPatient /> */}
+			<SearchPatient />
 			<Routes />
-			{/* <FormRegister />
+			<FormRegister />
 			<SearchDisease />
-			<UserDiseasesList /> */}
-			{/* <FormAddConsultation /> */}
+			{/* <UserDiseasesList /> */}
+			<FormAddConsultation />
 			<FormUserUpdateInfo />
 			<GlobalStyle />
 		</>
