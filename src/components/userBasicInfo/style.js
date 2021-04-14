@@ -28,6 +28,7 @@ export const ContainerUser = styled.div`
 		border-radius: 40px;
 		margin: 0;
 		height: fit-content;
+		min-width: 360px;
 	}
 `;
 

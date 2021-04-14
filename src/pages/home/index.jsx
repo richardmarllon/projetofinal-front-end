@@ -10,22 +10,14 @@ import { saluteAPI } from "../../services/api";
 import { decode } from "jsonwebtoken";
 
 const Home = () => {
-	const { loggedUser, userToken, setLoggedUser } = useUsers();
+	const { loggedUser } = useUsers();
 	const [render, setRender] = useState(false);
 
 	useEffect(() => {
-		if (userToken) {
-			async function getLoggedUserData() {
-				const response = await saluteAPI.get(
-					`/users/${decode(userToken).sub}/`
-				);
-				setLoggedUser(response);
-				setRender(true);
-			}
-			getLoggedUserData();
+		if (loggedUser) {
+			setRender(true);
 		}
-
-	}, [userToken]);
+	}, [loggedUser]);
 
 	return (
 		<>
