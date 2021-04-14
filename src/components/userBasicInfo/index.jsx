@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useUsers } from "../../providers/UserProvider";
 import moment from "moment";
+import userAvatar from "../../images/blood/user.png";
+import doctor from "../../images/blood/doctor.jpg";
+
 import {
 	ContainerUser,
 	NameUser,
 	Div,
 	P,
 	Button,
-	AvatarPatient,
-	AvatarDoctor,
+	Avatar,
 	Ul,
 	Li,
+	CardsContainer,
+	GenericText,
+	BloodImg,
 } from "./style";
 
 const UserBasicInfo = () => {
@@ -23,10 +28,12 @@ const UserBasicInfo = () => {
 	}, [user]);
 
 	const listChronicDisease = () => {
-		const listDiseases = loggedUser.data.previousDiseases
-			.filter((disease) => disease.chronicDisease)
-			.map((disease) => disease.nome);
-		setChronicDisease(listDiseases);
+		if (loggedUser.data.previousDiseases) {
+			const listDiseases = loggedUser.data.previousDiseases
+				.filter((disease) => disease.chronicDisease)
+				.map((disease) => disease.nome);
+			setChronicDisease(listDiseases);
+		}
 	};
 
 	const calcAge = (date) => {
@@ -52,27 +59,32 @@ const UserBasicInfo = () => {
 	return (
 		<>
 			<ContainerUser>
-				<Div>
+				<Div className="avatar">
 					{loggedUser.data.userType === "patient" ? (
-						<AvatarPatient src=" https://picsum.photos/seed/picsum/100/100"></AvatarPatient>
+						<Avatar src={userAvatar}></Avatar>
 					) : (
-						<AvatarDoctor src=" https://picsum.photos/seed/picsum/100/100"></AvatarDoctor>
+						<Avatar src={doctor}></Avatar>
 					)}
 				</Div>
 				<Button onClick={() => setOpen(true)}>config</Button>
 				<NameUser>
 					{loggedUser.data.firstName}, {calcAge(loggedUser.data.birthDate)}
 				</NameUser>
-				<Div>
-					sangue:
-					<P>{loggedUser.data.bloodType + loggedUser.data.rhFactor}</P>
-				</Div>
-				<Div>
-					<P>alergias:</P>
-					<P>{loggedUser.data.allergies ? "sim" : "nao"}</P>
-				</Div>
-
-				<Div>
+				<CardsContainer>
+					<Div className="blood">
+						<GenericText>sangue:</GenericText>
+						<BloodImg
+							type={loggedUser.data.bloodType + loggedUser.data.rhFactor}
+						/>
+					</Div>
+					<Div className="alergies">
+						<GenericText>alergias:</GenericText>
+						<P alergic={loggedUser.data.allergies ? "sim" : "nao"}>
+							{loggedUser.data.allergies ? "sim" : "nao"}
+						</P>
+					</Div>
+				</CardsContainer>
+				<Div className="details">
 					<P>detalhes:</P>
 					{loggedUser.data.allergies && (
 						<P>alergico a: {loggedUser.data.allergies}</P>
@@ -89,7 +101,7 @@ const UserBasicInfo = () => {
 					)}
 				</Div>
 
-				<Button>vacinas</Button>
+				<Button className="vacina">vacinas</Button>
 			</ContainerUser>
 			{open && (
 				<Div>

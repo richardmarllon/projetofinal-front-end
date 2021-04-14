@@ -15,17 +15,19 @@ import Footer from "./components/footer";
 function App() {
 	const { login } = useUsers();
 
-	useEffect(() => {
-		login({
-			email: "suellendavinci@gmail.com",
-			password: "123456",
-		});
-	}, []);
+	// useEffect(() => {
+	// 	login({
+	// 		email: "suellendavinci@gmail.com",
+	// 		password: "123456",
+	// 	});
+	// }, []);
 
 	return (
 		<>
 			{/* <SearchPatient /> */}
+			<Header />
 			<Routes />
+			<Footer />
 			{/* <FormRegister />
 			<SearchDisease />
 			<UserDiseasesList /> */}
