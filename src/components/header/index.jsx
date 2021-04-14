@@ -1,25 +1,32 @@
-import { Link, useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { HeaderContainer, LogoContainer, LogoutContainer } from "./style";
 import logoHeader from "../../images/headerLogo.svg";
+import { useUsers } from "../../providers/UserProvider";
+
 const Header = () => {
-	const logoutUser = () => {
+	const history = useHistory();
+	const { loggedUser } = useUsers();
+	const logoutUserfromHome = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("loggedUser");
+		document.location.reload();
 	};
 
 	return (
-		<HeaderContainer>
-			<LogoContainer>
-				<img src={logoHeader} />
-			</LogoContainer>
-			{localStorage.getItem("token") && (
-				<LogoutContainer>
-					<Link to="/" onClick={logoutUser}>
-						sair
-					</Link>
-				</LogoutContainer>
-			)}
-		</HeaderContainer>
+		<>
+			<HeaderContainer>
+				<LogoContainer>
+					<img src={logoHeader} />
+				</LogoContainer>
+				{loggedUser && (
+					<LogoutContainer>
+						<Link to="/" onClick={logoutUserfromHome}>
+							sair
+						</Link>
+					</LogoutContainer>
+				)}
+			</HeaderContainer>
+		</>
 	);
 };
 
