@@ -17,11 +17,10 @@ const SearchDisease = () => {
 	const [value, setValue] = useState("");
 	const { diseases } = useDisease();
 	const [resultValue, setResultValue] = useState();
-	const { loggedUser, userToken, getLoggedUserData } = useUsers();
+	const { user, getUserData } = useUsers();
 	const [update, setUpdate] = useState(false);
 	const [isChronic, setIsChronic] = useState(false);
 	const [found, setFound] = useState(true);
-
 	const handleSearch = () => {
 		setFound(true);
 		if (value !== "") {
@@ -40,25 +39,18 @@ const SearchDisease = () => {
 			chronicDisease: isChronic ? true : false,
 		};
 
-		const authConfig = { Authorization: `${"Bearer " + userToken}` };
-		loggedUser.data.previousDiseases.push(updateDisease);
-		const serializerData = loggedUser.data.previousDiseases;
+		user.data.previousDiseases.push(updateDisease);
+		const serializerData = user.data.previousDiseases;
 
 		saluteAPI
-			.patch(
-				`/users/${loggedUser.data.id}`,
-				{
-					previousDiseases: serializerData,
-				},
-				{
-					headers: authConfig,
-				}
-			)
+			.patch(`/users/${user.data.id}`, {
+				previousDiseases: serializerData,
+			})
 			.then((response) => {
 				setUpdate(false);
 				setResultValue("");
 				setValue("");
-				getLoggedUserData(loggedUser.data.id);
+				getUserData(user.data.id);
 				setIsChronic(false);
 			})
 			.catch((err) => {

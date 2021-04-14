@@ -6,29 +6,21 @@ import { saluteAPI } from "../../services/api";
 
 const DiseaseCard = ({ disease }) => {
 	const [loading, setLoading] = useState(false);
-	const { loggedUser, userToken, getLoggedUserData } = useUsers();
+	const { user, userToken, getUserData } = useUsers();
 
 	const handleRemove = (disease) => {
 		setLoading(true);
 
-		const userDiseases = loggedUser.data.previousDiseases.filter(
+		const userDiseases = user.data.previousDiseases.filter(
 			(item) => item.nome !== disease.nome
 		);
 
-		const authConfig = { Authorization: `${"Bearer " + userToken}` };
-
 		saluteAPI
-			.patch(
-				`/users/${loggedUser.data.id}`,
-				{
-					previousDiseases: userDiseases,
-				},
-				{
-					headers: authConfig,
-				}
-			)
+			.patch(`/users/${user.data.id}`, {
+				previousDiseases: userDiseases,
+			})
 			.then((response) => {
-				getLoggedUserData(loggedUser.data.id);
+				getUserData(user.data.id);
 				setLoading(false);
 			})
 			.catch((err) => {

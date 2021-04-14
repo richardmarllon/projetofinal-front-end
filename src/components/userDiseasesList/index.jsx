@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
 import { useUsers } from "../../providers/UserProvider";
 
 import { DiseasesContainer } from "./style";
 import DiseaseCard from "../diseaseCard";
 
 const UserDiseasesList = () => {
-	const { loggedUser } = useUsers();
+	const { user } = useUsers();
+
+	console.log(user, "no doenças do usuario");
 
 	return (
 		<>
-			{loggedUser.data.previousDiseases && (
+			{user.data.previousDiseases && (
 				<DiseasesContainer>
 					<h1>doenças do usuário:</h1>
-					{loggedUser.data.previousDiseases.map((disease) => {
+					{user.data.previousDiseases.map((disease) => {
 						return <DiseaseCard disease={disease} />;
 					})}
 				</DiseasesContainer>
