@@ -1,9 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FormLogin from "../../components/formLogin";
-import { UserProvider } from "../../providers/UserProvider";
 import React from "react";
-import { boolean } from "yup/lib/locale";
 
 const mockedHandleSubmit = jest.fn();
 jest.mock("react-hook-form", () => {
@@ -34,7 +32,7 @@ jest.mock("../../providers/UserProvider", () => {
 	};
 });
 
-describe("login", () => {
+describe("Should call handleSubmit", () => {
 	test("When submits the form", () => {
 		render(<FormLogin />);
 
