@@ -7,7 +7,7 @@ import moment from "moment";
 import AppointmentCard from "../appointmentCard";
 
 const ListAppointments = () => {
-	const { userAppointments, examsAppointment } = useAppointments();
+	const { userAppointments } = useAppointments();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [minValue, setMinValue] = useState(0);
 	const [maxValue, setMaxValue] = useState(4);
