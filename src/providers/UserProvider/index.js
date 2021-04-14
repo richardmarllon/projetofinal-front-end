@@ -13,7 +13,10 @@ export const UserProvider = (props) => {
 	const [user, setUser] = useState([]);
 	const [allUsers, setAllUsers] = useState([]);
 
+	const [submitError, setSubmitError] = useState(false);
+
 	const login = (userData) => {
+		setSubmitError(false);
 		localStorage.removeItem("token");
 		saluteAPI
 			.post("/login", userData)
@@ -27,6 +30,7 @@ export const UserProvider = (props) => {
 			})
 			.catch((error) => {
 				console.log(error.response);
+				setSubmitError(true);
 			});
 	};
 
@@ -70,6 +74,7 @@ export const UserProvider = (props) => {
 				getAllUsers,
 				login,
 				userToken,
+				submitError,
 			}}
 		>
 			{props.children}
