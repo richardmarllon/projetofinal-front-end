@@ -1,15 +1,15 @@
 import React from "react";
-import UserBasicInfo from "../userBasicInfo";
+import SearchedBasicInfo from "../searchedBasicInfo";
 import { HomePatientContainer } from "./style";
 
-const HomePatient = () => {
+const UserDetailsPage = () => {
 	return (
 		<>
 			<HomePatientContainer>
-				<UserBasicInfo />
+				<SearchedBasicInfo />
 			</HomePatientContainer>
 		</>
 	);
 };
 
-export default HomePatient;
+export default UserDetailsPage;

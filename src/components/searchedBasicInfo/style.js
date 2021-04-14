@@ -7,6 +7,7 @@ import bp from "../../images/blood/b+.svg";
 import bm from "../../images/blood/b-.svg";
 import abp from "../../images/blood/ab+.svg";
 import abm from "../../images/blood/ab-.svg";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 export const ContainerUser = styled.div`
 	background-color: rgba(114, 217, 224, 0.15);
@@ -164,4 +165,8 @@ export const BloodImg = styled.img`
 	${(props) => props.type === "B-" && `background-image: url(${bm})`};
 	${(props) => props.type === "AB+" && `background-image: url(${abp})`};
 	${(props) => props.type === "AB-" && `background-image: url(${abm})`};
+`;
+
+export const StyledArrow = styled(ArrowLeftOutlined)`
+	font-size: 2rem;
 `;
