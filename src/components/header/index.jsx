@@ -20,9 +20,7 @@ const Header = () => {
 				</LogoContainer>
 				{loggedUser && (
 					<LogoutContainer>
-						<Link to="/" onClick={logoutUserfromHome}>
-							sair
-						</Link>
+						<Link onClick={logoutUserfromHome}>sair</Link>
 					</LogoutContainer>
 				)}
 			</HeaderContainer>
