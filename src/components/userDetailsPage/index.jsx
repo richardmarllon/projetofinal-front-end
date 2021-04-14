@@ -12,35 +12,25 @@ import {
 
 const UserDetailsPage = () => {
 	const [addConsult, setAddConsult] = useState(false);
+	const [closeModal, setCloseModal] = useState(false);
 
-	const handleConsult = () => {
-		setAddConsult(true);
-	};
 	return (
 		<>
 			<HomePatientContainer>
 				<SearchedBasicInfo />
 				<ActionsContainer>
-					{!addConsult && (
-						<>
-							<BtnContainer>
-								<ModalButton titleBtn={"Adicionar Consulta"}>
-									<FormAddConsultation />
-								</ModalButton>
-								{/* <StyledBtn
-									onClick={() => {
-										handleConsult();
-									}}
-								>
-									Adicionar Consulta
-								</StyledBtn> */}
-							</BtnContainer>
-							<BtnContainer>
-								<StyledBtn>Ver histórico</StyledBtn>
-							</BtnContainer>
-						</>
-					)}
-					{/* {addConsult} */}
+					<BtnContainer>
+						<ModalButton
+							titleBtn={"Adicionar Consulta"}
+							closeModal={closeModal}
+							setCloseModal={setCloseModal}
+						>
+							<FormAddConsultation setCloseModal={setCloseModal} />
+						</ModalButton>
+					</BtnContainer>
+					<BtnContainer>
+						<StyledBtn>Ver histórico</StyledBtn>
+					</BtnContainer>
 				</ActionsContainer>
 			</HomePatientContainer>
 		</>

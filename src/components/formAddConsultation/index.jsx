@@ -5,7 +5,6 @@ import moment from "moment";
 import { useUsers } from "../../providers/UserProvider";
 import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
-
 import {
 	StyledButton,
 	StyledSmall,
@@ -17,30 +16,20 @@ import {
 	SytledHead,
 	SytledContainer,
 } from "./style";
-
 import { useState, useEffect } from "react";
 import SearchDisease from "../searchDisease";
 import UserDiseasesList from "../userDiseasesList";
+import { Badge, Collapse } from "antd";
 
-const FormAddConsultation = () => {
+const FormAddConsultation = ({ setCloseModal }) => {
 	const { user, loggedUser } = useUsers();
 	console.log(user, "no componente", loggedUser);
-	/* VER COMO SERÁ COLETADO OS DADOS DO médico / paciente     
-    para o teste estou usando: 
-      paciente userId = 1; 
-      médico userId = 2;  
-  */
+	const { Panel } = Collapse;
+	const [count, setCount] = useState(0);
 
-	// Ainda chumbados para testes...
-	// patientName = "Suellen Camargo";
-	// patientId = 1;
-
-	// const {loggedUser} = useUsers || "";
-	// const {firstName, lastName, idUser, medicalSpecialty} = loggedUser.data || "";
-
-	// const physicianName = "Alanna Ajzental"; // firstName + lastName
-	// const physicianId = 2; // id
-	// const specialty = "trauma surgeon"; // medicalSpecialty
+	const handleChange = (key) => {
+		console.log("mudou", key);
+	};
 
 	const schema = yup.object().shape({
 		description: yup.string().required("Obrigatório descrição do exame!"),
@@ -63,11 +52,13 @@ const FormAddConsultation = () => {
 
 	useEffect(() => {
 		getAppointmentId();
+		console.log(user.data.previousDiseases.length);
+		// setCount(user.data.previousDiseases.length);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const getAppointmentId = () => {
-		console.log("Criando Consulta");
+		// console.log("Criando Consulta");
 		const now = new Date();
 		const dateAppointment = dateToTimestamp(now);
 
@@ -89,12 +80,7 @@ const FormAddConsultation = () => {
 				console.log("id consulta", appointmentId);
 			})
 			.catch((e) => {
-				window.alert(
-					"Ops.. algo deu errado com CRIAR CONSULTA  \n" +
-						"Verifique se está conectado e tente novamente.\n" +
-						"Se persistir entre em contato com equipe de TI.",
-					e
-				);
+				console.log(e);
 			});
 	};
 
@@ -118,34 +104,22 @@ const FormAddConsultation = () => {
 	};
 
 	const sendExamsToAPI = (data) => {
-		console.log("Enviar pedido de exame", data);
+		// console.log("Enviar pedido de exame", data);
 		setCanShowExams(true);
 
 		saluteAPI
 			.post(`exams?userId=${user.data.id}`, data)
 			.then((response) => {
-				console.log("Enviado com sucesso", response);
+				// console.log("Enviado com sucesso", response);
 				reset();
 			})
 			.catch((e) => {
-				window.alert(
-					"Ops.. algo deu errado com SALVAR EXAME.  \n" +
-						"Verifique se está conectado e tente novamente.\n" +
-						"Se persistir entre em contato com equipe de TI.",
-					e
-				);
+				console.log(e);
 			});
-	};
-
-	const backToHome = () => {
-		console.log('history.push("/homePhysician");');
-		// history.push("/homePhysician");
 	};
 
 	const closeConsultation = () => {
 		// Save conssultation
-
-		console.log("salvando consulta", exams.length);
 
 		const data = {
 			overview: overview,
@@ -155,20 +129,13 @@ const FormAddConsultation = () => {
 		saluteAPI
 			.patch(`appointments/${appointmentId}`, data)
 			.then((response) => {
-				console.log("Consulta finalizada com sucesso");
+				setCloseModal(true);
 			})
 			.catch((e) => {
-				window.alert(
-					"Ops.. algo deu errado com ATUALIZAR CONSULTA. \n" +
-						"Verifique se está conectado e tente novamente.\n" +
-						"Se persistir entre em contato com equipe de TI.",
-					e
-				);
+				console.log(e);
 			});
 		setOverview("");
 		setCanShowExams(false);
-		console.log("Fechado formuláro ....");
-		backToHome();
 	};
 
 	const writeOverview = (event) => {
@@ -186,15 +153,34 @@ const FormAddConsultation = () => {
 			<StyleBlockDiv>
 				<StyledTextarea
 					cols="50"
-					rows="5"
+					rows="3"
+					placeholder={"Insira aqui um resumo da consulta."}
 					value={overview}
 					onChange={writeOverview}
 				/>
 			</StyleBlockDiv>
 
-			<StyleBlockDiv>
-				<SearchDisease />
-				<UserDiseasesList />
+			<StyleBlockDiv className="colapse">
+				<Collapse
+					// defaultActiveKey={["1"]}
+					onChange={handleChange}
+					bordered={false}
+				>
+					<Panel header={"Buscar uma doença"} key="1">
+						<SearchDisease />
+					</Panel>
+					<Panel
+						header={
+							<>
+								<span>Exibir lista de doenças do paciente</span>{" "}
+								<Badge count={count} />
+							</>
+						}
+						key="2"
+					>
+						<UserDiseasesList />
+					</Panel>
+				</Collapse>
 			</StyleBlockDiv>
 			<StyleBlockDiv>
 				<form onSubmit={handleSubmit(onSubmit)}>
@@ -233,7 +219,11 @@ const FormAddConsultation = () => {
 					))}
 			</StyleBlockDiv>
 
-			<StyledButtonAnt onClick={closeConsultation}>
+			<StyledButtonAnt
+				onClick={() => {
+					closeConsultation();
+				}}
+			>
 				Salvar/Atualizar
 			</StyledButtonAnt>
 		</SytledContainer>

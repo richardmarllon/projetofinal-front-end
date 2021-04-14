@@ -6,7 +6,7 @@ import { saluteAPI } from "../../services/api";
 
 const DiseaseCard = ({ disease }) => {
 	const [loading, setLoading] = useState(false);
-	const { user, userToken, getUserData } = useUsers();
+	const { user, getUserData } = useUsers();
 
 	const handleRemove = (disease) => {
 		setLoading(true);

@@ -1,36 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from "antd";
-import { ModalContainer } from "./style";
+import { ModalContainer, ModalContent } from "./style";
 
-const Modalteste = ({ children, titleBtn }) => {
+const Modalteste = ({ children, titleBtn, closeModal, setCloseModal }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	useEffect(() => {
+		if (closeModal) {
+			setIsModalVisible(false);
+		}
+		setCloseModal(false);
+	}, [closeModal]);
 
 	const showModal = () => {
 		setIsModalVisible(true);
-	};
-
-	const handleOk = () => {
-		setIsModalVisible(false);
 	};
 
 	const handleCancel = () => {
 		setIsModalVisible(false);
 	};
 
+	const style = {
+		background: "rgba(0,0,0);",
+	};
+
 	return (
 		<ModalContainer>
-			<Button type="primary" onClick={showModal}>
-				{titleBtn}
-			</Button>
-			<Modal
+			<Button onClick={showModal}>{titleBtn}</Button>
+			<ModalContent
+				className="teste"
+				wrapClassName="vertical-center-modal"
 				visible={isModalVisible}
-				onOk={handleOk}
 				onCancel={handleCancel}
 				width={950}
 				footer={null}
+				bodyStyle={style}
 			>
 				{children}
-			</Modal>
+			</ModalContent>
 		</ModalContainer>
 	);
 };

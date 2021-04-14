@@ -60,7 +60,8 @@ export const StyledButtonAnt = styled(Button)`
 	height: 2.5%;
 	background-color: #72d9e0;
 	border-radius: 8px;
-	border-color: transparent;
+	border: none;
+	outline: none;
 `;
 
 export const StyledInput = styled.input`
@@ -75,9 +76,8 @@ export const StyledInput = styled.input`
 `;
 
 export const StyledTextarea = styled.textarea`
-	margin: 1rem 1rem;
-	padding: 0.5rem 0.5rem;
-	width: 96%;
+	padding-left: 1rem;
+	width: 100%;
 	font-size: 1.2rem;
 	border-radius: 8px;
 	resize: none;
@@ -88,11 +88,21 @@ export const StyleBlockDiv = styled.div`
 	color: #0d1b2a;
 	font-size: 1.3rem;
 	margin: 0.5rem auto;
-	padding: 0.5rem 0.5rem;
+	padding: 1rem;
 	width: 95%;
 	border: 2px solid #72d9e0;
 	border-radius: 10px;
 	background-color: rgba(114, 217, 224, 0.2);
+	&.colapse {
+		div {
+			font-size: 1.2rem;
+			text-align: left;
+			background-color: transparent;
+		}
+	}
+	div.ant-collapse-header {
+		background-color: rgba(255, 255, 255, 0.5);
+	}
 `;
 
 export const SytledHead = styled.div`
