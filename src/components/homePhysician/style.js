@@ -12,7 +12,6 @@ export const ContentContainer = styled.div`
 export const DesktopOnly = styled.div`
 	display: none;
 	@media (min-width: 1000px) {
-		/* border: 1px solid red; */
 		flex-grow: 1;
 		margin: 5%;
 		display: flex;

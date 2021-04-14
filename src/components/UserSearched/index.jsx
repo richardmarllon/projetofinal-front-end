@@ -1,6 +1,6 @@
 import React from "react";
+import { useHistory } from "react-router";
 import { useUsers } from "../../providers/UserProvider";
-import { BloodImg } from "../userBasicInfo/style";
 import {
 	BloodResult,
 	Container,
@@ -13,11 +13,11 @@ import {
 
 const UserSearched = () => {
 	const { user } = useUsers();
+	const history = useHistory();
 
 	const handleMore = () => {
-		console.log("ver mais");
+		history.push("/patientDetails");
 	};
-	// console.log(user);
 	return (
 		<Container>
 			<Blood>
