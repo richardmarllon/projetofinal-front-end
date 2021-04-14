@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { decode } from "jsonwebtoken";
 import { saluteAPI } from "../../services/api";
 export const UserContext = React.createContext({});
@@ -65,6 +65,7 @@ export const UserProvider = (props) => {
 		<UserContext.Provider
 			value={{
 				loggedUser,
+				setUser,
 				user,
 				getUserData,
 				setLoggedUser,

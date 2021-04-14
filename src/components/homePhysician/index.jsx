@@ -1,10 +1,17 @@
 import React from "react";
-import { ContentContainer } from "./style";
+import SearchPatient from "../searchPatient";
+import UserBasicInfo from "../userBasicInfo";
+import { ContentContainer, DesktopOnly } from "./style";
 
 const HomePhysician = () => {
 	return (
 		<>
-			<ContentContainer>você está na home do médico</ContentContainer>
+			<ContentContainer>
+				<UserBasicInfo />
+				<DesktopOnly>
+					<SearchPatient />
+				</DesktopOnly>
+			</ContentContainer>
 		</>
 	);
 };

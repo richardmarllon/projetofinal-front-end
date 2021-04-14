@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { CardSearch, Div, Input, Button, FormSearch } from "./style";
+import {
+	CardSearch,
+	Div,
+	Input,
+	Button,
+	FormSearch,
+	StyledTitle,
+} from "./style";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { saluteAPI } from "../../services/api";
 import { useUsers } from "../../providers/UserProvider";
+import UserSearched from "../UserSearched";
 
 const SearchPatient = () => {
 	const { getUserData, user } = useUsers();
@@ -33,12 +41,14 @@ const SearchPatient = () => {
 			.catch((e) => {
 				setSubmitError(true);
 			});
+		console.log(user.data);
 	};
 
 	return (
 		<>
 			<CardSearch>
 				<FormSearch onSubmit={handleSubmit(onSubmit)}>
+					<StyledTitle>Buscar paciente:</StyledTitle>
 					<Input
 						required
 						type="email"
@@ -51,13 +61,14 @@ const SearchPatient = () => {
 					/>
 					<Div>{errors.email?.message}</Div>
 					{submitError && <Div>Usuário não cadastrado</Div>}
-					<Div>
+					<Div className="btn">
 						<Button type="submit" onClick={handleSubmit(onSubmit)}>
-							Buscar Paciente
+							Buscar
 						</Button>
 					</Div>
 				</FormSearch>
 			</CardSearch>
+			{user.data && <UserSearched />}
 		</>
 	);
 };
