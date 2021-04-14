@@ -1,15 +1,30 @@
+import { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { HeaderContainer, LogoContainer, LogoutContainer } from "./style";
 import logoHeader from "../../images/headerLogo.svg";
 import { useUsers } from "../../providers/UserProvider";
 
 const Header = () => {
+	const [isToken, setIsToken] = useState(true);
+	const { loggedUser, setUserToken } = useUsers();
 	const history = useHistory();
-	const { loggedUser } = useUsers();
+
+	useEffect(() => {
+		if (!isToken) {
+			logOut();
+		}
+		setIsToken(true);
+	}, [isToken]);
+
 	const logoutUserfromHome = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("loggedUser");
-		document.location.reload();
+		setIsToken(false);
+	};
+
+	const logOut = () => {
+		setUserToken(false);
+		history.push("/");
 	};
 
 	return (
