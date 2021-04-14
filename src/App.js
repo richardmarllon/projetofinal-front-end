@@ -11,6 +11,7 @@ import SearchPatient from "./components/searchPatient";
 import UserDiseasesList from "./components/userDiseasesList";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import FormLogin from "./components/formLogin";
 
 function App() {
 	const { login } = useUsers();
@@ -24,6 +25,7 @@ function App() {
 
 	return (
 		<>
+			<FormLogin />
 			{/* <SearchPatient /> */}
 			<Routes />
 			{/* <FormRegister />
