@@ -98,6 +98,7 @@ const SearchedBasicInfo = () => {
 					{user.data.pregnant && <P>Grávida: Sim</P>}
 					{user.data.previousDiseases && (
 						<Div>
+							Doenças:
 							<Ul>
 								{chronicDisease.map((chronic, index) => (
 									<Li key={index}>{chronic} </Li>

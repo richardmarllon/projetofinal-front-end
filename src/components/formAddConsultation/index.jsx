@@ -142,12 +142,18 @@ const FormAddConsultation = ({ setCloseModal }) => {
 	return (
 		<SytledContainer>
 			<SytledHead>Nova consulta</SytledHead>
-			<StyledPar> Adicionando consulta ao paciente: {user.data.id}</StyledPar>
 			<StyledPar>
-				Médico(a) {loggedUser.data.name}, especialidade: "inserir depois"
+				Adicionando consulta {user.data.gender === "male" ? "ao" : "à"}{" "}
+				paciente: <b>{user.data.firstName}.</b>
+			</StyledPar>
+			<StyledPar>
+				Médic{loggedUser.data.gender === "male" ? "o" : "a"}:
+				<b> {loggedUser.data.firstName}</b>, especialidade:
+				<b> {loggedUser.data.medicalSpecialty}.</b>
 			</StyledPar>
 
 			<StyleBlockDiv>
+				Descrição da consulta:
 				<StyledTextarea
 					cols="50"
 					rows="3"
@@ -204,21 +210,24 @@ const FormAddConsultation = ({ setCloseModal }) => {
 					<StyledButton type="submit" value="adicionar" />
 				</form>
 
-				<StyledPar>Lista de exames:</StyledPar>
-				{canShowExams &&
-					exams.map((elm, idx) => (
-						<div key={idx}>
-							<StyledPar className="exam">
-								<BasicText>{idx + 1} - </BasicText>
-								<BasicText>
-									<b>exame de:</b> {elm.description}
-								</BasicText>
-								<BasicText>
-									<b>data:</b> {moment(elm.date).format("DD/MM/YYYY")}
-								</BasicText>
-							</StyledPar>
-						</div>
-					))}
+				{canShowExams && (
+					<>
+						<StyledPar>Lista de exames:</StyledPar>{" "}
+						{exams.map((elm, idx) => (
+							<div key={idx}>
+								<StyledPar className="exam">
+									<BasicText>{idx + 1} - </BasicText>
+									<BasicText>
+										<b>exame de:</b> {elm.description}
+									</BasicText>
+									<BasicText>
+										<b>data:</b> {moment(elm.date).format("DD/MM/YYYY")}
+									</BasicText>
+								</StyledPar>
+							</div>
+						))}
+					</>
+				)}
 			</StyleBlockDiv>
 
 			<StyledButtonAnt

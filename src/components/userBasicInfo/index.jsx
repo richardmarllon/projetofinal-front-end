@@ -70,6 +70,7 @@ const UserBasicInfo = () => {
 				<NameUser>
 					{loggedUser.data.firstName}, {calcAge(loggedUser.data.birthDate)}
 				</NameUser>
+
 				<CardsContainer>
 					<Div className="blood">
 						<GenericText>sangue:</GenericText>
@@ -86,12 +87,14 @@ const UserBasicInfo = () => {
 				</CardsContainer>
 				<Div className="details">
 					<P>detalhes:</P>
+					{loggedUser.data.userType === "physician" && "Médico"}
 					{loggedUser.data.allergies && (
 						<P>alergico a: {loggedUser.data.allergies}</P>
 					)}
 					{loggedUser.data.pregnant && <P>Grávida: Sim</P>}
 					{loggedUser.data.previousDiseases && (
 						<Div>
+							Doenças:
 							<Ul>
 								{chronicDisease.map((chronic, index) => (
 									<Li key={index}>{chronic} </Li>

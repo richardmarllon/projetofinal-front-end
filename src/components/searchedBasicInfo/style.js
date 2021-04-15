@@ -81,12 +81,20 @@ export const Div = styled.div`
 		flex-direction: column;
 		min-height: 8rem;
 		width: 90%;
+		max-width: 400px;
 		p:first-child {
 			font-size: 1.5rem;
 		}
 		div {
 			border: none;
 			background-color: transparent;
+		}
+		li {
+			text-decoration: none;
+			list-style: none;
+			text-align: left;
+			width: 95%;
+			margin: 0 auto;
 		}
 	}
 `;
@@ -138,7 +146,7 @@ export const Button = styled.button`
 `;
 
 export const Avatar = styled.img`
-	border: 1px solid rgb(51, 51, 161, 1);
+	border: 2px solid rgb(51, 51, 161, 1);
 	border-radius: 50%;
 	transform: translateY(-50%);
 	@media (min-width: 1000px) {
