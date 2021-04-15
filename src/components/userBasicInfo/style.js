@@ -166,6 +166,7 @@ export const GenericText = styled.small`
 `;
 export const BloodImg = styled.img`
 	max-width: 100px;
+	margin-bottom: 0.3rem;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
