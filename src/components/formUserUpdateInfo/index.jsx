@@ -5,7 +5,7 @@ import { useUsers } from "../../providers/UserProvider";
 import formatCPF from "../../util/formartCPF";
 import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../images/logoMobile.svg";
 import validatePhone from "../../util/validatePhone";
 
@@ -28,6 +28,16 @@ import { useHistory } from "react-router";
 
 const FormUserUpdateInfo = () => {
 	const { loggedUser, getLoggedUserData } = useUsers();
+
+	useEffect(() => {
+		if (loggedUser.data.bloodType) {
+			if (history.location.pathname === "/finishRegister") {
+				history.push("/");
+			} else {
+				handleClose();
+			}
+		}
+	}, [loggedUser]);
 
 	const {
 		firstName,
@@ -143,11 +153,6 @@ const FormUserUpdateInfo = () => {
 				setButtonMsg("Atualizado.");
 				getLoggedUserData(id);
 				// setTimeout(handleClose(), 1000);
-				if (history.location.pathname === "/finishRegister") {
-					history.push("/");
-				} else {
-					handleClose();
-				}
 			})
 			.catch((e) => {
 				console.log("ocorreu um erro: ", e);
