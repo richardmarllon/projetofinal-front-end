@@ -6,24 +6,28 @@ import { useUsers } from "../../providers/UserProvider";
 
 const Header = () => {
 	const [isToken, setIsToken] = useState(true);
-	const { loggedUser, setUserToken } = useUsers();
+	const { loggedUser, setLoggedUser, setUserToken } = useUsers();
 	const history = useHistory();
+	const [isLog, setIsLog] = useState(false);
 
 	useEffect(() => {
 		if (!isToken) {
 			logOut();
 		}
+
 		setIsToken(true);
 	}, [isToken]);
 
 	const logoutUserfromHome = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("loggedUser");
+
 		setIsToken(false);
 	};
 
 	const logOut = () => {
 		setUserToken(false);
+		setLoggedUser(false);
 		history.push("/");
 	};
 
