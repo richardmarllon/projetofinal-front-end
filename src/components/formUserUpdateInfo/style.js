@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const StyledH1 = styled.h1`
 	color: #0d1b2a;
+	font-size: 2rem;
 	@media (min-width: 600px) {
+		font-size: 3rem;
 		width: 100%;
 		text-align: center;
 		margin: 0;
@@ -64,11 +66,9 @@ export const StyledForm = styled.form`
 		margin: 30vh auto;
 	}
 	@media (min-width: 1000px) {
-		/* border: 1px solid red; */
 		border: 3px solid #72d9e0;
 		margin-top: 5%;
 		max-width: 800px;
-		height: 70vh;
 		border-radius: 40px;
 	}
 `;
@@ -88,7 +88,7 @@ export const StyledButton = styled.input`
 
 export const StyledInput = styled.input`
 	color: #0d1b2a;
-	width: 80%;
+	width: 100%;
 	height: 3rem;
 	border: none;
 	font-size: 1.2rem;
@@ -123,48 +123,15 @@ export const StyledSelect = styled.select`
 `;
 export const InputContainer = styled.div`
 	box-sizing: border-box;
-	height: 5rem;
-	width: 100%;
-	text-align: center;
+	width: 90%;
 	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	/* border: 1px solid red; */
+	margin: 0.5rem 0;
+	flex-direction: column;
+	max-width: 300px;
 
-	&.date {
-		height: 4rem;
-		width: 80%;
-	}
-
-	@media (min-width: 600px) {
-		max-width: 250px;
-		/* border: 1px solid red; */
-		height: 4rem;
-
-		&.date {
-			height: 4rem;
-		}
-		&.email {
-			min-width: 95%;
-		}
-		&.type {
-			width: 95%;
-			select {
-				width: 50%;
-			}
-		}
-		&.personal {
-			min-width: 95%;
-		}
-	}
+	
 	@media (min-width: 1000px) {
-		justify-content: space-around;
-		align-items: center;
-		&.type {
-			select {
-				width: 50%;
-			}
-		}
+		margin: 0 2.5% 0.2rem 0;
 	}
 `;
 export const LogoTag = styled.img`
@@ -174,31 +141,46 @@ export const LogoTag = styled.img`
 export const LogoContainer = styled.div`
 	width: 100%;
 	text-align: center;
-	/* border: 1px solid red; */
 	height: 5rem;
-	/* position: relative;
-	top: -12%; */
-	/* transform: translateY(-50%); */
 `;
 
 export const StyledLabel = styled.span`
-	width: 80%;
+	font-size: 1.2rem;
+	color: rgba(51, 51, 161, 1);
+	width: 90%;
+	font-weight: 700;
+	padding-left: 1rem;
 	text-align: left;
-	@media (min-width: 600px) {
-		display: none;
-	}
+	transform: translateY(50%);
 `;
 
 export const SendBtnContainer = styled.div`
-	/* border: 1px solid green; */
 	width: 100%;
 	text-align: center;
 	@media (min-width: 600px) {
 		margin-top: 1rem;
 	}
 `;
+
 export const ContentContainer = styled.div`
-	width: 90%;
+	width: 100%;
 	display: flex;
-	justify-content: space-between;
+`;
+
+export const SectionContainer = styled.div`
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	margin-bottom: 1rem;
+	display: flex;
+	width: 90%;
+	justify-content: center;
+	flex-wrap: wrap;
+	@media (min-width: 1000px) {
+		justify-content: flex-start;
+		padding: 1rem 5%;
+
+	}
+`;
+
+export const StyledLabelForm = styled.label`
+	text-transform: capitalize;
 `;
