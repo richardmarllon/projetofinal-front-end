@@ -106,6 +106,7 @@ export const CardsContainer = styled.div`
 		p {
 			font-size: 3rem;
 			padding: 0;
+			margin: 0;
 			text-align: center;
 			font-weight: 700;
 			${(props) =>

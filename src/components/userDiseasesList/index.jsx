@@ -1,6 +1,6 @@
 import { useUsers } from "../../providers/UserProvider";
 
-import { DiseasesContainer } from "./style";
+import { DiseasesContainer, Title } from "./style";
 import DiseaseCard from "../diseaseCard";
 
 const UserDiseasesList = () => {
@@ -12,7 +12,6 @@ const UserDiseasesList = () => {
 		<>
 			{user.data.previousDiseases && (
 				<DiseasesContainer>
-					<h1>doenças do usuário:</h1>
 					{user.data.previousDiseases.map((disease) => {
 						return <DiseaseCard disease={disease} />;
 					})}

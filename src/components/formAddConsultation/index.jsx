@@ -15,6 +15,7 @@ import {
 	StyledTextarea,
 	SytledHead,
 	SytledContainer,
+	BasicText,
 } from "./style";
 import { useState, useEffect } from "react";
 import SearchDisease from "../searchDisease";
@@ -27,15 +28,11 @@ const FormAddConsultation = ({ setCloseModal }) => {
 	const { Panel } = Collapse;
 	const [count, setCount] = useState(0);
 
-	const handleChange = (key) => {
-		console.log("mudou", key);
-	};
-
 	const schema = yup.object().shape({
 		description: yup.string().required("Obrigatório descrição do exame!"),
 		date: yup.date("Formato dia/mes/ano").required("Campo obrigatório!"),
 	});
-
+	console.log(user.data.exams);
 	const {
 		register,
 		handleSubmit,
@@ -52,10 +49,10 @@ const FormAddConsultation = ({ setCloseModal }) => {
 
 	useEffect(() => {
 		getAppointmentId();
-		console.log(user.data.previousDiseases.length);
-		// setCount(user.data.previousDiseases.length);
+		console.log(user.data.previousDiseases.length, "esse");
+		setCount(user.data.previousDiseases.length);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [user]);
 
 	const getAppointmentId = () => {
 		// console.log("Criando Consulta");
@@ -163,16 +160,15 @@ const FormAddConsultation = ({ setCloseModal }) => {
 			<StyleBlockDiv className="colapse">
 				<Collapse
 					// defaultActiveKey={["1"]}
-					onChange={handleChange}
 					bordered={false}
 				>
-					<Panel header={"Buscar uma doença"} key="1">
+					<Panel header={"Buscar e adicionar uma doença"} key="1">
 						<SearchDisease />
 					</Panel>
 					<Panel
 						header={
 							<>
-								<span>Exibir lista de doenças do paciente</span>{" "}
+								<span>Exibir/editar lista de doenças do paciente</span>{" "}
 								<Badge count={count} />
 							</>
 						}
@@ -197,6 +193,7 @@ const FormAddConsultation = ({ setCloseModal }) => {
 					)}
 
 					<StyledInput
+						className="date"
 						required
 						type="date"
 						placeholder="dd / mm / aaaa"
@@ -211,9 +208,14 @@ const FormAddConsultation = ({ setCloseModal }) => {
 				{canShowExams &&
 					exams.map((elm, idx) => (
 						<div key={idx}>
-							<StyledPar>
-								{idx + 1} {elm.description} &emsp;dia:{" "}
-								{moment(elm.date).format("DD/MM/YYYY")}
+							<StyledPar className="exam">
+								<BasicText>{idx + 1} - </BasicText>
+								<BasicText>
+									<b>exame de:</b> {elm.description}
+								</BasicText>
+								<BasicText>
+									<b>data:</b> {moment(elm.date).format("DD/MM/YYYY")}
+								</BasicText>
 							</StyledPar>
 						</div>
 					))}

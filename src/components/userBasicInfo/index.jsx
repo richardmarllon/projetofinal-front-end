@@ -80,7 +80,7 @@ const UserBasicInfo = () => {
 					<Div className="alergies">
 						<GenericText>alergias:</GenericText>
 						<P alergic={loggedUser.data.allergies ? "sim" : "nao"}>
-							{loggedUser.data.allergies ? "sim" : "nao"}
+							{loggedUser.data.allergies ? "sim" : "não"}
 						</P>
 					</Div>
 				</CardsContainer>

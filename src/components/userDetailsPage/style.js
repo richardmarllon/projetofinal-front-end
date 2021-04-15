@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Modalteste from "../modal";
+import ModalStyled from "../modal";
 
 export const HomePatientContainer = styled.div`
 	@media (min-width: 1000px) {
@@ -12,7 +12,6 @@ export const HomePatientContainer = styled.div`
 `;
 
 export const ActionsContainer = styled.div`
-	/* border: 3px solid red; */
 	flex-grow: 1;
 	margin: 3%;
 	display: flex;
@@ -45,4 +44,4 @@ export const StyledBtn = styled.button`
 	}
 `;
 
-export const ModalButton = styled(Modalteste)``;
+export const ModalButton = styled(ModalStyled)``;

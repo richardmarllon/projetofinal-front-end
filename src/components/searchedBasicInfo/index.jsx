@@ -88,7 +88,7 @@ const SearchedBasicInfo = () => {
 					<Div className="alergies">
 						<GenericText>alergias:</GenericText>
 						<P alergic={user.data.allergies ? "sim" : "nao"}>
-							{user.data.allergies ? "sim" : "nao"}
+							{user.data.allergies ? "sim" : "não"}
 						</P>
 					</Div>
 				</CardsContainer>

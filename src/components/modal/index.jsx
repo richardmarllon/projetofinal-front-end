@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "antd";
 import { ModalContainer, ModalContent } from "./style";
 
-const Modalteste = ({ children, titleBtn, closeModal, setCloseModal }) => {
+const ModalStyled = ({ children, titleBtn, closeModal, setCloseModal }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	useEffect(() => {
@@ -42,4 +42,4 @@ const Modalteste = ({ children, titleBtn, closeModal, setCloseModal }) => {
 	);
 };
 
-export default Modalteste;
+export default ModalStyled;

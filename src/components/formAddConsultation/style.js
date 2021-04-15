@@ -19,8 +19,14 @@ export const StyledSmall = styled.small`
 export const StyledPar = styled.p`
 	color: #0d1b2a;
 	font-size: 1.2rem;
-	margin: 0.25rem 0.25rem;
+	margin: 0.25rem;
 	padding: 0.25em 0.5em;
+	&.exam {
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		/* text-align: left; */
+		display: flex;
+		/* justify-content: flex-start; */
+	}
 `;
 
 export const StyledSpan = styled.span`
@@ -42,7 +48,7 @@ export const StyledButton = styled.input`
 	color: #0d1b2a;
 	font-size: 1.2em;
 	margin: 0.5% 2.5%;
-	padding: 0.25em 0.25rem;
+	padding: 0.25em;
 	width: 18%;
 	height: 2.5%;
 	background-color: #72d9e0;
@@ -73,6 +79,9 @@ export const StyledInput = styled.input`
 	border-radius: 5px;
 	border: 1px solid #ffff;
 	background-color: #ffff;
+	&.date {
+		cursor: pointer;
+	}
 `;
 
 export const StyledTextarea = styled.textarea`
@@ -118,4 +127,17 @@ export const SytledContainer = styled.div`
 	text-align: center;
 	border-radius: 10px;
 	background-color: rgba(114, 217, 224, 0.2);
+`;
+
+export const BasicText = styled.small`
+	font-size: 1.2rem;
+	padding: 0 1rem;
+	:first-child {
+		min-width: 5%;
+	}
+	:last-child {
+		flex-grow: 1;
+		text-align: right;
+		padding-right: 1rem;
+	}
 `;

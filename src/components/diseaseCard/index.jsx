@@ -30,19 +30,28 @@ const DiseaseCard = ({ disease }) => {
 
 	return (
 		<DiseaseContainer>
-			<DiseaseInfo key={disease.codigo}>CID: {disease.codigo}</DiseaseInfo>
-			<DiseaseInfo>{disease.nome}</DiseaseInfo>
+			<DiseaseInfo key={disease.codigo}>
+				<b>CID: </b>
+				{disease.codigo}
+			</DiseaseInfo>
+			<DiseaseInfo>
+				<b>Detalhes: </b>
+				{disease.nome}
+			</DiseaseInfo>
 			<DiseaseInfo>
 				<b>{disease.chronicDisease ? "É " : "Não é "}uma doença crônica</b>
 			</DiseaseInfo>
 			<StyledDelBtn
 				type="primary"
+				danger
 				icon={<DeleteOutlined />}
 				loading={loading}
 				onClick={() => {
 					handleRemove(disease);
 				}}
-			></StyledDelBtn>
+			>
+				remover
+			</StyledDelBtn>
 		</DiseaseContainer>
 	);
 };
