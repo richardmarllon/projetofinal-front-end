@@ -1,4 +1,5 @@
 import FormLogin from "../../components/formLogin";
+import Footer from "../../components/footer";
 import {
 	BrandMobileContainer,
 	BrandTag,
@@ -24,6 +25,8 @@ const Login = () => {
 					<FormLogin />
 				</LoginContainer>
 			</ContentContainer>
+			<Footer />
+			{/* footer - tirar o footer das pag */}
 		</>
 	);
 };

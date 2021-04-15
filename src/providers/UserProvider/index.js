@@ -75,6 +75,7 @@ export const UserProvider = (props) => {
 				getAllUsers,
 				login,
 				userToken,
+				setUserToken,
 				submitError,
 			}}
 		>
