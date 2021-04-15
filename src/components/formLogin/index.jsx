@@ -49,7 +49,7 @@ const FormLogin = () => {
 
 	return (
 		<>
-			<StyledForm>
+			<StyledForm data-testid="formTestId">
 				<LogoContainer>
 					<LogoTag src={logo} />
 				</LogoContainer>
@@ -57,6 +57,7 @@ const FormLogin = () => {
 				<StyledPar>Insira seus dados e faça o login</StyledPar>
 				<InputContainer>
 					<StyledInput
+						data-testid="userEmailTestId"
 						required
 						{...register("email")}
 						type="email"
@@ -66,6 +67,7 @@ const FormLogin = () => {
 				</InputContainer>
 				<InputContainer>
 					<StyledInput
+						data-testid="passwordTestId"
 						required
 						{...register("password")}
 						type="password"

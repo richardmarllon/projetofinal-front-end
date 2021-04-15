@@ -108,13 +108,14 @@ const FormRegister = () => {
 
 	return (
 		<>
-			<StyledForm onSubmit={handleSubmit(onSubmit)}>
+			<StyledForm data-testid="formTestId" onSubmit={handleSubmit(onSubmit)}>
 				<LogoContainer>
 					<LogoTag src={logo} />
 				</LogoContainer>
 				<StyledH1>Cadastre-se</StyledH1>
 				<InputContainer>
 					<StyledInput
+						data-testid="firstNameTestId"
 						required
 						type="text"
 						size="25"
@@ -127,6 +128,7 @@ const FormRegister = () => {
 				</InputContainer>
 				<InputContainer>
 					<StyledInput
+						data-testid="lastNameTestId"
 						required
 						type="text"
 						size="25"
@@ -140,6 +142,7 @@ const FormRegister = () => {
 				<InputContainer className="date">
 					<StyledLabel>Data de nascimento:</StyledLabel>
 					<StyledInput
+						data-testid="dateTestId"
 						required
 						type="date"
 						placeholder="data de nascimento"
@@ -149,6 +152,7 @@ const FormRegister = () => {
 				</InputContainer>
 				<InputContainer className="password">
 					<StyledInput
+						data-testid="passwordTestId"
 						required
 						type="password"
 						size="25"
@@ -161,6 +165,7 @@ const FormRegister = () => {
 				</InputContainer>
 				<InputContainer className="email">
 					<StyledInput
+						data-testid="userEmailTestId"
 						required
 						type="email"
 						size="25"
@@ -175,13 +180,18 @@ const FormRegister = () => {
 				</InputContainer>
 				<InputContainer className="type">
 					<StyledType>eu sou:</StyledType>
-					<StyledSelect {...register("userType")} onChange={handleUserType}>
+					<StyledSelect
+						data-testid="userTypeTestId"
+						{...register("userType")}
+						onChange={handleUserType}
+					>
 						<option value="patient">Paciente</option>
 						<option value="physician">Médico</option>
 					</StyledSelect>
 				</InputContainer>
 				<InputContainer className={!isPhysician && "personal"}>
 					<StyledInput
+						data-testid="cpfTestId"
 						required
 						type="text"
 						size="25"
