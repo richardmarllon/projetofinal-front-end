@@ -5,5 +5,5 @@ export const saluteAPI = axios.create({
 });
 
 export const diseaseAPI = axios.create({
-	baseURL: "https://cid.api.mokasoft.org/cid10"
-})
+	baseURL: "https://cid.api.mokasoft.org/cid10",
+});
