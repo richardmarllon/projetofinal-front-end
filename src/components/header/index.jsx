@@ -6,24 +6,27 @@ import { useUsers } from "../../providers/UserProvider";
 
 const Header = () => {
 	const [isToken, setIsToken] = useState(true);
-	const { loggedUser, setUserToken } = useUsers();
+	const { loggedUser, setLoggedUser, setUserToken } = useUsers();
 	const history = useHistory();
 
 	useEffect(() => {
 		if (!isToken) {
 			logOut();
 		}
+
 		setIsToken(true);
 	}, [isToken]);
 
 	const logoutUserfromHome = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("loggedUser");
+
 		setIsToken(false);
 	};
 
 	const logOut = () => {
 		setUserToken(false);
+		setLoggedUser(false);
 		history.push("/");
 	};
 
@@ -31,7 +34,9 @@ const Header = () => {
 		<>
 			<HeaderContainer>
 				<LogoContainer>
-					<img src={logoHeader} />
+					<Link to="home">
+						<img src={logoHeader} />
+					</Link>
 				</LogoContainer>
 				{loggedUser && (
 					<LogoutContainer>

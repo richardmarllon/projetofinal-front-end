@@ -13,7 +13,6 @@ import {
 	StyledForm,
 	StyledButton,
 	StyledSmall,
-	StyledType,
 	StyledInput,
 	StyledSelect,
 	InputContainer,
@@ -161,13 +160,13 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 			});
 	};
 
-	// Closing the Modal
-	const handleClose = () => {
-		setButtonMsg("Salvar e Atualizar");
-		setCloseModal(true);
-		// console.log("FECHANDO MODAL...");
-		// provavelente um setShowModal(false)
-	};
+	// // Closing the Modal
+	// const handleClose = () => {
+	// 	setButtonMsg("Salvar e Atualizar");
+	// 	setCloseModal(true);
+	// 	// console.log("FECHANDO MODAL...");
+	// 	// provavelente um setShowModal(false)
+	// };
 
 	const handleUserGender = (event) => {
 		const option = event.target.options.selectedIndex;
@@ -437,7 +436,6 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 				<SendBtnContainer>
 					<StyledButton type="submit" value={buttonMsg} />
 				</SendBtnContainer>
-				{/* </ContentContainer> */}
 			</StyledForm>
 		</>
 	);

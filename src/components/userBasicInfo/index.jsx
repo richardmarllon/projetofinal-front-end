@@ -17,12 +17,10 @@ import {
 	CardsContainer,
 	GenericText,
 	BloodImg,
-	UpdateModal,
 	StyledEdit,
 	UpdateInfoForm,
 } from "./style";
 import ModalStyled from "../modal";
-import FormUserUpdateInfo from "../formUserUpdateInfo";
 
 const UserBasicInfo = () => {
 	const { loggedUser, user } = useUsers();

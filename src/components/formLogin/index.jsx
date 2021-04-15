@@ -49,14 +49,15 @@ const FormLogin = () => {
 
 	return (
 		<>
-			<StyledForm>
+			<StyledForm data-testid="formTestId">
 				<LogoContainer>
 					<LogoTag src={logo} />
 				</LogoContainer>
-				<StyledH1>Seja bem vindo!</StyledH1>
-				<StyledPar>insira seus dados e faça o login</StyledPar>
+				<StyledH1>Seja-bem vindo&#40;a&#41;!</StyledH1>
+				<StyledPar>Insira seus dados e faça o login</StyledPar>
 				<InputContainer>
 					<StyledInput
+						data-testid="userEmailTestId"
 						required
 						{...register("email")}
 						type="email"
@@ -66,6 +67,7 @@ const FormLogin = () => {
 				</InputContainer>
 				<InputContainer>
 					<StyledInput
+						data-testid="passwordTestId"
 						required
 						{...register("password")}
 						type="password"
@@ -77,10 +79,10 @@ const FormLogin = () => {
 				<StyledButton
 					type="submit"
 					onClick={handleSubmit(onSubmit)}
-					value="entrar"
+					value="Entrar"
 				/>
 				<StyledPar>
-					ainda não tem conta?
+					Ainda não tem conta?
 					<StyledSpan onClick={handleRegister} inputColor="#EF7272">
 						{" "}
 						Cadastre-se aqui!

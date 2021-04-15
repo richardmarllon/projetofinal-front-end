@@ -8,6 +8,7 @@ import Contact from "../components/contact";
 import AboutPage from "../pages/aboutPage";
 import UserDetails from "../pages/userDetails";
 import FinishRegister from "../pages/finishRegister";
+import ErrorsMessages from "../pages/errorsMessages";
 
 const Routes = () => {
 	return (
@@ -25,6 +26,7 @@ const Routes = () => {
 				component={FinishRegister}
 				isPrivate
 			/>
+			<Route component={ErrorsMessages} />
 		</Switch>
 	);
 };
