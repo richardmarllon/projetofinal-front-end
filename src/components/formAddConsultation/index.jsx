@@ -2,232 +2,243 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import moment from "moment";
-// import {useUsers} from "../../providers/UserProvider";
+import { useUsers } from "../../providers/UserProvider";
 import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
-
-
-import {    
-    StyledButton, 
-    StyledSmall,    
-    StyledInput,
-    StyledButtonAnt,
-    StyledPar,    
-    StyleBlockDiv,
-    StyledTextarea,
-    SytledHead,
-    SytledContainer
-  } from "./style";
-
+import {
+	StyledButton,
+	StyledSmall,
+	StyledInput,
+	StyledButtonAnt,
+	StyledPar,
+	StyleBlockDiv,
+	StyledTextarea,
+	SytledHead,
+	SytledContainer,
+	BasicText,
+} from "./style";
 import { useState, useEffect } from "react";
+import SearchDisease from "../searchDisease";
+import UserDiseasesList from "../userDiseasesList";
+import { Badge, Collapse } from "antd";
 
+const FormAddConsultation = ({ setCloseModal }) => {
+	const { user, loggedUser } = useUsers();
+	console.log(user, "no componente", loggedUser);
+	const { Panel } = Collapse;
+	const [count, setCount] = useState(0);
 
+	const schema = yup.object().shape({
+		description: yup.string().required("Obrigatório descrição do exame!"),
+		date: yup.date("Formato dia/mes/ano").required("Campo obrigatório!"),
+	});
+	console.log(user.data.exams);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm({
+		resolver: yupResolver(schema),
+	});
 
-const FormAddConsultation = ({patientId, patientName}) => {
+	const [overview, setOverview] = useState("");
+	const [exams, setExams] = useState([]);
+	const [canShowExams, setCanShowExams] = useState(false);
+	const [appointmentId, setAppointmentId] = useState("");
 
-  /* VER COMO SERÁ COLETADO OS DADOS DO médico / paciente     
-    para o teste estou usando: 
-      paciente userId = 1; 
-      médico userId = 2;  
-  */
+	useEffect(() => {
+		getAppointmentId();
+		console.log(user.data.previousDiseases.length, "esse");
+		setCount(user.data.previousDiseases.length);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user]);
 
-  // Ainda chumbados para testes...
-  patientName = 'Suellen Camargo';
-  patientId = 1;
+	const getAppointmentId = () => {
+		// console.log("Criando Consulta");
+		const now = new Date();
+		const dateAppointment = dateToTimestamp(now);
 
-  // const {loggedUser} = useUsers || "";
-  // const {firstName, lastName, idUser, medicalSpecialty} = loggedUser.data || "";
+		const data = {
+			userID: user.data.id,
+			date: dateAppointment,
+			physicianlD: loggedUser.data.id,
+			physicianName: loggedUser.data.name,
+			// medicalSpecialty: loggedUser.data.medicalSpecialty,
+			overview: "",
+		};
 
-  const physicianName = 'Alanna Ajzental'; // firstName + lastName
-  const physicianId = 2; // id
-  const specialty = 'trauma surgeon'; // medicalSpecialty
-  
-  const schema = yup.object().shape({
-    description: yup.string().required("Obrigatório descrição do exame!"),
-    date: yup.date('Formato dia/mes/ano').required("Campo obrigatório!")   
-  });
+		saluteAPI
+			.post("appointments", data)
+			.then((response) => {
+				console.log("Consulta criada com sucesso");
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({  
-    resolver: yupResolver(schema)
-  });
+				setAppointmentId(response.data.id);
+				console.log("id consulta", appointmentId);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
 
-  const [overview, setOverview] = useState("");
-  const [exams, setExams] = useState([]);
-  const [canShowExams, setCanShowExams] = useState(false);
-  const [appointmentId, setAppointmentId] = useState("");
-  
+	const onSubmit = (data) => {
+		console.log("id consulta", appointmentId);
+		// format date for unix stamptime
+		data.date = dateToTimestamp(data.date);
 
-  useEffect(() => {
-    getAppointmentId();  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[physicianId]);
-  
+		//  set other data
+		data.userId = user.data.name;
+		// data.physicianId = physicianId;
+		data.physicianName = loggedUser.data.name;
+		// data.physicianSpecialty = loggedUser.data.medicalSpecialty;
+		data.examFinished = false;
+		data.appointmentId = appointmentId;
+		data.reportLink = null;
 
-  const getAppointmentId = () => {    
-      console.log('Criando Consulta');
-      const now = new Date();
-      const dateAppointment = dateToTimestamp(now);
-      
-      const  data = {
-        "userID": patientId,
-        "date": dateAppointment,
-        "physicianlD": physicianId,
-        "physicianName": physicianName,
-        "medicalSpecialty": specialty,
-        "overview": ""
-      }
-      
-      saluteAPI
-        .post('appointments', data)
-        .then((response) => {        
-          console.log('Consulta criada com sucesso');        
+		// add exam and send to API
+		setExams([...exams, data]);
+		sendExamsToAPI(data);
+	};
 
-          setAppointmentId(response.data.id)
-          console.log('id consulta', appointmentId);
-         
-        })
-        .catch((e) => {
-          window.alert(
-            'Ops.. algo deu errado com CRIAR CONSULTA  \n' + 
-            'Verifique se está conectado e tente novamente.\n' +
-            'Se persistir entre em contato com equipe de TI.',e);
-        });  
-  };
-   
+	const sendExamsToAPI = (data) => {
+		// console.log("Enviar pedido de exame", data);
+		setCanShowExams(true);
 
-  const onSubmit = (data) => {
-      
-    console.log("id consulta",appointmentId);
-    // format date for unix stamptime
-    data.date = dateToTimestamp(data.date);
-  
-    
-    //  set other data
-    data.userId = patientId;
-    // data.physicianId = physicianId;
-    data.physicianName = physicianName;
-    data.physicianSpecialty = specialty;
-    data.examFinished= false;
-    data.appointmentId = appointmentId;
-    data.reportLink = null;
+		saluteAPI
+			.post(`exams?userId=${user.data.id}`, data)
+			.then((response) => {
+				// console.log("Enviado com sucesso", response);
+				reset();
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
 
-    
-    // add exam and send to API
-    setExams([...exams, data]);
-    sendExamsToAPI(data);     
-  };
+	const closeConsultation = () => {
+		// Save conssultation
 
+		const data = {
+			overview: overview,
+			qtyExams: exams.length,
+		};
 
-  const sendExamsToAPI = (data) => {
-    console.log('Enviar pedido de exame', data);
-    setCanShowExams(true); 
-    
-    saluteAPI
-      .post(`exams?userId=${patientId}`, data)
-      .then((response) => {        
-        console.log('Enviado com sucesso', response);
-        reset();        
-        
-      })
-      .catch((e) => {
-        window.alert(
-          'Ops.. algo deu errado com SALVAR EXAME.  \n' + 
-          'Verifique se está conectado e tente novamente.\n' +
-          'Se persistir entre em contato com equipe de TI.',e);
-      });   
-  }; 
-  
-  const backToHome = () => {
-    console.log('history.push("/homePhysician");')
-    // history.push("/homePhysician");
-  }
+		saluteAPI
+			.patch(`appointments/${appointmentId}`, data)
+			.then((response) => {
+				setCloseModal(true);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+		setOverview("");
+		setCanShowExams(false);
+	};
 
-  const closeConsultation = () => {
-    // Save conssultation
-    
-    console.log('salvando consulta',exams.length);
-   
-    const  data = {          
-      "overview": overview,
-      "qtyExams": exams.length
-    }
-       
-    saluteAPI
-      .patch(`appointments/${appointmentId}`, data)
-      .then((response) => {        
-        console.log('Consulta finalizada com sucesso');       
-          
-      })
-      .catch((e) => {
-        window.alert(
-          'Ops.. algo deu errado com ATUALIZAR CONSULTA. \n' + 
-          'Verifique se está conectado e tente novamente.\n' +
-          'Se persistir entre em contato com equipe de TI.',e);
-      });
-      setOverview('');
-      setCanShowExams(false);         
-      console.log('Fechado formuláro ....');    
-      backToHome();    
-  }
+	const writeOverview = (event) => {
+		setOverview(event.target.value);
+	};
 
-  const writeOverview = (event) =>{  
-    setOverview(event.target.value);
-  }
-  
-  return (
+	return (
+		<SytledContainer>
+			<SytledHead>Nova consulta</SytledHead>
+			<StyledPar>
+				Adicionando consulta {user.data.gender === "male" ? "ao" : "à"}{" "}
+				paciente: <b>{user.data.firstName}.</b>
+			</StyledPar>
+			<StyledPar>
+				Médic{loggedUser.data.gender === "male" ? "o" : "a"}:
+				<b> {loggedUser.data.firstName}</b>, especialidade:
+				<b> {loggedUser.data.medicalSpecialty}.</b>
+			</StyledPar>
 
-    
-    <SytledContainer>            
-      <SytledHead>Nova consulta</SytledHead>
-      <StyledPar> Adicionando consulta ao paciente: {patientName}</StyledPar>
-      <StyledPar> Médico(a) {physicianName}, especialidade: {specialty}</StyledPar>
-      
-      <StyleBlockDiv>
+			<StyleBlockDiv>
+				Descrição da consulta:
+				<StyledTextarea
+					cols="50"
+					rows="3"
+					placeholder={"Insira aqui um resumo da consulta."}
+					value={overview}
+					onChange={writeOverview}
+				/>
+			</StyleBlockDiv>
 
-        <StyledTextarea cols="50" rows="5" 
-          value={overview} 
-          onChange={writeOverview}
-        />
-      </StyleBlockDiv>
+			<StyleBlockDiv className="colapse">
+				<Collapse
+					// defaultActiveKey={["1"]}
+					bordered={false}
+				>
+					<Panel header={"Buscar e adicionar uma doença"} key="1">
+						<SearchDisease />
+					</Panel>
+					<Panel
+						header={
+							<>
+								<span>Exibir/editar lista de doenças do paciente</span>{" "}
+								<Badge count={count} />
+							</>
+						}
+						key="2"
+					>
+						<UserDiseasesList />
+					</Panel>
+				</Collapse>
+			</StyleBlockDiv>
+			<StyleBlockDiv>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<StyledPar> Adicionar solicitação de exames:</StyledPar>
+					<StyledInput
+						required
+						type="text"
+						size="25"
+						placeholder="nome do exame"
+						{...register("description")}
+					/>
+					{errors.description && (
+						<StyledSmall>{errors.description.message}</StyledSmall>
+					)}
 
-      <StyleBlockDiv>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <StyledPar> Adicionar solicitação de exames:</StyledPar>   
-          <StyledInput
-              required
-              type='text'
-              size="25"           
-              placeholder='nome do exame'       
-              {...register("description")} 
-            />
-             {errors.description && <StyledSmall >{errors.description.message}</StyledSmall>}
+					<StyledInput
+						className="date"
+						required
+						type="date"
+						placeholder="dd / mm / aaaa"
+						{...register("date")}
+					/>
+					{errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}
 
-            <StyledInput 
-              required
-              type='date'
-              placeholder='dd / mm / aaaa'                
-              {...register("date")} 
-            />
-            {errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}                  
+					<StyledButton type="submit" value="adicionar" />
+				</form>
 
-            <StyledButton type="submit" value='adicionar'/>
+				{canShowExams && (
+					<>
+						<StyledPar>Lista de exames:</StyledPar>{" "}
+						{exams.map((elm, idx) => (
+							<div key={idx}>
+								<StyledPar className="exam">
+									<BasicText>{idx + 1} - </BasicText>
+									<BasicText>
+										<b>exame de:</b> {elm.description}
+									</BasicText>
+									<BasicText>
+										<b>data:</b> {moment(elm.date).format("DD/MM/YYYY")}
+									</BasicText>
+								</StyledPar>
+							</div>
+						))}
+					</>
+				)}
+			</StyleBlockDiv>
 
-        </form>
-     
-        <StyledPar>Lista de exames:</StyledPar>
-        { canShowExams && 
-          exams.map((elm,idx) => 
-          <div key={idx}>
-              <StyledPar>{idx + 1} {elm.description} &emsp;dia: {moment(elm.date).format('DD/MM/YYYY')}</StyledPar>
-          </div>       
-          )
-        }
-      </StyleBlockDiv> 
-
-      <StyledButtonAnt onClick={closeConsultation}>Salvar/Atualizar</StyledButtonAnt> 
-
-    </SytledContainer>
-  );
-}
+			<StyledButtonAnt
+				onClick={() => {
+					closeConsultation();
+				}}
+			>
+				Salvar/Atualizar
+			</StyledButtonAnt>
+		</SytledContainer>
+	);
+};
 
 export default FormAddConsultation;

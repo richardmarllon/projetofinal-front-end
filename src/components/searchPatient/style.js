@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const CardSearch = styled.div`
-	/* border: 1px solid red; */
 	flex-grow: 1;
 	border-radius: 40px;
 	display: flex;
@@ -10,7 +9,6 @@ export const CardSearch = styled.div`
 
 export const Div = styled.div`
 	&.btn {
-		/* border: 1px solid red; */
 		width: 60%;
 		text-align: center;
 	}
@@ -51,7 +49,6 @@ export const FormSearch = styled.form`
 	border-radius: 40px;
 	background-color: rgba(114, 217, 224, 0.2);
 	height: fit-content;
-	border: 1px solid red;
 	border: 3px solid rgba(114, 217, 224, 1);
 	display: flex;
 	flex-direction: column;
@@ -59,9 +56,7 @@ export const FormSearch = styled.form`
 	align-items: center;
 `;
 export const StyledTitle = styled.h3`
-	/* border: 1px solid red; */
 	padding: 0.5rem 0;
-	/* border-left: 10px solid #3333a1; */
 	width: 60%;
 	&::before {
 		content: "-";

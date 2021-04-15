@@ -7,8 +7,10 @@ import {
 	DiseaseDetails,
 	ResultContainer,
 	SearchContainer,
+	SearchIcon,
 	StyledBtn,
 	StyledCheck,
+	StyledDiv,
 	StyledInput,
 	Title,
 } from "./style";
@@ -17,11 +19,10 @@ const SearchDisease = () => {
 	const [value, setValue] = useState("");
 	const { diseases } = useDisease();
 	const [resultValue, setResultValue] = useState();
-	const { loggedUser, userToken, getLoggedUserData } = useUsers();
+	const { user, getUserData } = useUsers();
 	const [update, setUpdate] = useState(false);
 	const [isChronic, setIsChronic] = useState(false);
 	const [found, setFound] = useState(true);
-
 	const handleSearch = () => {
 		setFound(true);
 		if (value !== "") {
@@ -40,25 +41,18 @@ const SearchDisease = () => {
 			chronicDisease: isChronic ? true : false,
 		};
 
-		const authConfig = { Authorization: `${"Bearer " + userToken}` };
-		loggedUser.data.previousDiseases.push(updateDisease);
-		const serializerData = loggedUser.data.previousDiseases;
+		user.data.previousDiseases.push(updateDisease);
+		const serializerData = user.data.previousDiseases;
 
 		saluteAPI
-			.patch(
-				`/users/${loggedUser.data.id}`,
-				{
-					previousDiseases: serializerData,
-				},
-				{
-					headers: authConfig,
-				}
-			)
+			.patch(`/users/${user.data.id}`, {
+				previousDiseases: serializerData,
+			})
 			.then((response) => {
 				setUpdate(false);
 				setResultValue("");
 				setValue("");
-				getLoggedUserData(loggedUser.data.id);
+				getUserData(user.data.id);
 				setIsChronic(false);
 			})
 			.catch((err) => {
@@ -68,29 +62,36 @@ const SearchDisease = () => {
 
 	return (
 		<SearchContainer>
-			<h2>buscar uma doença:</h2>
-			<StyledInput
-				type="text"
-				placeholder={"digite o nome da doença"}
-				onChange={(evt) => {
-					setValue(evt.target.value);
-				}}
-			/>
-			<StyledBtn
-				onClick={() => {
-					handleSearch();
-				}}
-			>
-				buscar
-			</StyledBtn>
+			<StyledDiv>
+				<Title>digite o nome da doença:</Title>
+				<StyledInput
+					type="text"
+					value={value}
+					placeholder={"ex: Cólera"}
+					onChange={(evt) => {
+						setValue(evt.target.value);
+					}}
+				/>
+				<StyledBtn
+					onClick={() => {
+						handleSearch();
+					}}
+				>
+					<SearchIcon />
+				</StyledBtn>
+			</StyledDiv>
 			{!found && <h4>Doença não encontrada</h4>}
 			{resultValue && (
 				<ResultContainer>
 					<Title>{value}</Title>
-					<DiseaseDetails>CID: {resultValue.codigo}</DiseaseDetails>
-					<DiseaseDetails>Detalhes: {resultValue.nome}</DiseaseDetails>
 					<DiseaseDetails>
-						é uma doença crônica? SIM
+						<b>CID:</b> {resultValue.codigo}
+					</DiseaseDetails>
+					<DiseaseDetails>
+						<b>Detalhes:</b> {resultValue.nome}
+					</DiseaseDetails>
+					<DiseaseDetails>
+						É uma doença crônica? SIM &nbsp;
 						<StyledCheck
 							type="checkbox"
 							onChange={() => {
@@ -100,13 +101,13 @@ const SearchDisease = () => {
 					</DiseaseDetails>
 
 					<AddBtn
+						loading={update}
 						onClick={() => {
 							handleAdd();
 						}}
 					>
 						Adicionar ao paciente
 					</AddBtn>
-					{update && <h4>Adicionando...</h4>}
 				</ResultContainer>
 			)}
 		</SearchContainer>

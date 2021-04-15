@@ -88,7 +88,7 @@ const SearchedBasicInfo = () => {
 					<Div className="alergies">
 						<GenericText>alergias:</GenericText>
 						<P alergic={user.data.allergies ? "sim" : "nao"}>
-							{user.data.allergies ? "sim" : "nao"}
+							{user.data.allergies ? "sim" : "não"}
 						</P>
 					</Div>
 				</CardsContainer>
@@ -98,6 +98,7 @@ const SearchedBasicInfo = () => {
 					{user.data.pregnant && <P>Grávida: Sim</P>}
 					{user.data.previousDiseases && (
 						<Div>
+							Doenças:
 							<Ul>
 								{chronicDisease.map((chronic, index) => (
 									<Li key={index}>{chronic} </Li>
