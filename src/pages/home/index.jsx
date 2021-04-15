@@ -8,14 +8,19 @@ import { useEffect, useState } from "react";
 import brand from "../../images/brand.svg";
 import { saluteAPI } from "../../services/api";
 import { decode } from "jsonwebtoken";
+import { useHistory } from "react-router";
 
 const Home = () => {
 	const { loggedUser } = useUsers();
 	const [render, setRender] = useState(false);
+	const history = useHistory();
 
 	useEffect(() => {
 		if (loggedUser) {
 			setRender(true);
+		}
+		if (!loggedUser.data.bloodType) {
+			history.push("/finishRegister");
 		}
 	}, [loggedUser]);
 

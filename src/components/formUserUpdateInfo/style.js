@@ -5,6 +5,7 @@ export const StyledH1 = styled.h1`
 	@media (min-width: 600px) {
 		width: 100%;
 		text-align: center;
+		margin: 0;
 	}
 `;
 
@@ -28,6 +29,10 @@ export const StyledType = styled.p`
 	color: #0d1b2a;
 	font-size: 1.5rem;
 	width: 5rem;
+	@media (min-width: 1000px) {
+		width: fit-content;
+		margin: 0;
+	}
 `;
 
 export const StyledSpan = styled.span`
@@ -52,11 +57,19 @@ export const StyledForm = styled.form`
 		border-bottom: none;
 		min-width: 50%;
 		max-width: 650px;
-
 		flex-direction: row;
 		flex-wrap: wrap;
 		height: fit-content;
 		justify-content: space-evenly;
+		margin: 30vh auto;
+	}
+	@media (min-width: 1000px) {
+		/* border: 1px solid red; */
+		border: 3px solid #72d9e0;
+		margin-top: 5%;
+		max-width: 800px;
+		height: 70vh;
+		border-radius: 40px;
 	}
 `;
 
@@ -91,13 +104,13 @@ export const StyledInput = styled.input`
 
 export const StyledTextarea = styled.input`
 	margin: 1rem 1rem;
-  padding: .5rem .5rem;
-  width: 96%;
-  font-size: 1.2rem;
-  border-radius: 8px;
-  resize: none;
-  border: none;
-`
+	padding: 0.5rem 0.5rem;
+	width: 96%;
+	font-size: 1.2rem;
+	border-radius: 8px;
+	resize: none;
+	border: none;
+`;
 
 export const StyledSelect = styled.select`
 	color: #0d1b2a;
@@ -116,9 +129,11 @@ export const InputContainer = styled.div`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	/* border: 1px solid red; */
+
 	&.date {
-		height: 6.5rem;
-		flex-direction: column;
+		height: 4rem;
+		width: 80%;
 	}
 
 	@media (min-width: 600px) {
@@ -133,13 +148,22 @@ export const InputContainer = styled.div`
 			min-width: 95%;
 		}
 		&.type {
-			min-width: 95%;
+			width: 95%;
 			select {
 				width: 50%;
 			}
 		}
 		&.personal {
 			min-width: 95%;
+		}
+	}
+	@media (min-width: 1000px) {
+		justify-content: space-around;
+		align-items: center;
+		&.type {
+			select {
+				width: 50%;
+			}
 		}
 	}
 `;
@@ -150,6 +174,11 @@ export const LogoTag = styled.img`
 export const LogoContainer = styled.div`
 	width: 100%;
 	text-align: center;
+	/* border: 1px solid red; */
+	height: 5rem;
+	/* position: relative;
+	top: -12%; */
+	/* transform: translateY(-50%); */
 `;
 
 export const StyledLabel = styled.span`
@@ -167,4 +196,9 @@ export const SendBtnContainer = styled.div`
 	@media (min-width: 600px) {
 		margin-top: 1rem;
 	}
+`;
+export const ContentContainer = styled.div`
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
 `;
