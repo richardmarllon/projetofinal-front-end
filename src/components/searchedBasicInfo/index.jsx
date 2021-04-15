@@ -3,6 +3,7 @@ import { useUsers } from "../../providers/UserProvider";
 import moment from "moment";
 import userAvatar from "../../images/blood/user.png";
 import doctor from "../../images/blood/doctor.jpg";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 import {
 	ContainerUser,
@@ -16,20 +17,23 @@ import {
 	CardsContainer,
 	GenericText,
 	BloodImg,
+	StyledArrow,
 } from "./style";
+import { useHistory } from "react-router";
 
-const UserBasicInfo = () => {
-	const { loggedUser, user } = useUsers();
+const SearchedBasicInfo = () => {
+	const { user, setUser } = useUsers();
 	const [open, setOpen] = useState(false);
 	const [chronicDisease, setChronicDisease] = useState([]);
+	const history = useHistory();
 
 	useEffect(() => {
 		listChronicDisease();
 	}, [user]);
 
 	const listChronicDisease = () => {
-		if (loggedUser.data.previousDiseases) {
-			const listDiseases = loggedUser.data.previousDiseases
+		if (user.data.previousDiseases) {
+			const listDiseases = user.data.previousDiseases
 				.filter((disease) => disease.chronicDisease)
 				.map((disease) => disease.nome);
 			setChronicDisease(listDiseases);
@@ -58,9 +62,15 @@ const UserBasicInfo = () => {
 
 	return (
 		<>
+			<StyledArrow
+				onClick={() => {
+					setUser("");
+					history.push("/home");
+				}}
+			/>
 			<ContainerUser>
 				<Div className="avatar">
-					{loggedUser.data.userType === "patient" ? (
+					{user.data.userType === "patient" ? (
 						<Avatar src={userAvatar}></Avatar>
 					) : (
 						<Avatar src={doctor}></Avatar>
@@ -68,29 +78,25 @@ const UserBasicInfo = () => {
 				</Div>
 				<Button onClick={() => setOpen(true)}>config</Button>
 				<NameUser>
-					{loggedUser.data.firstName}, {calcAge(loggedUser.data.birthDate)}
+					{user.data.firstName}, {calcAge(user.data.birthDate)}
 				</NameUser>
 				<CardsContainer>
 					<Div className="blood">
 						<GenericText>sangue:</GenericText>
-						<BloodImg
-							type={loggedUser.data.bloodType + loggedUser.data.rhFactor}
-						/>
+						<BloodImg type={user.data.bloodType + user.data.rhFactor} />
 					</Div>
 					<Div className="alergies">
 						<GenericText>alergias:</GenericText>
-						<P alergic={loggedUser.data.allergies ? "sim" : "nao"}>
-							{loggedUser.data.allergies ? "sim" : "nao"}
+						<P alergic={user.data.allergies ? "sim" : "nao"}>
+							{user.data.allergies ? "sim" : "nao"}
 						</P>
 					</Div>
 				</CardsContainer>
 				<Div className="details">
 					<P>detalhes:</P>
-					{loggedUser.data.allergies && (
-						<P>alergico a: {loggedUser.data.allergies}</P>
-					)}
-					{loggedUser.data.pregnant && <P>Grávida: Sim</P>}
-					{loggedUser.data.previousDiseases && (
+					{user.data.allergies && <P>alergico a: {user.data.allergies}</P>}
+					{user.data.pregnant && <P>Grávida: Sim</P>}
+					{user.data.previousDiseases && (
 						<Div>
 							<Ul>
 								{chronicDisease.map((chronic, index) => (
@@ -100,7 +106,6 @@ const UserBasicInfo = () => {
 						</Div>
 					)}
 				</Div>
-
 				<Button className="vacina">vacinas</Button>
 			</ContainerUser>
 			{open && (
@@ -112,4 +117,4 @@ const UserBasicInfo = () => {
 	);
 };
 
-export default UserBasicInfo;
+export default SearchedBasicInfo;

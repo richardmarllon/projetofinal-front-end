@@ -24,6 +24,7 @@ import { useState } from "react";
 import logo from "../../images/logoMobile.svg";
 import { useHistory } from "react-router";
 import moment from "moment";
+import validatePhone from "../../util/validatePhone"
 
 const FormUserUpdateInfo = () => {
 	const history = useHistory();  
@@ -70,8 +71,7 @@ const FormUserUpdateInfo = () => {
 			.string()
 			.min(11, "CPF com erro!")
 			.max(14, "CPF com erro!")
-			.required("Campo obrigatório!"),
-		
+			.required("Campo obrigatório!")		
 	});
 
 	const {
@@ -88,6 +88,7 @@ const FormUserUpdateInfo = () => {
 	const [isCpfError, setIsCpfError] = useState(false);
 	const [specialtyError, setSpecialtyError] = useState(false);
 	const [bloodError, setBloodError] = useState(false);
+	const [phoneError, setPhoneError] = useState(false);
 	const [buttonMsg, setButtonMsg] = useState('Salvar e Atualizar');
 
 	
@@ -102,6 +103,12 @@ const FormUserUpdateInfo = () => {
 			return;
 		}
 		data.cpf = _cpf;
+
+		// checking phone
+		if (!validatePhone(data.cellphoneNumber)){
+			setPhoneError(true);
+			return;
+		} 
 
 		if(isPhysician && !data.medicalSpecialty) {
 			setSpecialtyError(true);			
@@ -132,8 +139,7 @@ const FormUserUpdateInfo = () => {
 	};
 
 	
-	const setUserRegister = (data) => {
-		console.log('atualizar dados',data)
+	const setUserRegister = (data) => {		
 		saluteAPI
 		.patch(`/users/${id}`, data)
 			.then((response) => {
@@ -305,7 +311,6 @@ const FormUserUpdateInfo = () => {
 					</>
 				)}
 
-
 				<InputContainer>
 					<StyledInput					 	
 						type="text"							
@@ -362,13 +367,15 @@ const FormUserUpdateInfo = () => {
 						placeholder="telefone"
 						value={inputUser.cellphoneNumber}
 						{...register("cellphoneNumber")}						
-						onchange={ event =>  
+						onchange={ event => { 
 							setInputUser([inputUser.cellphoneNumber, event.target.value])
-						}
+							setPhoneError(false);
+						}}
 					/>
 					{errors.cellphoneNumber && (
-						<StyledSmall>{errors.cellphoneNumber.message}</StyledSmall>
+						<StyledSmall>{errors.cellphoneNumber.message}</StyledSmall>						
 					)}
+					{phoneError && <StyledSmall>Telefone digitado com erro!</StyledSmall>}
 				</InputContainer>
 
 				<SendBtnContainer>

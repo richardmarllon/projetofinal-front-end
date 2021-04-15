@@ -1,5 +1,6 @@
 import React from "react";
 import FormRegister from "../../components/formRegister";
+import FooterContainer from "../../components/footer";
 import brand from "../../images/brand.svg";
 import {
 	BrandMobileContainer,
@@ -25,6 +26,7 @@ const Register = () => {
 					<FormRegister />
 				</RegContainer>
 			</ContentContainer>
+			<FooterContainer />
 		</>
 	);
 };

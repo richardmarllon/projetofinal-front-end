@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { decode } from "jsonwebtoken";
 import { saluteAPI } from "../../services/api";
 export const UserContext = React.createContext({});
@@ -13,7 +13,10 @@ export const UserProvider = (props) => {
 	const [user, setUser] = useState([]);
 	const [allUsers, setAllUsers] = useState([]);
 
+	const [submitError, setSubmitError] = useState(false);
+
 	const login = (userData) => {
+		setSubmitError(false);
 		localStorage.removeItem("token");
 		saluteAPI
 			.post("/login", userData)
@@ -27,6 +30,7 @@ export const UserProvider = (props) => {
 			})
 			.catch((error) => {
 				console.log(error.response);
+				setSubmitError(true);
 			});
 	};
 
@@ -61,6 +65,7 @@ export const UserProvider = (props) => {
 		<UserContext.Provider
 			value={{
 				loggedUser,
+				setUser,
 				user,
 				getUserData,
 				setLoggedUser,
@@ -70,6 +75,8 @@ export const UserProvider = (props) => {
 				getAllUsers,
 				login,
 				userToken,
+				setUserToken,
+				submitError,
 			}}
 		>
 			{props.children}
