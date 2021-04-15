@@ -3,6 +3,7 @@ import { useUsers } from "../../providers/UserProvider";
 import moment from "moment";
 import userAvatar from "../../images/blood/user.png";
 import doctor from "../../images/blood/doctor.jpg";
+import { SettingOutlined } from "@ant-design/icons";
 
 import {
 	ContainerUser,
@@ -16,12 +17,17 @@ import {
 	CardsContainer,
 	GenericText,
 	BloodImg,
+	StyledEdit,
+	UpdateInfoForm,
 } from "./style";
+import ModalStyled from "../modal";
 
 const UserBasicInfo = () => {
 	const { loggedUser, user } = useUsers();
 	const [open, setOpen] = useState(false);
 	const [chronicDisease, setChronicDisease] = useState([]);
+	const [closeModal, setCloseModal] = useState(true);
+	const [openModal, setOpenModal] = useState(false);
 
 	useEffect(() => {
 		listChronicDisease();
@@ -59,6 +65,22 @@ const UserBasicInfo = () => {
 	return (
 		<>
 			<ContainerUser>
+				<StyledEdit>
+					<SettingOutlined
+						onClick={() => {
+							setOpenModal(true);
+						}}
+					/>
+					<ModalStyled
+						closeModal={closeModal}
+						titleBtn="teste"
+						setCloseModal={setCloseModal}
+						openModal={openModal}
+						setOpenModal={setOpenModal}
+					>
+						<UpdateInfoForm className="profile" setCloseModal={setCloseModal} />
+					</ModalStyled>
+				</StyledEdit>
 				<Div className="avatar">
 					{loggedUser.data.userType === "patient" ? (
 						<Avatar src={userAvatar}></Avatar>

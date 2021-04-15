@@ -7,6 +7,7 @@ import Register from "../pages/register";
 import Contact from "../components/contact";
 import AboutPage from "../pages/aboutPage";
 import UserDetails from "../pages/userDetails";
+import FinishRegister from "../pages/finishRegister";
 import ErrorsMessages from "../pages/errorsMessages";
 
 const Routes = () => {
@@ -19,6 +20,12 @@ const Routes = () => {
 			<Route exact path="/about" component={AboutPage} />
 			<Route exact path="/contact" component={Contact} />
 			<Route exact path="/patientDetails" component={UserDetails} isPrivate />
+			<Route
+				exact
+				path="/finishRegister"
+				component={FinishRegister}
+				isPrivate
+			/>
 			<Route component={ErrorsMessages} />
 		</Switch>
 	);
