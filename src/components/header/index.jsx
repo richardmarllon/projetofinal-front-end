@@ -8,7 +8,6 @@ const Header = () => {
 	const [isToken, setIsToken] = useState(true);
 	const { loggedUser, setLoggedUser, setUserToken } = useUsers();
 	const history = useHistory();
-	const [isLog, setIsLog] = useState(false);
 
 	useEffect(() => {
 		if (!isToken) {
