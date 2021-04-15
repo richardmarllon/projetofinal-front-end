@@ -185,9 +185,10 @@ const FormAddConsultation = ({ setCloseModal }) => {
 				</Collapse>
 			</StyleBlockDiv>
 			<StyleBlockDiv>
-				<form onSubmit={handleSubmit(onSubmit)}>
+				<form data-testid="formTestId" onSubmit={handleSubmit(onSubmit)}>
 					<StyledPar> Adicionar solicitação de exames:</StyledPar>
 					<StyledInput
+						data-testid="descriptionTestId"
 						required
 						type="text"
 						size="25"
@@ -199,6 +200,7 @@ const FormAddConsultation = ({ setCloseModal }) => {
 					)}
 
 					<StyledInput
+						data-testid="dateTestId"
 						className="date"
 						required
 						type="date"
