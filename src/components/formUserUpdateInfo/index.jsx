@@ -5,6 +5,10 @@ import {useUsers} from "../../providers/UserProvider";
 import formatCPF from "../../util/formartCPF";
 import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
+import { useState } from "react";
+import logo from "../../images/logoMobile.svg";
+import validatePhone from "../../util/validatePhone"
+
 import {
 	StyledForm, 
 	StyledButton,
@@ -20,24 +24,12 @@ import {
 	SendBtnContainer	
 } from "../formUserUpdateInfo/style";
 
-import { useState } from "react";
-import logo from "../../images/logoMobile.svg";
-import { useHistory } from "react-router";
-import moment from "moment";
-import validatePhone from "../../util/validatePhone"
 
 const FormUserUpdateInfo = () => {
-	const history = useHistory();  
+	
 	const { loggedUser } = useUsers();	
 	
-	
-	// moment só está aceitando milliseconds...	
-	loggedUser.data.birthDate.length === 9 ?
-			loggedUser.data.birthDate = moment(loggedUser.data.birthDate*1000).format("YYYY-MM-DD")
-		:
-			loggedUser.data.birthDate = moment(loggedUser.data.birthDate).format("YYYY-MM-DD");
-	
-	
+			
 	const {
 		firstName, lastName, birthDate,
 		gender, pregnant, userType,
@@ -180,6 +172,11 @@ const FormUserUpdateInfo = () => {
 		setInputUser([inputUser.gender, event.target.value]);	
 	}
 
+	const handlePhone = (event) =>{ 		
+		setInputUser([inputUser.cellphoneNumber, event.target.value]);
+		setPhoneError(false);
+		console.log('editando phone', setPhoneError);
+	}
 	
 	return (
 		<>
@@ -287,7 +284,7 @@ const FormUserUpdateInfo = () => {
 								placeholder="CRM"
 								value={inputUser.crm}
 								{...register("crm")}
-								onchange={ event =>  
+								onChange={ event =>  
 									setInputUser([inputUser.crm, event.target.value])
 								}
 							/>
@@ -301,7 +298,7 @@ const FormUserUpdateInfo = () => {
 									placeholder="Especialidade"
 									value={inputUser.medicalSpecialty}
 									{...register("medicalSpecialty")}
-									onchange={ event =>  
+									onChange={ event =>  
 										setInputUser([inputUser.medicalSpecialty, event.target.value])
 									}
 								/>
@@ -317,7 +314,7 @@ const FormUserUpdateInfo = () => {
 						placeholder="alergias"
 						value={inputUser.allergies}
 						{...register("allergies")}
-						onchange={ event =>  
+						onChange={ event =>  
 							setInputUser([inputUser.allergies, event.target.value])
 						}
 					/>				
@@ -351,7 +348,7 @@ const FormUserUpdateInfo = () => {
 						value={inputUser.address}
 						placeholder="Endereço"
 						{...register("address")}					
-						onchange={ event =>  
+						onChange={ event =>  
 							setInputUser([inputUser.address, event.target.value])
 						}
 					/>
@@ -367,10 +364,7 @@ const FormUserUpdateInfo = () => {
 						placeholder="telefone"
 						value={inputUser.cellphoneNumber}
 						{...register("cellphoneNumber")}						
-						onchange={ event => { 
-							setInputUser([inputUser.cellphoneNumber, event.target.value])
-							setPhoneError(false);
-						}}
+						onChange={ handlePhone}
 					/>
 					{errors.cellphoneNumber && (
 						<StyledSmall>{errors.cellphoneNumber.message}</StyledSmall>						
