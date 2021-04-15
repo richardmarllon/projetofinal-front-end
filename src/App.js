@@ -13,6 +13,7 @@ import FormUserUpdateInfo from "./components/formUserUpdateInfo"
 import FormAddConsultation from "./components/formAddConsultation";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import FormLogin from "./components/formLogin";
 
 function App() {
 	const { login } = useUsers();
@@ -29,6 +30,7 @@ function App() {
 			<SearchPatient />
 			<Routes />
 			<FormRegister />
+			<FormLogin />
 			<SearchDisease />
 			{/* <UserDiseasesList /> */}
 			<FormAddConsultation />

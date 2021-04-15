@@ -27,23 +27,23 @@ import moment from "moment";
 
 const FormUserUpdateInfo = () => {
 	const history = useHistory();  
-	const { loggedUser } = useUsers();
+	const { loggedUser } = useUsers();	
 	
-	// moment só está aceitando unix milli...
+	
+	// moment só está aceitando milliseconds...	
 	loggedUser.data.birthDate.length === 9 ?
-		loggedUser.data.birthDate = moment(loggedUser.data.birthDate*1000).format("YYYY-MM-DD")
-	:
-		loggedUser.data.birthDate = moment(loggedUser.data.birthDate).format("YYYY-MM-DD");
-			
+			loggedUser.data.birthDate = moment(loggedUser.data.birthDate*1000).format("YYYY-MM-DD")
+		:
+			loggedUser.data.birthDate = moment(loggedUser.data.birthDate).format("YYYY-MM-DD");
+	
 	
 	const {
 		firstName, lastName, birthDate,
 		gender, pregnant, userType,
 		cpf, crm, medicalSpecialty,
-		allergies, bloodType, previousDiseases,
-		address,cellphoneNumber} = loggedUser.data;
+		allergies, bloodType, rhFactor,
+		id, address,cellphoneNumber} = loggedUser.data || "";
 
-				
 
 	const [inputUser, setInputUser] = useState(
 		{
@@ -51,14 +51,12 @@ const FormUserUpdateInfo = () => {
 			lastName: lastName,
 			birthDate: birthDate,
 			gender,
-			pregnant,
-			userType,
+			pregnant,		
 			cpf,
 			crm,
 			medicalSpecialty,
 			allergies,
-			bloodType,
-			previousDiseases,
+			bloodType: bloodType+rhFactor,			
 			address,
 			cellphoneNumber
 		});
@@ -68,7 +66,6 @@ const FormUserUpdateInfo = () => {
 		firstName: yup.string().required("Campo obrigatório"),
 		lastName: yup.string().required("Campo obrigatório"),
 		birthDate: yup.date("Formato dia/mes/ano").required("Campo obrigatório"),		
-		userType: yup.string().required("Campo obrigatório!"),
 		cpf: yup
 			.string()
 			.min(11, "CPF com erro!")
@@ -85,80 +82,99 @@ const FormUserUpdateInfo = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const [isWoman, setIsWoman] = useState(true);
-	const [isPhysician, setPhysician] = useState(false);
-	const [isCpfError, setIsCpfError] = useState(false);
-	const [specialtyError, setSpecialtyError] = useState(medicalSpecialty);
+	const isPhysician = (userType === 'physician' ? true : false); 
 
+	const [isWoman, setIsWoman] = useState(true);	
+	const [isCpfError, setIsCpfError] = useState(false);
+	const [specialtyError, setSpecialtyError] = useState(false);
+	const [bloodError, setBloodError] = useState(false);
+	const [buttonMsg, setButtonMsg] = useState('Salvar e Atualizar');
+
+	
+	// format data to be send
 	const onSubmit = (data) => {
+		
+		setButtonMsg('Analizando ...');
 		// format cpf
 		const _cpf = formatCPF(data.cpf);
 		if (!_cpf) {
 			setIsCpfError(true);			
 			return;
 		}
-		if(isPhysician && !medicalSpecialty) {
-			setSpecialtyError(true);
-			console.log("specialty Error", medicalSpecialty);
-		}
 		data.cpf = _cpf;
 
-		// format date for unix stamptime
+		if(isPhysician && !data.medicalSpecialty) {
+			setSpecialtyError(true);			
+		}	
+	
+		// check if bloodType was selected error message
+		if(data.bloodType === "empty"){
+			setBloodError(true);
+			return;			
+		}else{
+			setBloodError(false);
+		}
+
+		// handler pragnant to false or true
+		data.pregnant === "true" ? data.pregnant = true : data.pregnant = false;
+		
+		// handler input bloodType separates type and rhfactor
+		data.rhFactor = data.bloodType.slice(-1);
+		data.bloodType.length < 3 
+			? data.bloodType = data.bloodType.slice(0,1)
+			: data.bloodType = data.bloodType.slice(0,2)
+		
+		// format date for milliseconds
 		data.birthDate = dateToTimestamp(data.birthDate);
 		
-
-		//finally data readdle to post =)
-		const { firstName, lastName, userType, cpf, crm, birthDate } = data;
-		const sendData = {
-			firstName,
-			lastName,
-			birthDate,						
-			userType,
-			cpf,
-			crm,
-		};
-		setUserRegister(sendData);
+		setButtonMsg('Enviando ...');		
+		setUserRegister(data);
 	};
 
+	
 	const setUserRegister = (data) => {
 		console.log('atualizar dados',data)
-		// saluteAPI
-		// 	.post(`/users`, data)
-		// 	.then((response) => {
-		// 		history.push("/");
-		// 		setPhysician(false);
-		// 		reset();
-		// 	})
-		// 	.catch((e) => {
-		// 		console.log("ocorreu um erro: ", e);
-		// 	});
+		saluteAPI
+		.patch(`/users/${id}`, data)
+			.then((response) => {
+				setButtonMsg('Atualizado.')
+				setTimeout(handleClose(),1000);									
+			})
+			.catch((e) => {
+				console.log("ocorreu um erro: ", e);
+			});
 	};
 
-	// const handleclose = () => {
-	// 	console.log(history)
-	// 	// history.push("/");
-	// };
-
-	const handleUserType = (event) => {
-		const option = event.target.options.selectedIndex;
-		// target.options... if 0 is patient then false to show crm.
-		option ? setPhysician(true) : setPhysician(false);
+	// Closing the Modal
+	const handleClose = () => {
+		setButtonMsg('Salvar e Atualizar')
+		console.log('FECHANDO MODAL...')
+		// provavelente um setShowModal(false)		
+	};
 	
-	};
 
 	const handleUserGender = (event) => {
 		const option = event.target.options.selectedIndex;
-		// target.options... if 0 is woman then show pregnant fied.
+
+		// target.options... if 0 is female then show pregnant fied.
 		!option ? setIsWoman(true) : setIsWoman(false);
-		setInputUser([inputUser.gender, event.target.value]);	
-	
+		setInputUser([inputUser.gender, event.target.value]);		
 	};
 
-	const handleCpf = () => {
-		setIsCpfError(false);
+
+	const handleBlood = (event) => {				
+		// setBloodError is disable, because the user is typing.
+		setBloodError(false);
+		setInputUser([inputUser.gender, event.target.value]);
 	}
 
+	const handleCpf = (event) => {
+		// setIsCpfError is disable, because the user is typing.
+		setIsCpfError(false);		
+		setInputUser([inputUser.gender, event.target.value]);	
+	}
 
+	
 	return (
 		<>
 			<StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -175,9 +191,9 @@ const FormUserUpdateInfo = () => {
 						value = {inputUser.firstName}
 						placeholder="Primeiro nome"
 						{...register("firstName")}
-						onChange={event => {
-							setInputUser([inputUser.firstName, event.target.value]);							
-						}}
+						onChange={event => 
+							setInputUser([inputUser.firstName, event.target.value])							
+						}
 					/>
 					{errors.firstName && (
 						<StyledSmall>{errors.firstName.message}</StyledSmall>
@@ -187,20 +203,19 @@ const FormUserUpdateInfo = () => {
 				<InputContainer>
 					<StyledInput
 						required
-						type="text"
-						size="25"
+						type="text"					
 						value = {inputUser.lastName}
 						placeholder="Último nome"
 						{...register("lastName")}
-						onChange={event => {
-							setInputUser([inputUser.lastName, event.target.value]);							
-						}}
+						onChange={event => 
+							setInputUser([inputUser.lastName, event.target.value])							
+						}
 					/>
 					{errors.lastName && (
 						<StyledSmall>{errors.lastName.message}</StyledSmall>
 					)}
-
 				</InputContainer>
+
 				<InputContainer className="date">
 					<StyledLabel>Data de nascimento:</StyledLabel>
 					<StyledInput
@@ -209,10 +224,9 @@ const FormUserUpdateInfo = () => {
 						value = {inputUser.birthDate}
 						placeholder="data de nascimento"
 						{...register("birthDate")}
-						onChange={event => {
-							setInputUser([inputUser.birthDate, event.target.value]);							
-						}}
-						
+						onChange={event => 
+							setInputUser([inputUser.birthDate, event.target.value])							
+						}						
 					/>
 					{errors.birthDate && <StyledSmall>{errors.birthDate.message}</StyledSmall>}
 				</InputContainer>
@@ -223,37 +237,34 @@ const FormUserUpdateInfo = () => {
 						{...register("gender")} 
 						value={inputUser.gender}
 						onChange={handleUserGender}
-						>
-						<option value="woman">Mulher</option>
-						<option value="man">Homem</option>
+					>
+						<option value="female">Mulher</option>
+						<option value="male">Homem</option>
 					</StyledSelect>
 				</InputContainer>
-{/* parei aqui, falta checa qdo man , usestate pode dar problema. */}
 				
 				{ isWoman && 
 				<InputContainer className="type">
 					<StyledType>está grávida:</StyledType>
-					<StyledSelect {...register("pregnant")}>
-						<option value="false">Não</option>
-						<option value="true">Sim</option>
+					<StyledSelect 
+						value={inputUser.pregnant}
+						{...register("pregnant")}
+						onChange={event => 
+							setInputUser([inputUser.pregnant, event.target.value])
+						}
+					>
+						<option value={false}>Não</option>
+						<option value={true}>Sim</option>
 					</StyledSelect>
 				</InputContainer>
 				}
 
-				<InputContainer className="type">
-					<StyledType>eu sou:</StyledType>
-					<StyledSelect {...register("userType")} onChange={handleUserType}>
-						<option value="patient">Paciente</option>
-						<option value="physician">Médico</option>
-					</StyledSelect>
-				</InputContainer>
-
 				<InputContainer className={!isPhysician && "personal"}>
 					<StyledInput
 						required
-						type="text"
-						size="25"
+						type="text"					
 						placeholder="CPF"
+						value={inputUser.cpf}
 						{...register("cpf")}
 						onChange={handleCpf}
 					/>
@@ -266,10 +277,13 @@ const FormUserUpdateInfo = () => {
 						<InputContainer>
 							<StyledInput
 								required
-								type="text"
-								size="25"
+								type="text"							
 								placeholder="CRM"
+								value={inputUser.crm}
 								{...register("crm")}
+								onchange={ event =>  
+									setInputUser([inputUser.crm, event.target.value])
+								}
 							/>
 							{errors.crm && <StyledSmall>{errors.crm.message}</StyledSmall>}
 						</InputContainer>
@@ -277,10 +291,13 @@ const FormUserUpdateInfo = () => {
 						<InputContainer>
 								<StyledInput
 									required
-									type="text"
-									size="25"
+									type="text"									
 									placeholder="Especialidade"
+									value={inputUser.medicalSpecialty}
 									{...register("medicalSpecialty")}
+									onchange={ event =>  
+										setInputUser([inputUser.medicalSpecialty, event.target.value])
+									}
 								/>
 								{errors.medicalSpecialty && <StyledSmall>{errors.medicalSpecialty.message}</StyledSmall>}
 								{specialtyError && <StyledSmall>Obrigatório preencher especialidade!</StyledSmall>}
@@ -289,48 +306,49 @@ const FormUserUpdateInfo = () => {
 				)}
 
 
-{/* ------ MUDAR CLASSNAME */}
-
-				<InputContainer  className={!isPhysician && "personal"}>
+				<InputContainer>
 					<StyledInput					 	
 						type="text"							
 						placeholder="alergias"
+						value={inputUser.allergies}
 						{...register("allergies")}
+						onchange={ event =>  
+							setInputUser([inputUser.allergies, event.target.value])
+						}
 					/>				
 				</InputContainer>
-
 				
 				<InputContainer className="bloodType">
 					<StyledType>tipo sanguíneo:</StyledType>
-					<StyledSelect {...register("bloodType")}>
-						<option value="a-">A-</option>
-						<option value="a+">A+</option>						
-						<option value="ab-">AB-</option>
-						<option value="ab+">AB+</option>
-						<option value="b-">B-</option>
-						<option value="b+">B+</option>
-						<option value="o-">O-</option>
-						<option value="o+">O+</option>
+					<StyledSelect 
+						value={inputUser.bloodType}
+						{...register("bloodType")}
+						onChange={handleBlood}
+					>
+						<option value="empty" >Selecione</option>
+						<option value="A-">A-</option>
+						<option value="A+">A+</option>						
+						<option value="AB-">AB-</option>
+						<option value="AB+">AB+</option>
+						<option value="B-">B-</option>
+						<option value="B+">B+</option>
+						<option value="O-">O-</option>
+						<option value="O+">O+</option>
 					</StyledSelect>
+					{bloodError && <StyledSmall>Favor escolher tipo sanguíneo !</StyledSmall>}
 				</InputContainer>
 				
-{/* ------ MUDAR CLASSNAME */}
-				<InputContainer  className={!isPhysician && "personal"}> 
-					<StyledInput																
-					 	type="text"
-						placeholder="doenças prévias"
-						{...register("previousDiseases")}
-					/>				
-				</InputContainer>
-		
-
+				
 				<InputContainer>
 					<StyledInput
 						required
-						type="text"
-						size="25"
+						type="text"					
+						value={inputUser.address}
 						placeholder="Endereço"
-						{...register("address")}
+						{...register("address")}					
+						onchange={ event =>  
+							setInputUser([inputUser.address, event.target.value])
+						}
 					/>
 					{errors.address && (
 						<StyledSmall>{errors.address.message}</StyledSmall>
@@ -340,10 +358,13 @@ const FormUserUpdateInfo = () => {
 				<InputContainer>
 					<StyledInput
 						required
-						type="text"
-						size="25"
+						type="text"					
 						placeholder="telefone"
-						{...register("cellphoneNumber")}
+						value={inputUser.cellphoneNumber}
+						{...register("cellphoneNumber")}						
+						onchange={ event =>  
+							setInputUser([inputUser.cellphoneNumber, event.target.value])
+						}
 					/>
 					{errors.cellphoneNumber && (
 						<StyledSmall>{errors.cellphoneNumber.message}</StyledSmall>
@@ -351,7 +372,7 @@ const FormUserUpdateInfo = () => {
 				</InputContainer>
 
 				<SendBtnContainer>
-					<StyledButton type="submit" value="Salvar e atualizar"/>
+					<StyledButton type="submit" value={buttonMsg}/>
 				</SendBtnContainer>
 			
 			</StyledForm>
