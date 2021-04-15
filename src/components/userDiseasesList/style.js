@@ -6,9 +6,11 @@ export const DiseaseContainer = styled.div`
 `;
 
 export const DiseasesContainer = styled.div`
-	border: 1px solid green;
+	/* border: 1px solid green; */
+	display: flex;
+	flex-direction: column;
 `;
 
 export const DiseaseInfo = styled.p``;
 
-export const StyledDelBtn = styled(Button)`` 
+export const StyledDelBtn = styled(Button)``;

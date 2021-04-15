@@ -6,29 +6,21 @@ import { saluteAPI } from "../../services/api";
 
 const DiseaseCard = ({ disease }) => {
 	const [loading, setLoading] = useState(false);
-	const { loggedUser, userToken, getLoggedUserData } = useUsers();
+	const { user, getUserData } = useUsers();
 
 	const handleRemove = (disease) => {
 		setLoading(true);
 
-		const userDiseases = loggedUser.data.previousDiseases.filter(
+		const userDiseases = user.data.previousDiseases.filter(
 			(item) => item.nome !== disease.nome
 		);
 
-		const authConfig = { Authorization: `${"Bearer " + userToken}` };
-
 		saluteAPI
-			.patch(
-				`/users/${loggedUser.data.id}`,
-				{
-					previousDiseases: userDiseases,
-				},
-				{
-					headers: authConfig,
-				}
-			)
+			.patch(`/users/${user.data.id}`, {
+				previousDiseases: userDiseases,
+			})
 			.then((response) => {
-				getLoggedUserData(loggedUser.data.id);
+				getUserData(user.data.id);
 				setLoading(false);
 			})
 			.catch((err) => {
@@ -38,19 +30,28 @@ const DiseaseCard = ({ disease }) => {
 
 	return (
 		<DiseaseContainer>
-			<DiseaseInfo key={disease.codigo}>CID: {disease.codigo}</DiseaseInfo>
-			<DiseaseInfo>{disease.nome}</DiseaseInfo>
+			<DiseaseInfo key={disease.codigo}>
+				<b>CID: </b>
+				{disease.codigo}
+			</DiseaseInfo>
+			<DiseaseInfo>
+				<b>Detalhes: </b>
+				{disease.nome}
+			</DiseaseInfo>
 			<DiseaseInfo>
 				<b>{disease.chronicDisease ? "É " : "Não é "}uma doença crônica</b>
 			</DiseaseInfo>
 			<StyledDelBtn
 				type="primary"
+				danger
 				icon={<DeleteOutlined />}
 				loading={loading}
 				onClick={() => {
 					handleRemove(disease);
 				}}
-			></StyledDelBtn>
+			>
+				remover
+			</StyledDelBtn>
 		</DiseaseContainer>
 	);
 };
