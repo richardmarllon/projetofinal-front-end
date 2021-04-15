@@ -71,6 +71,15 @@ export const StyledForm = styled.form`
 		max-width: 800px;
 		border-radius: 40px;
 	}
+	${(props) =>
+		props.type === "modal" &&
+		`border-radius: 0px !important; margin: 0;
+		
+		${LogoContainer}{
+			display: none;
+		}
+		
+		`}
 `;
 
 export const StyledButton = styled.input`
@@ -129,7 +138,6 @@ export const InputContainer = styled.div`
 	flex-direction: column;
 	max-width: 300px;
 
-	
 	@media (min-width: 1000px) {
 		margin: 0 2.5% 0.2rem 0;
 	}
@@ -177,7 +185,6 @@ export const SectionContainer = styled.div`
 	@media (min-width: 1000px) {
 		justify-content: flex-start;
 		padding: 1rem 5%;
-
 	}
 `;
 

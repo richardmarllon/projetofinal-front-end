@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import op from "../../images/blood/o+.svg";
 import om from "../../images/blood/o-.svg";
 import ap from "../../images/blood/a+.svg";
@@ -7,6 +7,8 @@ import bp from "../../images/blood/b+.svg";
 import bm from "../../images/blood/b-.svg";
 import abp from "../../images/blood/ab+.svg";
 import abm from "../../images/blood/ab-.svg";
+import ModalStyled from "../modal";
+import FormUserUpdateInfo from "../formUserUpdateInfo";
 
 export const ContainerUser = styled.div`
 	background-color: rgba(114, 217, 224, 0.15);
@@ -149,7 +151,7 @@ export const Button = styled.button`
 export const Avatar = styled.img`
 	border: 2px solid rgb(51, 51, 161, 1);
 	border-radius: 50%;
-	transform: translateY(-50%);
+	transform: translateY(calc(-50% - 46px));
 	@media (min-width: 1000px) {
 		transform: translateY(0);
 	}
@@ -175,4 +177,27 @@ export const BloodImg = styled.img`
 	${(props) => props.type === "B-" && `background-image: url(${bm})`};
 	${(props) => props.type === "AB+" && `background-image: url(${abp})`};
 	${(props) => props.type === "AB-" && `background-image: url(${abm})`};
+`;
+
+const spin = keyframes`
+0% { transform: rotate(0deg)}
+100% { transform: rotate(360deg)}
+`;
+
+export const UpdateInfoForm = styled(FormUserUpdateInfo)``;
+
+export const StyledEdit = styled.div`
+	button.ant-btn {
+		border: 1px solid red;
+		width: 0;
+		display: none;
+	}
+	font-size: 2rem;
+	text-align: right;
+	span:hover {
+		animation-name: ${spin};
+		animation-duration: 5s;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
 `;

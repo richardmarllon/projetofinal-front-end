@@ -28,16 +28,15 @@ import {
 } from "../formUserUpdateInfo/style";
 import { useHistory } from "react-router";
 
-const FormUserUpdateInfo = () => {
+const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 	const { loggedUser, getLoggedUserData } = useUsers();
 
 	useEffect(() => {
-		if (loggedUser.data.bloodType) {
-			if (history.location.pathname === "/finishRegister") {
-				history.push("/");
-			} else {
-				handleClose();
-			}
+		setButtonMsg("Salvar e Atualizar");
+		if (!loggedUser.data.bloodType) {
+			history.push("/finishRegister");
+		} else {
+			history.push("/");
 		}
 	}, [loggedUser]);
 
@@ -147,10 +146,12 @@ const FormUserUpdateInfo = () => {
 		setUserRegister(data);
 	};
 	const history = useHistory();
+
 	const setUserRegister = (data) => {
 		saluteAPI
 			.patch(`/users/${id}`, data)
 			.then((response) => {
+				console.log(response);
 				setButtonMsg("Atualizado.");
 				getLoggedUserData(id);
 				// setTimeout(handleClose(), 1000);
@@ -163,6 +164,7 @@ const FormUserUpdateInfo = () => {
 	// Closing the Modal
 	const handleClose = () => {
 		setButtonMsg("Salvar e Atualizar");
+		setCloseModal(true);
 		// console.log("FECHANDO MODAL...");
 		// provavelente um setShowModal(false)
 	};
@@ -192,14 +194,15 @@ const FormUserUpdateInfo = () => {
 		setPhoneError(false);
 		// console.log("editando phone", setPhoneError);
 	};
-
 	return (
 		<>
-			<StyledForm onSubmit={handleSubmit(onSubmit)}>
+			<StyledForm
+				onSubmit={handleSubmit(onSubmit)}
+				type={history.location.pathname === "/home" ? "modal" : "page"}
+			>
 				<LogoContainer>
 					<LogoTag src={logo} />
 				</LogoContainer>
-				{/* <ContentContainer> */}
 				{loggedUser.data.bloodType ? (
 					<StyledH1>Atualizar Perfil</StyledH1>
 				) : (
