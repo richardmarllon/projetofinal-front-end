@@ -31,7 +31,9 @@ const Header = () => {
 		<>
 			<HeaderContainer>
 				<LogoContainer>
-					<img src={logoHeader} />
+					<Link to="home">
+						<img src={logoHeader} />
+					</Link>
 				</LogoContainer>
 				{loggedUser && (
 					<LogoutContainer>
