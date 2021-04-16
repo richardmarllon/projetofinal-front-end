@@ -29,14 +29,14 @@ import { useHistory } from "react-router";
 
 const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 	const { loggedUser, getLoggedUserData } = useUsers();
+	const [finished, setFinished] = useState(false);
 
 	useEffect(() => {
 		setButtonMsg("Salvar e Atualizar");
-		if (!loggedUser.data.bloodType) {
-			history.push("/finishRegister");
-		} else {
+		if (finished) {
 			history.push("/");
 		}
+		setFinished(false);
 	}, [loggedUser]);
 
 	const {
@@ -153,6 +153,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 				console.log(response);
 				setButtonMsg("Atualizado.");
 				getLoggedUserData(id);
+				setFinished(true);
 				// setTimeout(handleClose(), 1000);
 			})
 			.catch((e) => {

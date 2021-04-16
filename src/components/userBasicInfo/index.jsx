@@ -26,7 +26,7 @@ const UserBasicInfo = () => {
 	const { loggedUser, user } = useUsers();
 	const [open, setOpen] = useState(false);
 	const [chronicDisease, setChronicDisease] = useState([]);
-	const [closeModal, setCloseModal] = useState(true);
+	const [closeModal, setCloseModal] = useState(false);
 	const [openModal, setOpenModal] = useState(false);
 
 	useEffect(() => {
