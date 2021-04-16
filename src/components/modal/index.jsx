@@ -14,13 +14,13 @@ const ModalStyled = ({
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const history = useHistory();
 	useEffect(() => {
-		if (closeModal) {
-			setIsModalVisible(false);
-		}
+		// if (closeModal) {
+		// 	setIsModalVisible(false);
+		// }
 		if (openModal) {
 			setIsModalVisible(true);
 		}
-		setCloseModal(false);
+		// setCloseModal(false);
 	}, [closeModal, openModal]);
 
 	const showModal = () => {
