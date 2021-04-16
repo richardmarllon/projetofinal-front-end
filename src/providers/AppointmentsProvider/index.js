@@ -11,14 +11,16 @@ export const AppointmentsProvider = ({ children }) => {
 	const [examsAppointment, setExamsAppointment] = useState([]);
 
 	const getExamsofAppointment = async (AppointmentId) => {
-		await saluteAPI
-			.get(`/exams?appointmentId=${AppointmentId}`)
-			.then((response) => {
-				setExamsAppointment(response.data);
-			})
-			.catch((error) => {
-				console.log(error.response);
-			});
+		if (userAppointments !== []) {
+			await saluteAPI
+				.get(`/exams?appointmentId=${AppointmentId}`)
+				.then((response) => {
+					setExamsAppointment((exams) => [...exams, ...response.data]);
+				})
+				.catch((error) => {
+					console.log(error.response);
+				});
+		}
 	};
 
 	const getPhysicianAppointment = async (physicianId) => {
