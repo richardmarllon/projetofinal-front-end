@@ -49,7 +49,6 @@ const FormAddConsultation = ({ setCloseModal }) => {
 
 	useEffect(() => {
 		getAppointmentId();
-		console.log(user.data.previousDiseases.length, "esse");
 		setCount(user.data.previousDiseases.length);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user]);
@@ -64,7 +63,7 @@ const FormAddConsultation = ({ setCloseModal }) => {
 			date: dateAppointment,
 			physicianlD: loggedUser.data.id,
 			physicianName: loggedUser.data.name,
-			// medicalSpecialty: loggedUser.data.medicalSpecialty,
+			medicalSpecialty: loggedUser.data.medicalSpecialty,
 			overview: "",
 		};
 
@@ -88,9 +87,9 @@ const FormAddConsultation = ({ setCloseModal }) => {
 
 		//  set other data
 		data.userId = user.data.name;
-		// data.physicianId = physicianId;
+		data.physicianId = loggedUser.data.id;
 		data.physicianName = loggedUser.data.name;
-		// data.physicianSpecialty = loggedUser.data.medicalSpecialty;
+		data.physicianSpecialty = loggedUser.data.medicalSpecialty;
 		data.examFinished = false;
 		data.appointmentId = appointmentId;
 		data.reportLink = null;

@@ -140,6 +140,7 @@ export const InputContainer = styled.div`
 
 	@media (min-width: 1000px) {
 		margin: 0 2.5% 0.2rem 0;
+		max-width: 40%;
 	}
 `;
 export const LogoTag = styled.img`
