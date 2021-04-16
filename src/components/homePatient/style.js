@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const HomePatientContainer = styled.div`
-	max-width: 650px;
 	@media (min-width: 1000px) {
 		display: flex;
 		flex-direction: row;
@@ -17,10 +16,12 @@ export const ActionsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
+	max-width: 600px;
+	margin: 0 auto;
 	@media (min-width: 1000px) {
 		min-height: 85vh;
+		max-width: 100%;
 		margin: 0;
-		border: 2px solid black;
 		justify-content: flex-start;
 		align-items: center;
 	}
@@ -37,7 +38,7 @@ export const BtnContainer = styled.div`
 	@media (min-width: 1000px) {
 		height: 40%;
 		min-width: 80%;
-		max-width: 90%;
+
 		margin: 0 0 5% 0;
 	}
 `;
@@ -57,6 +58,6 @@ export const StyledBtn = styled.button`
 	}
 	@media (min-width: 1000px) {
 		height: 7rem;
-		font-size: 3rem;
+		font-size: 2rem;
 	}
 `;
