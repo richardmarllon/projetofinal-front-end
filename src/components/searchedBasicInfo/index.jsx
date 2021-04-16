@@ -3,7 +3,6 @@ import { useUsers } from "../../providers/UserProvider";
 import moment from "moment";
 import userAvatar from "../../images/blood/user.png";
 import doctor from "../../images/blood/doctor.jpg";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 
 import {
 	ContainerUser,

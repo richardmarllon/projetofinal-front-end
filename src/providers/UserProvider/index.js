@@ -29,7 +29,7 @@ export const UserProvider = (props) => {
 				getLoggedUserData(decode(response.data.accessToken).sub);
 			})
 			.catch((error) => {
-				console.log(error.response);
+				console.log(error);
 				setSubmitError(true);
 			});
 	};
