@@ -1,5 +1,6 @@
 import React from "react";
 import UserBasicInfo from "../userBasicInfo";
+import ListAllPhysicians from "../listAllPhysicians";
 import { HomePatientContainer } from "./style";
 
 const HomePatient = () => {
@@ -7,6 +8,7 @@ const HomePatient = () => {
 		<>
 			<HomePatientContainer>
 				<UserBasicInfo />
+				<ListAllPhysicians />
 			</HomePatientContainer>
 		</>
 	);
