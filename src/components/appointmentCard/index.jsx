@@ -16,6 +16,7 @@ const AppointmentCard = ({ AppointmentId }) => {
 	useEffect(() => {
 		getExamsofAppointment(AppointmentId);
 	}, []);
+
 	console.log("AppointmentId", AppointmentId);
 	console.log("examsOfAppointment", examsAppointment);
 	return (

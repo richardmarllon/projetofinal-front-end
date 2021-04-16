@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { useAppointments } from "../../providers/AppointmentsProvider";
 import "antd/dist/antd.css";
+import {
+	SytledContainer,
+	StyledModal,
+	SytledEnvelop,
+	SytledCardInitial,
+	SytledTitle,
+	StyledPagination,
+} from "./style";
 import { Modal, Button } from "antd";
 import { Pagination } from "antd";
 import moment from "moment";
@@ -36,52 +44,44 @@ const ListAppointments = () => {
 	};
 
 	return (
-		<>
-			<div>"Histórico de consultas"</div>
-			<div>
+		<SytledContainer>
+			<SytledTitle>Histórico</SytledTitle>
+			<SytledEnvelop>
 				{userAppointments
 					?.slice(minValue, maxValue)
 					?.map((appointment, index) => (
-						<div>
-							<p>Consulta</p>
-							<p>
-								Identificação:
-								{appointment?.id}
-							</p>
-							<p>
-								Especialidade do médico:
-								{appointment?.medicalSpecialty}
-							</p>
-							<p>
-								Médico:
-								{appointment?.physicianName}
-							</p>
-							<p>
-								Data:
-								{calcDate(appointment?.date)}
-							</p>
+						<div key={index}>
+							<SytledCardInitial>
+								<>
+									<p>Consulta</p>
+									<p>
+										Data:
+										{calcDate(appointment?.date)}
+									</p>
+									<p>
+										Descrição:
+										{appointment?.overview}
+									</p>
 
-							<Button type="primary" onClick={showModal}>
-								Detalhes
-							</Button>
+									<Button type="primary" onClick={showModal}>
+										Detalhes
+									</Button>
+								</>
+							</SytledCardInitial>
+
 							<Modal
-								title="Consulta"
 								visible={isModalVisible}
 								onCancel={handleCancel}
 								footer={null}
 							>
-								<p>
-									Médico:
-									{appointment?.physicianName}
-								</p>
-								<p>
+								{/* <p>
 									Data:
 									{calcDate(appointment?.date)}
 								</p>
 								<p>
 									Descrição:
 									{appointment?.overview}
-								</p>
+								</p> */}
 								<AppointmentCard
 									// physicianlD={appointment?.physicianlD}
 									AppointmentId={appointment?.id}
@@ -90,14 +90,14 @@ const ListAppointments = () => {
 							</Modal>
 						</div>
 					))}
-				<Pagination
+				<StyledPagination
 					defaultCurrent={1}
 					defaultPageSize={numEachPage}
 					onChange={handleChange}
 					total={userAppointments.length}
 				/>
-			</div>
-		</>
+			</SytledEnvelop>
+		</SytledContainer>
 	);
 };
 
