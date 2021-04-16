@@ -34,7 +34,6 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 
 	const { loggedUser, getLoggedUserData } = useUsers();
 	const history = useHistory();
-
 	const [finished, setFinished] = useState(false);
 
 	useEffect(() => {
