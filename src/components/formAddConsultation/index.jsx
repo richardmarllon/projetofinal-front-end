@@ -62,7 +62,7 @@ const FormAddConsultation = ({ setCloseModal }) => {
 			userID: user.data.id,
 			date: dateAppointment,
 			physicianlD: loggedUser.data.id,
-			physicianName: loggedUser.data.name,
+			physicianName: loggedUser.data.firstName,
 			medicalSpecialty: loggedUser.data.medicalSpecialty,
 			overview: "",
 		};
@@ -86,9 +86,9 @@ const FormAddConsultation = ({ setCloseModal }) => {
 		data.date = dateToTimestamp(data.date);
 
 		//  set other data
-		data.userId = user.data.name;
+		data.userId = user.data.firstName;
 		data.physicianId = loggedUser.data.id;
-		data.physicianName = loggedUser.data.name;
+		data.physicianName = loggedUser.data.firstName;
 		data.physicianSpecialty = loggedUser.data.medicalSpecialty;
 		data.examFinished = false;
 		data.appointmentId = appointmentId;
