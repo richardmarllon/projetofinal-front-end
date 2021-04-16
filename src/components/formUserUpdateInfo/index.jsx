@@ -6,8 +6,10 @@ import formatCPF from "../../util/formartCPF";
 import dateToTimestamp from "../../util/convertDateToTimestamp";
 import { saluteAPI } from "../../services/api";
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import logo from "../../images/logoMobile.svg";
 import validatePhone from "../../util/validatePhone";
+import moment from "moment";
 
 import {
 	StyledForm,
@@ -25,10 +27,14 @@ import {
 	SectionContainer,
 	StyledLabelForm,
 } from "../formUserUpdateInfo/style";
-import { useHistory } from "react-router";
+
+
 
 const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
+
 	const { loggedUser, getLoggedUserData } = useUsers();
+	const history = useHistory();
+
 	const [finished, setFinished] = useState(false);
 
 	useEffect(() => {
@@ -37,8 +43,22 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 			history.push("/");
 		}
 		setFinished(false);
+	// eslint-disable-next-line react-hooks/exhaustive-deps	
 	}, [loggedUser]);
 
+
+	const schema = yup.object().shape({
+		firstName: yup.string().required("Campo obrigatório"),
+		lastName: yup.string().required("Campo obrigatório"),
+		birthDate: yup.date("Formato dia/mes/ano").required("Campo obrigatório"),
+		cpf: yup
+			.string()
+			.min(11, "CPF com erro!")
+			.max(14, "CPF com erro!")
+			.required("Campo obrigatório!")		
+	});
+	
+	
 	const {
 		firstName,
 		lastName,
@@ -57,12 +77,15 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 		cellphoneNumber,
 	} = loggedUser.data || "";
 
+	
+	const birth = moment(Number(birthDate)).format("YYYY-MM-DD");	
+		
 	const [inputUser, setInputUser] = useState({
 		firstName: firstName,
 		lastName: lastName,
-		birthDate: birthDate,
-		gender,
-		pregnant,
+		birthDate: birth,
+	  gender: gender,
+		pregnant: pregnant,
 		cpf,
 		crm,
 		medicalSpecialty,
@@ -72,16 +95,6 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 		cellphoneNumber,
 	});
 
-	const schema = yup.object().shape({
-		firstName: yup.string().required("Campo obrigatório"),
-		lastName: yup.string().required("Campo obrigatório"),
-		birthDate: yup.date("Formato dia/mes/ano").required("Campo obrigatório"),
-		cpf: yup
-			.string()
-			.min(11, "CPF com erro!")
-			.max(14, "CPF com erro!")
-			.required("Campo obrigatório!"),
-	});
 
 	const {
 		register,
@@ -93,20 +106,22 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 
 	const isPhysician = userType === "physician" ? true : false;
 
-	const [isWoman, setIsWoman] = useState(true);
-	const [isCpfError, setIsCpfError] = useState(false);
+	const [isWoman, setIsWoman] = useState(gender === "female");
+	const [cpfError, setCpfError] = useState(false);
 	const [specialtyError, setSpecialtyError] = useState(false);
 	const [bloodError, setBloodError] = useState(false);
 	const [phoneError, setPhoneError] = useState(false);
+	const [genderError, setGenderError] = useState(false);
 	const [buttonMsg, setButtonMsg] = useState("Salvar e Atualizar");
 
-	// format data to be send
+
+
 	const onSubmit = (data) => {
 		setButtonMsg("Analizando ...");
 		// format cpf
 		const _cpf = formatCPF(data.cpf);
 		if (!_cpf) {
-			setIsCpfError(true);
+			setCpfError(true);
 			return;
 		}
 		data.cpf = _cpf;
@@ -114,6 +129,11 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 		// checking phone
 		if (!validatePhone(data.cellphoneNumber)) {
 			setPhoneError(true);
+			return;
+		}
+
+		if(data.gender === "empty"){
+			setGenderError(true);
 			return;
 		}
 
@@ -144,56 +164,53 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 		setButtonMsg("Enviando ...");
 		setUserRegister(data);
 	};
-	const history = useHistory();
+	
 
 	const setUserRegister = (data) => {
 		saluteAPI
 			.patch(`/users/${id}`, data)
-			.then((response) => {
-				console.log(response);
+			.then((response) => {				
 				setButtonMsg("Atualizado.");
 				getLoggedUserData(id);
 				setFinished(true);
-				// setTimeout(handleClose(), 1000);
 			})
 			.catch((e) => {
 				console.log("ocorreu um erro: ", e);
 			});
 	};
 
-	// // Closing the Modal
-	// const handleClose = () => {
-	// 	setButtonMsg("Salvar e Atualizar");
-	// 	setCloseModal(true);
-	// 	// console.log("FECHANDO MODAL...");
-	// 	// provavelente um setShowModal(false)
-	// };
 
 	const handleUserGender = (event) => {
-		const option = event.target.options.selectedIndex;
+		const option = event.target.value;
 
 		// target.options... if 0 is female then show pregnant fied.
-		!option ? setIsWoman(true) : setIsWoman(false);
+		console.log('option', option)
+		option === 'female' ? setIsWoman(true) : setIsWoman(false);
 		setInputUser([inputUser.gender, event.target.value]);
+		
+		// setGenderError is disable, because the user is typing.
+		setGenderError(false);
 	};
 
 	const handleBlood = (event) => {
 		// setBloodError is disable, because the user is typing.
 		setBloodError(false);
-		setInputUser([inputUser.gender, event.target.value]);
+		setInputUser([inputUser.bloodType, event.target.value]);
 	};
 
 	const handleCpf = (event) => {
 		// setIsCpfError is disable, because the user is typing.
-		setIsCpfError(false);
-		setInputUser([inputUser.gender, event.target.value]);
+		setCpfError(false);
+		setInputUser([inputUser.cpf, event.target.value]);
 	};
 
 	const handlePhone = (event) => {
-		setInputUser([inputUser.cellphoneNumber, event.target.value]);
-		setPhoneError(false);
-		// console.log("editando phone", setPhoneError);
+		// setPhoneError is disable, because the user is typing.
+		setPhoneError(false);		
+		setInputUser([inputUser.cellphoneNumber, event.target.value]);		
 	};
+
+
 	return (
 		<>
 			<StyledForm
@@ -276,7 +293,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 							onChange={handleCpf}
 						/>
 						{errors.cpf && <StyledSmall>{errors.cpf.message}</StyledSmall>}
-						{isCpfError && (
+						{cpfError && (
 							<StyledSmall>CPF com erro, favor revisar!</StyledSmall>
 						)}
 					</InputContainer>
@@ -405,14 +422,20 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 						<InputContainer className="type">
 							<StyledLabelForm for="gender">gênero:</StyledLabelForm>
 							<StyledSelect
-								id="gender"
+								id="gender"								
 								{...register("gender")}
 								value={inputUser.gender}
 								onChange={handleUserGender}
 							>
+								<option value="empty">Selecionar</option>
 								<option value="female">Mulher</option>
 								<option value="male">Homem</option>
 							</StyledSelect>
+							{genderError && (
+									<StyledSmall>
+										Escolha obrigatória!
+									</StyledSmall>
+							)}
 						</InputContainer>
 
 						{isWoman && (
