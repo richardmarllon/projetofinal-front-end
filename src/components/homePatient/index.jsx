@@ -16,6 +16,13 @@ const HomePatient = () => {
 	const [isHistoric, setIsHistoric] = useState(false);
 	const [isShow, setIsShow] = useState(true);
 
+	const showAll = () => {
+		setIsShow(true);
+		setIsRemember(false);
+		setIsAllPhysician(false);
+		setIsHistoric(false);
+	}
+
 	const handleClickReminders = () => {
 		setIsRemember(!isRemember);
 		setIsShow(!isShow);
@@ -38,20 +45,19 @@ const HomePatient = () => {
 
 				{isRemember && (
 					<ActionsContainer>
-						<p> COMPONENTE LEMBRETES </p>
-						<ReminderSection />
+						<ReminderSection showAll={showAll}/>
 					</ActionsContainer>
 				)}
 
 				{isAllPhysician && (
 					<ActionsContainer>
-						<ListAllPhysicians />
+						<ListAllPhysicians showAll={showAll}/>
 					</ActionsContainer>
 				)}
 
 				{isHistoric && (
 					<ActionsContainer>
-						<ListAppointments />
+						<ListAppointments showAll={showAll}/>
 					</ActionsContainer>
 				)}
 
@@ -69,7 +75,9 @@ const HomePatient = () => {
 							</StyledBtn>
 						</BtnContainer>
 						<BtnContainer>
-							<StyledBtn onClick={handleClickHistoric}>Meu histórico</StyledBtn>
+							<StyledBtn onClick={handleClickHistoric}>
+								Meu histórico
+							</StyledBtn>
 						</BtnContainer>
 					</ActionsContainer>
 				)}

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 
 export const ReminderContainer = styled.div`
@@ -7,8 +8,7 @@ export const ReminderContainer = styled.div`
  		flex-direction: row;
  		justify-content: flex-start;
  		padding: 3%;
- 		overflow-x: hidden;
-		border: 2px solid red;
+ 		overflow-x: hidden;		
  	}
 `;
 
@@ -66,4 +66,8 @@ export const StyledTitle = styled.h3`
 		min-width: 5px;
 		min-height: 2rem;
 	}
+`;
+
+export const StyledArrow = styled(ArrowLeftOutlined)`
+	font-size: 2rem;
 `;

@@ -14,7 +14,7 @@ export const ExamsProvider = ({ children }) => {
 		await saluteAPI
 			.get(`/exams?userId=${loggedUser.data.id}`)
 			.then((response) => {
-				console.log(`loaded exams API do user ${loggedUser.data.id} - ${response.data}`);
+				// console.log(`loaded exams API do user ${loggedUser.data.id} - ${response.data}`);
 				setUserExams(response.data);
 			})
 			.catch((error) => {
