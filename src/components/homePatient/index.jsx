@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import ListAppointments from "../listAppointments";
 import UserBasicInfo from "../userBasicInfo";
+import ReminderSection from "../reminderSection";
+import ListAllPhysicians from "../listAllPhysicians";
 import {
 	HomePatientContainer,
 	ActionsContainer,
@@ -12,6 +15,13 @@ const HomePatient = () => {
 	const [isAllPhysician, setIsAllPhysician] = useState(false);
 	const [isHistoric, setIsHistoric] = useState(false);
 	const [isShow, setIsShow] = useState(true);
+
+	const showAll = () => {
+		setIsShow(true);
+		setIsRemember(false);
+		setIsAllPhysician(false);
+		setIsHistoric(false);
+	}
 
 	const handleClickReminders = () => {
 		setIsRemember(!isRemember);
@@ -35,19 +45,19 @@ const HomePatient = () => {
 
 				{isRemember && (
 					<ActionsContainer>
-						<p> COMPONENTE LEMBRETES </p>
+						<ReminderSection showAll={showAll}/>
 					</ActionsContainer>
 				)}
 
 				{isAllPhysician && (
 					<ActionsContainer>
-						<p> COMPONENTE LISTAR MEDICOS </p>
+						<ListAllPhysicians showAll={showAll}/>
 					</ActionsContainer>
 				)}
 
 				{isHistoric && (
 					<ActionsContainer>
-						<p> COMPONENTE HISTORICO</p>
+						<ListAppointments showAll={showAll}/>
 					</ActionsContainer>
 				)}
 
@@ -65,7 +75,9 @@ const HomePatient = () => {
 							</StyledBtn>
 						</BtnContainer>
 						<BtnContainer>
-							<StyledBtn onClick={handleClickHistoric}>Meu histórico</StyledBtn>
+							<StyledBtn onClick={handleClickHistoric}>
+								Meu histórico
+							</StyledBtn>
 						</BtnContainer>
 					</ActionsContainer>
 				)}
