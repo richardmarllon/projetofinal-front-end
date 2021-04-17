@@ -4,7 +4,11 @@ import ReminderCard from "../reminderCard";
 import moment from "moment";
 
 import { 
-		ReminderContainer, CardSearch,StyledArrow
+		ReminderContainer, 
+		CardSearch,
+		StyledArrow,
+		SytledEnvelop,
+		SytledTitle
 } from "./style";
 
 
@@ -22,17 +26,20 @@ const ReminderSection = ({showAll}) => {
 	const futureExams = userExams.filter((exam) => {
 		let examsDate = moment(Number(exam.date)).format("YYYY-MM-DD");		
 		return moment(examsDate).isAfter(today);
-	});
+	}).sort((a,b) => a.date - b.date);
 
 	return (		
 		<>
-			<StyledArrow
-				onClick={() => {					
-					showAll();
-				}}
-			/>	
 			<ReminderContainer>
-				{futureExams.length < 1  ? 
+			
+				<StyledArrow
+					onClick={() => {					
+						showAll();
+					}}
+				/>	
+				<SytledTitle>Meus Lembretes</SytledTitle>
+				<SytledEnvelop>
+					{futureExams.length < 1  ? 
 					<CardSearch>
 						<h3>Sem exames para ser feito!</h3>			
 					</CardSearch>
@@ -47,6 +54,7 @@ const ReminderSection = ({showAll}) => {
 						}						
 					</>
 				}
+				</SytledEnvelop>
 			</ReminderContainer>
 		</>
 	);

@@ -10,15 +10,19 @@ import {
 	SytledTitle2,
 	ModalButton,
 	StyledPagination,
+	StyledArrow
 } from "./style";
-import { Button } from "antd";
-import { Pagination } from "antd";
+// import { Button } from "antd";
+// import { Pagination } from "antd";
 import moment from "moment";
 import AppointmentCard from "../appointmentCard";
 
-const ListAppointments = () => {
+
+
+const ListAppointments = ({showAll}) => {
+
 	const { userAppointments } = useAppointments();
-	const [isModalVisible, setIsModalVisible] = useState(false);
+	// const [isModalVisible, setIsModalVisible] = useState(false);
 	const [closeModal, setCloseModal] = useState(false);
 	const [minValue, setMinValue] = useState(0);
 	const [maxValue, setMaxValue] = useState(4);
@@ -28,18 +32,17 @@ const ListAppointments = () => {
 	// console.log("examsAppointment", examsAppointment);
 
 	const calcDate = (date) => {
-		date = moment(Number(date)).format("DD/MM/YYYY");
-
+		date = moment(Number(date)).format("DD/MM/YYYY");	
 		return date;
 	};
 
-	const showModal = () => {
-		setIsModalVisible(true);
-	};
+	// const showModal = () => {
+	// 	setIsModalVisible(true);
+	// };
 
-	const handleCancel = () => {
-		setIsModalVisible(false);
-	};
+	// const handleCancel = () => {
+	// 	setIsModalVisible(false);
+	// };
 
 	const handleChange = (value) => {
 		setMinValue((value - 1) * numEachPage);
@@ -48,6 +51,11 @@ const ListAppointments = () => {
 
 	return (
 		<SytledContainer>
+				<StyledArrow
+					onClick={() => {					
+						showAll();
+					}}
+				/>	
 			<SytledTitle>Histórico</SytledTitle>
 			<SytledEnvelop>
 				{userAppointments

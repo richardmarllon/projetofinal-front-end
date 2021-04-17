@@ -2,15 +2,32 @@ import styled from "styled-components";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 
 
+// export const ReminderContainer = styled.div`
+//  	@media (min-width: 1000px) {
+//  		display: flex;
+//  		flex-direction: row;
+//  		justify-content: flex-start;
+//  		padding: 3%;
+//  		overflow-x: hidden;		
+//  	}
+// `;
+
 export const ReminderContainer = styled.div`
- 	@media (min-width: 1000px) {
- 		display: flex;
- 		flex-direction: row;
- 		justify-content: flex-start;
- 		padding: 3%;
- 		overflow-x: hidden;		
- 	}
+	border-radius: 20px;
+	border: 3px solid #72d9e0;
+	background-color: #e2f5f8;
+	display: flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	flex-flow: wrap;	
+	justify-content:center;	
+	margin: 0 20px;
+	max-height: fit-content;
+	height: fit-content;
+	padding: 2rem;
+	width: -webkit-fill-available;
 `;
+
 
 export const CardSearch = styled.div`
 	flex-grow: 1;
@@ -19,40 +36,14 @@ export const CardSearch = styled.div`
 	justify-content: center;
 `;
 
-export const Div = styled.div`
-	&.btn {
-		width: 60%;
-		text-align: center;
-	}
+
+export const SytledEnvelop = styled.div`
+	display: contents;
 `;
 
-
-export const Button = styled.button`
-	margin-top: 1rem;
-	width: 40%;
-	min-width: 150px;
-	height: 3rem;
-	border-radius: 9px;
-	border: none;
-	outline: none;
-	font-size: 2rem;
-	background-color: rgba(114, 217, 224, 1);
-	&:hover {
-		background-color: rgba(114, 217, 224, 0.7);
-	}
-`;
-
-export const FormSearch = styled.form`
-	width: 80%;
-	padding: 5rem 0;
-	border-radius: 40px;
-	background-color: rgba(114, 217, 224, 0.2);
-	height: fit-content;
-	border: 3px solid rgba(114, 217, 224, 1);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+export const SytledTitle = styled.h3`
+	width: -webkit-fill-available;
+	/* font-size: 1.2rem; */
 `;
 
 export const StyledTitle = styled.h3`
@@ -70,4 +61,7 @@ export const StyledTitle = styled.h3`
 
 export const StyledArrow = styled(ArrowLeftOutlined)`
 	font-size: 2rem;
+	width: 100%;
+	padding-bottom: 1vw
+	
 `;
