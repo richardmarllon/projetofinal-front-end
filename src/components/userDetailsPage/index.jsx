@@ -25,28 +25,35 @@ const UserDetailsPage = () => {
 	return (
 		<>
 			{isHistoric && (
-				<ActionsContainer>
-					<ListPatientHistory />
-				</ActionsContainer>
+				<>
+					<HomePatientContainer>
+						<SearchedBasicInfo />
+						<ActionsContainer>
+							<ListPatientHistory handleClickHistoric={handleClickHistoric} />
+						</ActionsContainer>
+					</HomePatientContainer>
+				</>
 			)}
 
-			<HomePatientContainer>
-				<SearchedBasicInfo />
-				<ActionsContainer>
-					<BtnContainer>
-						<ModalButton
-							titleBtn={"Adicionar Consulta"}
-							closeModal={closeModal}
-							setCloseModal={setCloseModal}
-						>
-							<FormAddConsultation setCloseModal={setCloseModal} />
-						</ModalButton>
-					</BtnContainer>
-					<BtnContainer>
-						<StyledBtn onClick={handleClickHistoric}>Ver histórico</StyledBtn>
-					</BtnContainer>
-				</ActionsContainer>
-			</HomePatientContainer>
+			{isShow && (
+				<HomePatientContainer>
+					<SearchedBasicInfo />
+					<ActionsContainer>
+						<BtnContainer>
+							<ModalButton
+								titleBtn={"Adicionar Consulta"}
+								closeModal={closeModal}
+								setCloseModal={setCloseModal}
+							>
+								<FormAddConsultation setCloseModal={setCloseModal} />
+							</ModalButton>
+						</BtnContainer>
+						<BtnContainer>
+							<StyledBtn onClick={handleClickHistoric}>Ver histórico</StyledBtn>
+						</BtnContainer>
+					</ActionsContainer>
+				</HomePatientContainer>
+			)}
 		</>
 	);
 };

@@ -34,7 +34,7 @@ export const AppointmentsProvider = ({ children }) => {
 
 	const getAppointmentsUser = async (userID) => {
 		await saluteAPI
-			.get(`/appointments?userId=${userID}`)
+			.get(`/appointments?userID=${userID}`)
 			.then((response) => {
 				setUserAppointments(response.data);
 			})
@@ -48,7 +48,7 @@ export const AppointmentsProvider = ({ children }) => {
 			let userID = loggedUser.id;
 
 			saluteAPI
-				.get(`/appointments?userId=${userID}`)
+				.get(`/appointments?userID=${userID}`)
 				.then((response) => {
 					setUserAppointments(response.data);
 				})

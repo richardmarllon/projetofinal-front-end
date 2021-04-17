@@ -11,13 +11,14 @@ import {
 	SytledTitle2,
 	ModalButton,
 	StyledPagination,
+	StyledArrow,
 } from "./style";
 import moment from "moment";
 import PatientCardHistory from "../patientCardHistory";
 import { useEffect } from "react";
 import { useUsers } from "../../providers/UserProvider";
 
-const ListPatientHistory = () => {
+const ListPatientHistory = ({ handleClickHistoric }) => {
 	const { userAppointments, getAppointmentsUser } = useAppointments();
 	const { user } = useUsers();
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -44,61 +45,68 @@ const ListPatientHistory = () => {
 	}, [user]);
 
 	return (
-		<SytledContainer>
-			<SytledTitle>Histórico</SytledTitle>
-			<SytledEnvelop>
-				{userAppointments
-					?.slice(minValue, maxValue)
-					?.map((appointment, index) => (
-						<div key={index}>
-							<SytledCardInitial>
-								<>
-									<p>Consulta</p>
-									<p>
-										Data:
-										{calcDate(appointment?.date)}
-									</p>
-									<p>
-										Descrição:
-										{appointment?.overview}
-									</p>
+		<>
+			<StyledArrow
+				onClick={() => {
+					handleClickHistoric();
+				}}
+			/>
+			<SytledContainer>
+				<SytledTitle>Histórico</SytledTitle>
+				<SytledEnvelop>
+					{userAppointments
+						?.slice(minValue, maxValue)
+						?.map((appointment, index) => (
+							<div key={index}>
+								<SytledCardInitial>
+									<>
+										<p>Consulta</p>
+										<p>
+											Data:
+											{calcDate(appointment?.date)}
+										</p>
+										<p>
+											Descrição:
+											{appointment?.overview}
+										</p>
 
-									<ModalButton
-										titleBtn={"Detalhes"}
-										closeModal={closeModal}
-										setCloseModal={setCloseModal}
-									>
-										{!closeModal && (
-											<>
-												<SytledTitle2>
-													Médico:{appointment?.firstName}
-												</SytledTitle2>
-												<SytledCardOverview>
-													<SytledTitle>Descrição:</SytledTitle>
-													{appointment?.overview}
-												</SytledCardOverview>
+										<ModalButton
+											titleBtn={"Detalhes"}
+											closeModal={closeModal}
+											setCloseModal={setCloseModal}
+										>
+											{!closeModal && (
+												<>
+													<SytledTitle2>
+														Médico:{appointment?.firstName}
+													</SytledTitle2>
+													<SytledCardOverview>
+														<SytledTitle>Descrição:</SytledTitle>
+														{appointment?.overview}
+													</SytledCardOverview>
 
-												<PatientCardHistory
-													setCloseModal={setCloseModal}
-													// physicianlD={appointment?.physicianlD}
-													AppointmentId={appointment?.id}
-													// appointmentDate={appointment?.date}
-												></PatientCardHistory>
-											</>
-										)}
-									</ModalButton>
-								</>
-							</SytledCardInitial>
-						</div>
-					))}
-				<StyledPagination
-					defaultCurrent={1}
-					defaultPageSize={numEachPage}
-					onChange={handleChange}
-					total={userAppointments.length}
-				/>
-			</SytledEnvelop>
-		</SytledContainer>
+													<PatientCardHistory
+														setCloseModal={setCloseModal}
+														// physicianlD={appointment?.physicianlD}
+														AppointmentId={appointment?.id}
+														// appointmentDate={appointment?.date}
+													></PatientCardHistory>
+												</>
+											)}
+										</ModalButton>
+									</>
+								</SytledCardInitial>
+							</div>
+						))}
+					<StyledPagination
+						defaultCurrent={1}
+						defaultPageSize={numEachPage}
+						onChange={handleChange}
+						total={userAppointments.length}
+					/>
+				</SytledEnvelop>
+			</SytledContainer>
+		</>
 	);
 };
 
