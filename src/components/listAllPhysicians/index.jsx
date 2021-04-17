@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { useUsers } from "../../providers/UserProvider";
 import "antd/dist/antd.css";
-import { Pagination } from "antd";
-import { Modal, Button } from "antd";
+import {
+	SytledContainer,
+	SytledCard,
+	SytledCardInitial,
+	SytledCardSeeMore,
+	SytledTitle,
+	StyledPagination,
+	Avatar,
+} from "./style";
+import doctor from "../../images/blood/doctor.jpg";
 
 const ListAllPhysicians = () => {
 	const { allUsers, getAllUsers } = useUsers();
@@ -25,60 +33,40 @@ const ListAllPhysicians = () => {
 		setMaxValue(value * numEachPage);
 	};
 
-	const showModal = () => {
-		setIsModalVisible(true);
-	};
-
-	const handleCancel = () => {
-		setIsModalVisible(false);
-	};
-
 	useEffect(() => {
 		getAllUsers();
 	}, []);
 
 	return (
 		<>
-			<div>
-				{usersPhysicians?.slice(0, 3)?.map((user, index) => (
-					<div>
-						Espcialidade:
-						{user?.specialty}
-						CRM:
-						{user?.crm}
-						Contato:
-						{user?.cellphoneNumber}
-					</div>
-				))}
-			</div>
-			<Button type="primary" onClick={showModal}>
-				Ver Mais
-			</Button>
-			<Modal
-				title="Basic Modal"
-				visible={isModalVisible}
-				onCancel={handleCancel}
-				footer={null}
-			>
+			<SytledContainer>
+				<SytledTitle>Médicos</SytledTitle>
 				{usersPhysicians &&
 					usersPhysicians?.length > 0 &&
 					usersPhysicians?.slice(minValue, maxValue)?.map((user, index) => (
-						<div>
-							Espcialidade:
-							{user?.specialty}
-							CRM:
-							{user?.crm}
-							Contato:
-							{user?.cellphoneNumber}
-						</div>
+						<SytledCardInitial>
+							<div>
+								<Avatar src={doctor}></Avatar>
+								<h3>{user?.firstName}</h3>
+							</div>
+							<div>
+								<h4>Espcialidade:</h4>
+								<p>{user?.medicalSpecialty}</p>
+								<h4>CRM:</h4>
+								<p>{user?.crm}</p>
+								<h4>Contato:</h4>
+								<p>{user?.cellphoneNumber}</p>
+							</div>
+						</SytledCardInitial>
 					))}
-				<Pagination
+
+				<StyledPagination
 					defaultCurrent={1}
 					defaultPageSize={numEachPage}
 					onChange={handleChange}
 					total={usersPhysicians.length}
 				/>
-			</Modal>
+			</SytledContainer>
 		</>
 	);
 };

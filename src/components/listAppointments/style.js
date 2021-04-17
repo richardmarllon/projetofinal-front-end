@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Pagination } from "antd";
+import { Modal } from "antd";
+import ModalStyled from "../modal";
 
 export const SytledContainer = styled.div`
 	border-radius: 20px;
@@ -13,51 +15,36 @@ export const SytledContainer = styled.div`
 	max-height: fit-content;
 	height: fit-content;
 	padding: 1rem;
+	width: -webkit-fill-available;
 `;
 
 export const SytledCardInitial = styled.div`
 	border-radius: 20px;
 	background-color: #ccf0f4;
 	padding: 1rem;
-	max-width: 32em;
+	max-width: 27em;
 	border: 3px solid #72d9e0;
 	margin: 0.5em;
 	align-items: center;
 	text-align: center;
 	justify-content: center;
 	width: -webkit-fill-available;
-	display: grid;
-	@media (min-width: 1514px) {
-		display: flex;
-		justify-content: center;
-		place-content: space-around;
-	}
+	display: table;
 `;
 
-export const Avatar = styled.img`
-	border: 2px solid rgb(51, 51, 161, 1);
-	border-radius: 50%;
-	width: 8rem;
-	// transform: translateY(-50%);
-`;
-
-export const SytledCardSeeMore = styled.div`
+export const SytledCardOverview = styled.div`
 	border-radius: 20px;
-	background-color: #ccf0f4;
+	background-color: #f6f9fb;
 	padding: 1rem;
-	max-width: 20em;
 	border: 3px solid #72d9e0;
-	font-size: x-large;
 	margin: 0.5em;
 	align-items: center;
-	text-align: center;
-	justify-content: center;
+	width: -webkit-fill-available;
 	display: grid;
-	&:hover {
-		color: white;
-		background-color: #1890ff;
-		cursor: pointer;
-	}
+`;
+
+export const SytledEnvelop = styled.div`
+	display: contents;
 `;
 
 export const SytledCard = styled.div`
@@ -70,6 +57,27 @@ export const StyledPagination = styled(Pagination)`
 	width: -webkit-fill-available;
 `;
 
+export const StyledModal = styled(Modal)`
+	background-color: #ccf0f4;
+`;
+
 export const SytledTitle = styled.h3`
 	width: -webkit-fill-available;
+	font-size: 1.2rem;
+`;
+
+export const SytledTitle2 = styled.h3`
+	width: -webkit-fill-available;
+	font-size: 1.2rem;
+	background: #72d9e0;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding-left: 18px;
+	padding-bottom: 18px;
+	padding-top: 18px;
+`;
+
+export const ModalButton = styled(ModalStyled)`
+	padding: 14px;
 `;
