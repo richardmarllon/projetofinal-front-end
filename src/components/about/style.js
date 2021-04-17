@@ -17,6 +17,7 @@ export const StyledText = styled.p`
 	width: 90%;
 	padding: 2rem;
 	font-weight: 550;
+	margin-top: 1rem;
 	text-align: justify;
 	border-radius: 9px;
 	background-color: rgba(134, 126, 200, 0.4);
