@@ -1,24 +1,8 @@
-import { LogoTag } from "../formUserUpdateInfo/style";
-import {
-	BtnContainer,
-	Container,
-	StyledLogoContainer,
-	StyledLogoTag,
-	StyledText,
-	TextContainer,
-} from "./style";
-import { HomeOutlined } from "@ant-design/icons";
-import logo from "../../images/brand.svg";
+import { Container, StyledText, TextContainer } from "./style";
 
 const About = () => {
 	return (
 		<Container>
-			<StyledLogoContainer>
-				<StyledLogoTag src={logo} />
-			</StyledLogoContainer>
-			<BtnContainer>
-				<HomeOutlined />
-			</BtnContainer>
 			<TextContainer>
 				<StyledText>
 					A Salute Uno é uma plataforma digital com acesso ao histórico de saúde

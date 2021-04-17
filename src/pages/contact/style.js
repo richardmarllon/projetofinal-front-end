@@ -52,6 +52,7 @@ export const HomeContainer = styled.div`
 		border-bottom: 1px solid rgba(114, 217, 224);
 	}
 	@media (min-width: 1000px) {
+		height: 6rem;
 		transform: translateY(-100%);
 	}
 `;

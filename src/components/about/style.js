@@ -1,63 +1,45 @@
 import styled from "styled-components";
-import { LogoContainer, LogoTag } from "../formUserUpdateInfo/style";
+import about from "../../images/about/about.jpg";
 
 export const Container = styled.div`
-	/* border: 2px solid blue; */
-	height: 100vh;
+	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
 	background-color: rgba(114, 217, 224, 0.15);
+	background-image: url(${about});
+	background-size: cover;
+	background-position: center;
 	@media (min-width: 1000px) {
-		align-items: center;
+		transform: translateY(-6rem);
 	}
-`;
-
-export const StyledLogoContainer = styled(LogoContainer)`
-	margin-top: 2rem;
-	/* border: 1px solid red; */
-	height: fit-content;
-	@media (min-width: 1000px) {
-		display: none;
-	}
-`;
-
-export const StyledLogoTag = styled(LogoTag)`
-	margin-top: 0;
-	transform: translateY(0%);
-	width: 100%;
 `;
 
 export const StyledText = styled.p`
 	margin: 0 0 3rem 0;
 	border: 3px solid rgba(114, 217, 224, 7);
 	width: 90%;
-	padding: 1rem;
+	padding: 2rem;
+	font-weight: 550;
 	text-align: justify;
 	border-radius: 9px;
-	background-color: rgba(114, 217, 224, 0.2);
+	background-color: rgba(134, 126, 200, 0.4);
+	backdrop-filter: blur(15px);
+	max-width: 500px;
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	@media (min-width: 1000px) {
+		font-size: 1.5rem;
+	}
 `;
 export const TextContainer = styled.div`
 	flex-grow: 1;
 	background-color: rgba(114, 217, 224, 0.15);
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	@media (min-width: 1000px) {
-		/* border: 1px solid red; */
 		padding-top: 4rem;
-		max-width: 80%;
+		max-width: 50%;
 		background-color: transparent;
-	}
-`;
-
-export const BtnContainer = styled.div`
-	border-top: 3px solid rgba(114, 217, 224, 0.7);
-	/* padding: 1rem 0; */
-	background-color: rgba(114, 217, 224, 0.15);
-	text-align: center;
-	font-size: 3rem;
-	height: 5rem;
-	@media (min-width: 1000px) {
-		display: none;
 	}
 `;
