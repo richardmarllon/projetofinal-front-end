@@ -40,12 +40,12 @@ const ListAllPhysicians = ({ showAll }) => {
 
 	return (
 		<>
-			<StyledArrow
-				onClick={() => {
-					showAll();
-				}}
-			/>
 			<SytledContainer>
+				<StyledArrow
+					onClick={() => {
+						showAll();
+					}}
+				/>
 				<SytledTitle>Médicos</SytledTitle>
 				{usersPhysicians &&
 					usersPhysicians?.length > 0 &&

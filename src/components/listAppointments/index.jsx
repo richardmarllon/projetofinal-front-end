@@ -11,6 +11,7 @@ import {
 	ModalButton,
 	StyledPagination,
 	StyledArrow,
+	Title,
 } from "./style";
 import { Button } from "antd";
 import { Pagination } from "antd";
@@ -41,12 +42,12 @@ const ListAppointments = ({ showAll }) => {
 
 	return (
 		<>
-			<StyledArrow
-				onClick={() => {
-					showAll();
-				}}
-			/>
 			<SytledContainer>
+				<StyledArrow
+					onClick={() => {
+						showAll();
+					}}
+				/>
 				<SytledTitle>Histórico</SytledTitle>
 				<SytledEnvelop>
 					{userAppointments?.length < 1 ? (
@@ -58,7 +59,7 @@ const ListAppointments = ({ showAll }) => {
 								<div key={index}>
 									<SytledCardInitial>
 										<>
-											<p>Consulta</p>
+											<Title>Consulta</Title>
 											<p>
 												Data:
 												{calcDate(appointment?.date)}

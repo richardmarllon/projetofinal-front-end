@@ -13,7 +13,6 @@ export const SytledContainer = styled.div`
 	flex-flow: wrap;
 	justify-content: center;
 	margin: 0 20px;
-	margin-top: 15px;
 	max-height: fit-content;
 	height: fit-content;
 	padding: 1rem;
@@ -86,4 +85,12 @@ export const ModalButton = styled(ModalStyled)`
 
 export const StyledArrow = styled(ArrowLeftOutlined)`
 	font-size: 2rem;
+`;
+
+export const Title = styled.h3`
+	min-width: 100%;
+	text-align: center;
+	background-color: #72d9e0;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
 `;

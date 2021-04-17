@@ -12,6 +12,7 @@ import {
 	ModalButton,
 	StyledPagination,
 	StyledArrow,
+	Title,
 } from "./style";
 import moment from "moment";
 import PatientCardHistory from "../patientCardHistory";
@@ -46,12 +47,12 @@ const ListPatientHistory = ({ handleClickHistoric }) => {
 
 	return (
 		<>
-			<StyledArrow
-				onClick={() => {
-					handleClickHistoric();
-				}}
-			/>
 			<SytledContainer>
+				<StyledArrow
+					onClick={() => {
+						handleClickHistoric();
+					}}
+				/>
 				<SytledTitle>Histórico</SytledTitle>
 				<SytledEnvelop>
 					{userAppointments?.length < 1 ? (
@@ -63,7 +64,7 @@ const ListPatientHistory = ({ handleClickHistoric }) => {
 								<div key={index}>
 									<SytledCardInitial>
 										<>
-											<p>Consulta</p>
+											<Title>Consulta</Title>
 											<p>
 												Data:
 												{calcDate(appointment?.date)}
