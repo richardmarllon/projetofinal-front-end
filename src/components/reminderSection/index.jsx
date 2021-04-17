@@ -44,8 +44,7 @@ const ReminderSection = ({showAll}) => {
 									<ReminderCard key={exam.id} exam={exam} />
 								</CardSearch>
 							)})
-						}
-						{/* <Button> Mais Inf. </Button> */}
+						}						
 					</>
 				}
 			</ReminderContainer>
