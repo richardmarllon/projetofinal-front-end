@@ -81,7 +81,7 @@ const ListPatientHistory = ({ handleClickHistoric }) => {
 												{!closeModal && (
 													<>
 														<SytledTitle2>
-															Médico:{appointment?.firstName}
+															Médico:{appointment?.physicianName}
 														</SytledTitle2>
 														<SytledCardOverview>
 															<SytledTitle>Descrição:</SytledTitle>
