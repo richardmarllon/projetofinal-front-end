@@ -49,50 +49,54 @@ const ListAppointments = ({ showAll }) => {
 			<SytledContainer>
 				<SytledTitle>Histórico</SytledTitle>
 				<SytledEnvelop>
-					{userAppointments
-						?.slice(minValue, maxValue)
-						?.map((appointment, index) => (
-							<div key={index}>
-								<SytledCardInitial>
-									<>
-										<p>Consulta</p>
-										<p>
-											Data:
-											{calcDate(appointment?.date)}
-										</p>
-										<p>
-											Descrição:
-											{appointment?.overview}
-										</p>
+					{userAppointments?.length < 1 ? (
+						<p>Sem consultas registradas!</p>
+					) : (
+						userAppointments
+							?.slice(minValue, maxValue)
+							?.map((appointment, index) => (
+								<div key={index}>
+									<SytledCardInitial>
+										<>
+											<p>Consulta</p>
+											<p>
+												Data:
+												{calcDate(appointment?.date)}
+											</p>
+											<p>
+												Descrição:
+												{appointment?.overview}
+											</p>
 
-										<ModalButton
-											titleBtn={"Detalhes"}
-											closeModal={closeModal}
-											setCloseModal={setCloseModal}
-										>
-											{!closeModal && (
-												<>
-													<SytledTitle2>
-														Médico:{appointment?.firstName}
-													</SytledTitle2>
-													<SytledCardOverview>
-														<SytledTitle>Descrição:</SytledTitle>
-														{appointment?.overview}
-													</SytledCardOverview>
+											<ModalButton
+												titleBtn={"Detalhes"}
+												closeModal={closeModal}
+												setCloseModal={setCloseModal}
+											>
+												{!closeModal && (
+													<>
+														<SytledTitle2>
+															Médico:{appointment?.firstName}
+														</SytledTitle2>
+														<SytledCardOverview>
+															<SytledTitle>Descrição:</SytledTitle>
+															{appointment?.overview}
+														</SytledCardOverview>
 
-													<AppointmentCard
-														setCloseModal={setCloseModal}
-														// physicianlD={appointment?.physicianlD}
-														AppointmentId={appointment?.id}
-														// appointmentDate={appointment?.date}
-													></AppointmentCard>
-												</>
-											)}
-										</ModalButton>
-									</>
-								</SytledCardInitial>
-							</div>
-						))}
+														<AppointmentCard
+															setCloseModal={setCloseModal}
+															// physicianlD={appointment?.physicianlD}
+															AppointmentId={appointment?.id}
+															// appointmentDate={appointment?.date}
+														></AppointmentCard>
+													</>
+												)}
+											</ModalButton>
+										</>
+									</SytledCardInitial>
+								</div>
+							))
+					)}
 					<StyledPagination
 						defaultCurrent={1}
 						defaultPageSize={numEachPage}

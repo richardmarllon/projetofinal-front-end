@@ -13,6 +13,7 @@ export const SytledContainer = styled.div`
 	flex-flow: wrap;
 	justify-content: center;
 	margin: 0 20px;
+	margin-top: 15px;
 	max-height: fit-content;
 	height: fit-content;
 	padding: 1rem;
