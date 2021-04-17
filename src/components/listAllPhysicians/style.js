@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Pagination } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 export const SytledContainer = styled.div`
 	border-radius: 20px;
@@ -72,4 +73,8 @@ export const StyledPagination = styled(Pagination)`
 
 export const SytledTitle = styled.h3`
 	width: -webkit-fill-available;
+`;
+
+export const StyledArrow = styled(ArrowLeftOutlined)`
+	font-size: 2rem;
 `;
