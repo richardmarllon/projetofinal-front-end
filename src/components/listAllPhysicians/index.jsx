@@ -9,10 +9,11 @@ import {
 	SytledTitle,
 	StyledPagination,
 	Avatar,
+	StyledArrow,
 } from "./style";
 import doctor from "../../images/blood/doctor.jpg";
 
-const ListAllPhysicians = () => {
+const ListAllPhysicians = ({ showAll }) => {
 	const { allUsers, getAllUsers } = useUsers();
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -39,6 +40,11 @@ const ListAllPhysicians = () => {
 
 	return (
 		<>
+			<StyledArrow
+				onClick={() => {
+					showAll();
+				}}
+			/>
 			<SytledContainer>
 				<SytledTitle>Médicos</SytledTitle>
 				{usersPhysicians &&

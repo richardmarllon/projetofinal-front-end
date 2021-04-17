@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Pagination } from "antd";
 import { Modal } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import ModalStyled from "../modal";
 
 export const SytledContainer = styled.div`
@@ -12,6 +13,7 @@ export const SytledContainer = styled.div`
 	flex-flow: wrap;
 	justify-content: center;
 	margin: 0 20px;
+	margin-top: 15px;
 	max-height: fit-content;
 	height: fit-content;
 	padding: 1rem;
@@ -80,4 +82,8 @@ export const SytledTitle2 = styled.h3`
 
 export const ModalButton = styled(ModalStyled)`
 	padding: 14px;
+`;
+
+export const StyledArrow = styled(ArrowLeftOutlined)`
+	font-size: 2rem;
 `;

@@ -47,7 +47,7 @@ export const AppointmentsProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (loggedUser) {
-			let userID = loggedUser.id;
+			let userID = loggedUser.data.id;
 
 			saluteAPI
 				.get(`/appointments?userID=${userID}`)
