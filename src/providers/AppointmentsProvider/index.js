@@ -32,6 +32,17 @@ export const AppointmentsProvider = ({ children }) => {
 			});
 	};
 
+	const getAppointmentsUser = async (userID) => {
+		await saluteAPI
+			.get(`/appointments?userId=${userID}`)
+			.then((response) => {
+				setUserAppointments(response.data);
+			})
+			.catch((error) => {
+				console.log(error.response);
+			});
+	};
+
 	useEffect(() => {
 		if (loggedUser) {
 			let userID = loggedUser.id;
@@ -54,6 +65,7 @@ export const AppointmentsProvider = ({ children }) => {
 				getExamsofAppointment,
 				examsAppointment,
 				getPhysicianAppointment,
+				getAppointmentsUser,
 			}}
 		>
 			{children}

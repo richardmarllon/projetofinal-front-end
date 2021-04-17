@@ -9,13 +9,27 @@ import {
 	ModalButton,
 	StyledBtn,
 } from "./style";
+import ListPatientHistory from "../listPatientHystory";
 
 const UserDetailsPage = () => {
 	const [addConsult, setAddConsult] = useState(false);
 	const [closeModal, setCloseModal] = useState(false);
+	const [isHistoric, setIsHistoric] = useState(false);
+	const [isShow, setIsShow] = useState(true);
+
+	const handleClickHistoric = () => {
+		setIsHistoric(!isHistoric);
+		setIsShow(!isShow);
+	};
 
 	return (
 		<>
+			{isHistoric && (
+				<ActionsContainer>
+					<ListPatientHistory />
+				</ActionsContainer>
+			)}
+
 			<HomePatientContainer>
 				<SearchedBasicInfo />
 				<ActionsContainer>
@@ -29,7 +43,7 @@ const UserDetailsPage = () => {
 						</ModalButton>
 					</BtnContainer>
 					<BtnContainer>
-						<StyledBtn>Ver histórico</StyledBtn>
+						<StyledBtn onClick={handleClickHistoric}>Ver histórico</StyledBtn>
 					</BtnContainer>
 				</ActionsContainer>
 			</HomePatientContainer>
