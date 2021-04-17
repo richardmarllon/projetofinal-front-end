@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UserBasicInfo from "../userBasicInfo";
+import ListAllPhysicians from "../listAllPhysicians";
 import {
 	HomePatientContainer,
 	ActionsContainer,
@@ -41,7 +42,7 @@ const HomePatient = () => {
 
 				{isAllPhysician && (
 					<ActionsContainer>
-						<p> COMPONENTE LISTAR MEDICOS </p>
+						<ListAllPhysicians />
 					</ActionsContainer>
 				)}
 
