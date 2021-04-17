@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { useAppointments } from "../../providers/AppointmentsProvider";
 import "antd/dist/antd.css";
-import { Modal, Button } from "antd";
+import {
+	SytledContainer,
+	SytledCardOverview,
+	SytledEnvelop,
+	SytledCardInitial,
+	SytledTitle,
+	SytledTitle2,
+	ModalButton,
+	StyledPagination,
+} from "./style";
+import { Button } from "antd";
 import { Pagination } from "antd";
 import moment from "moment";
 import AppointmentCard from "../appointmentCard";
@@ -9,6 +19,7 @@ import AppointmentCard from "../appointmentCard";
 const ListAppointments = () => {
 	const { userAppointments } = useAppointments();
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [closeModal, setCloseModal] = useState(false);
 	const [minValue, setMinValue] = useState(0);
 	const [maxValue, setMaxValue] = useState(4);
 	const numEachPage = 4;
@@ -36,68 +47,61 @@ const ListAppointments = () => {
 	};
 
 	return (
-		<>
-			<div>"Histórico de consultas"</div>
-			<div>
+		<SytledContainer>
+			<SytledTitle>Histórico</SytledTitle>
+			<SytledEnvelop>
 				{userAppointments
 					?.slice(minValue, maxValue)
 					?.map((appointment, index) => (
-						<div>
-							<p>Consulta</p>
-							<p>
-								Identificação:
-								{appointment?.id}
-							</p>
-							<p>
-								Especialidade do médico:
-								{appointment?.medicalSpecialty}
-							</p>
-							<p>
-								Médico:
-								{appointment?.physicianName}
-							</p>
-							<p>
-								Data:
-								{calcDate(appointment?.date)}
-							</p>
+						<div key={index}>
+							<SytledCardInitial>
+								<>
+									<p>Consulta</p>
+									<p>
+										Data:
+										{calcDate(appointment?.date)}
+									</p>
+									<p>
+										Descrição:
+										{appointment?.overview}
+									</p>
 
-							<Button type="primary" onClick={showModal}>
-								Detalhes
-							</Button>
-							<Modal
-								title="Consulta"
-								visible={isModalVisible}
-								onCancel={handleCancel}
-								footer={null}
-							>
-								<p>
-									Médico:
-									{appointment?.physicianName}
-								</p>
-								<p>
-									Data:
-									{calcDate(appointment?.date)}
-								</p>
-								<p>
-									Descrição:
-									{appointment?.overview}
-								</p>
-								<AppointmentCard
-									// physicianlD={appointment?.physicianlD}
-									AppointmentId={appointment?.id}
-									// appointmentDate={appointment?.date}
-								></AppointmentCard>
-							</Modal>
+									<ModalButton
+										titleBtn={"Detalhes"}
+										closeModal={closeModal}
+										setCloseModal={setCloseModal}
+									>
+										{!closeModal && (
+											<>
+												<SytledTitle2>
+													Médico:{appointment?.firstName}
+												</SytledTitle2>
+												<SytledCardOverview>
+													<SytledTitle>Descrição:</SytledTitle>
+													{appointment?.overview}
+												</SytledCardOverview>
+
+												<AppointmentCard
+													setCloseModal={setCloseModal}
+													// physicianlD={appointment?.physicianlD}
+													AppointmentId={appointment?.id}
+													// appointmentDate={appointment?.date}
+												></AppointmentCard>
+											</>
+										)}
+									</ModalButton>
+								</>
+							</SytledCardInitial>
 						</div>
 					))}
-				<Pagination
+				<StyledPagination
 					defaultCurrent={1}
 					defaultPageSize={numEachPage}
 					onChange={handleChange}
 					total={userAppointments.length}
 				/>
-			</div>
-		</>
+			</SytledEnvelop>
+		</SytledContainer>
 	);
 };
 
