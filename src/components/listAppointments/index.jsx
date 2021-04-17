@@ -28,7 +28,7 @@ const ListAppointments = ({showAll}) => {
 	const [maxValue, setMaxValue] = useState(4);
 	const numEachPage = 4;
 
-	// console.log("userAppointments", userAppointments);
+	console.log("userAppointments", userAppointments);
 	// console.log("examsAppointment", examsAppointment);
 
 	const calcDate = (date) => {
