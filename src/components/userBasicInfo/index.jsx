@@ -128,11 +128,6 @@ const UserBasicInfo = () => {
 
 				<Button className="vacina">vacinas</Button>
 			</ContainerUser>
-			{open && (
-				<Div>
-					<P>teste</P>
-				</Div>
-			)}
 		</>
 	);
 };
