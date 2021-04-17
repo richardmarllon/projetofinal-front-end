@@ -9,9 +9,6 @@ export const Container = styled.div`
 	background-image: url(${about});
 	background-size: cover;
 	background-position: center;
-	@media (min-width: 1000px) {
-		transform: translateY(-6rem);
-	}
 `;
 
 export const StyledText = styled.p`
