@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { PhoneOutlined } from "@ant-design/icons";
+import call from "../../images/contact/contact.svg";
 
 export const SectionContainer = styled.section`
 	flex-grow: 1;
@@ -14,22 +15,28 @@ export const SectionContainer = styled.section`
 		flex-direction: row;
 		flex-wrap: wrap;
 		justify-content: space-around;
-		/* border: 1px solid red; */
-		/* height: 40vh; */
 		border-top: 3px dotted #72d9e0;
 		border-bottom: 3px dotted #72d9e0;
 		padding: 3rem;
 	}
+
+	@media (min-width: 1000px) {
+		background-image: url(${call});
+		background-size: contain;
+		background-repeat: no-repeat;
+		margin-top: 15vh;
+	}
 `;
 
 export const Title = styled.h1`
-	/* border: 1px solid red; */
 	width: 100%;
 	text-align: center;
 	margin: 0;
 	@media (min-width: 1000px) {
+		width: 70%;
+		margin-left: 30%;
 		margin-bottom: 2rem;
-		background-color: rgba(114, 217, 224, 0.1);
+		background-color: rgba(114, 217, 224, 0.2);
 	}
 `;
 
@@ -43,13 +50,10 @@ export const PhoneContainer = styled.div`
 	padding: 0 0.5rem;
 	display: flex;
 	max-width: 400px;
-	/* justify-content: center; */
 	align-items: center;
-	/* padding: 0 1rem; */
-	* {
-		/* border: 1px solid red; */
+	:hover {
+		background-color: rgba(114, 217, 224, 0.4);
 	}
-
 	@media (min-width: 600px) {
 		flex-direction: column;
 		max-width: 200px;
@@ -64,17 +68,17 @@ export const PhoneIcon = styled(PhoneOutlined)`
 		width: 100%;
 		height: 33%;
 		text-align: right;
-		/* flex-grow: 1; */
 	}
 `;
 
 export const PhoneNumber = styled.a`
 	flex-grow: 1;
-	font-weight: 700;
+	font-weight: 550;
 	color: blue;
 	text-align: right;
 	&:hover {
-		color: #72d9e0;
+		color: #0d1b2a;
+		font-weight: 700;
 	}
 	@media (min-width: 600px) {
 		width: 100%;
@@ -92,4 +96,11 @@ export const Info = styled.span`
 	}
 `;
 
-export const PhoneSection = styled.div``;
+export const PhoneSection = styled.div`
+	display: none;
+	@media (min-width: 1000px) {
+		display: initial;
+		width: 30%;
+		height: 80%;
+	}
+`;

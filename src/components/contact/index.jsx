@@ -12,6 +12,7 @@ const ContactSection = () => {
 	return (
 		<SectionContainer>
 			<Title>Contato</Title>
+			<PhoneSection />
 			<PhoneContainer>
 				<PhoneIcon />
 				<Info>SAC: </Info>
