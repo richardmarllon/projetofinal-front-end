@@ -32,9 +32,7 @@ export const SytledCardOverview = styled.div`
 	border: 3px solid #72d9e0;
 	margin: 0.5em;
 	align-items: center;
-	justify-content: center;
 	width: -webkit-fill-available;
-	display: grid;
 `;
 
 export const SytledEnvelop = styled.div`
@@ -48,6 +46,7 @@ export const SytledCard = styled.div`
 
 export const SytledTitle = styled.h3`
 	width: -webkit-fill-available;
+	font-size: 1.2rem;
 `;
 
 export const SytledTitle2 = styled.h3`

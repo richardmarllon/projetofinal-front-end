@@ -73,16 +73,11 @@ const ListAppointments = () => {
 									>
 										{!closeModal && (
 											<>
-												<SytledTitle2>Anexos:</SytledTitle2>
-												<p>
-													Data:
-													{calcDate(appointment?.date)}
-												</p>
 												<SytledTitle2>
 													Médico:{appointment?.firstName}
 												</SytledTitle2>
 												<SytledCardOverview>
-													<SytledTitle2>Descrição:</SytledTitle2>
+													<SytledTitle>Descrição:</SytledTitle>
 													{appointment?.overview}
 												</SytledCardOverview>
 

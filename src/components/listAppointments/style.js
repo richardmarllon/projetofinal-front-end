@@ -29,7 +29,7 @@ export const SytledCardInitial = styled.div`
 	text-align: center;
 	justify-content: center;
 	width: -webkit-fill-available;
-	display: grid;
+	display: table;
 `;
 
 export const SytledCardOverview = styled.div`
@@ -39,7 +39,6 @@ export const SytledCardOverview = styled.div`
 	border: 3px solid #72d9e0;
 	margin: 0.5em;
 	align-items: center;
-	justify-content: center;
 	width: -webkit-fill-available;
 	display: grid;
 `;
@@ -64,11 +63,21 @@ export const StyledModal = styled(Modal)`
 
 export const SytledTitle = styled.h3`
 	width: -webkit-fill-available;
+	font-size: 1.2rem;
 `;
 
 export const SytledTitle2 = styled.h3`
 	width: -webkit-fill-available;
 	font-size: 1.2rem;
+	background: #72d9e0;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding-left: 18px;
+	padding-bottom: 18px;
+	padding-top: 18px;
 `;
 
-export const ModalButton = styled(ModalStyled)``;
+export const ModalButton = styled(ModalStyled)`
+	padding: 14px;
+`;

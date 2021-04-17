@@ -3,7 +3,7 @@ import { useAppointments } from "../../providers/AppointmentsProvider";
 import "antd/dist/antd.css";
 import { Carousel } from "antd";
 import moment from "moment";
-import { SytledCardInitial, SytledTitle } from "./style";
+import { SytledCardInitial, SytledTitle, SytledCardOverview } from "./style";
 import { useUsers } from "../../providers/UserProvider";
 
 const AppointmentCard = ({ AppointmentId, setCloseModal }) => {
@@ -33,7 +33,7 @@ const AppointmentCard = ({ AppointmentId, setCloseModal }) => {
 	return (
 		<>
 			{filterExam?.map((exams, index) => (
-				<SytledCardInitial key={index}>
+				<SytledCardOverview key={index}>
 					<SytledTitle>Exame de : {exams?.description}</SytledTitle>
 					<p>
 						Especialidade:
@@ -47,7 +47,7 @@ const AppointmentCard = ({ AppointmentId, setCloseModal }) => {
 						Resultado:
 						{exams?.reportLink}
 					</p>
-				</SytledCardInitial>
+				</SytledCardOverview>
 			))}
 		</>
 	);
