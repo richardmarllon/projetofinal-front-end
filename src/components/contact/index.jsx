@@ -6,11 +6,13 @@ import {
 	PhoneNumber,
 	Info,
 	PhoneSection,
+	HomeIcon,
 } from "./style";
 
 const ContactSection = () => {
 	return (
 		<SectionContainer>
+			
 			<Title>Contato</Title>
 			<PhoneSection />
 			<PhoneContainer>

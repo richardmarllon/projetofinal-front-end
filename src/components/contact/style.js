@@ -7,6 +7,7 @@ export const SectionContainer = styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 100%;
 	justify-content: space-evenly;
 	background-color: rgba(114, 217, 224, 0.1);
 	@media (min-width: 600px) {
