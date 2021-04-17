@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ListAppointments from "../listAppointments";
 import UserBasicInfo from "../userBasicInfo";
+import ReminderSection from "../reminderSection";
 import ListAllPhysicians from "../listAllPhysicians";
 import {
 	HomePatientContainer,
@@ -38,6 +39,7 @@ const HomePatient = () => {
 				{isRemember && (
 					<ActionsContainer>
 						<p> COMPONENTE LEMBRETES </p>
+						<ReminderSection />
 					</ActionsContainer>
 				)}
 
