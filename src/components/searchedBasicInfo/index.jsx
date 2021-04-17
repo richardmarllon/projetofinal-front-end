@@ -22,7 +22,6 @@ import { useHistory } from "react-router";
 
 const SearchedBasicInfo = () => {
 	const { user, setUser } = useUsers();
-	const [open, setOpen] = useState(false);
 	const [chronicDisease, setChronicDisease] = useState([]);
 	const history = useHistory();
 
@@ -75,7 +74,6 @@ const SearchedBasicInfo = () => {
 						<Avatar src={doctor}></Avatar>
 					)}
 				</Div>
-				<Button onClick={() => setOpen(true)}>config</Button>
 				<NameUser>
 					{user.data.firstName}, {calcAge(user.data.birthDate)}
 				</NameUser>
@@ -108,11 +106,6 @@ const SearchedBasicInfo = () => {
 				</Div>
 				<Button className="vacina">vacinas</Button>
 			</ContainerUser>
-			{open && (
-				<Div>
-					<P>teste</P>
-				</Div>
-			)}
 		</>
 	);
 };

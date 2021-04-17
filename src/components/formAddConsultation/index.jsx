@@ -21,18 +21,26 @@ import { useState, useEffect } from "react";
 import SearchDisease from "../searchDisease";
 import UserDiseasesList from "../userDiseasesList";
 import { Badge, Collapse } from "antd";
+import { useHistory } from "react-router";
+
+
 
 const FormAddConsultation = ({ setCloseModal }) => {
-	const { user, loggedUser } = useUsers();
-	console.log(user, "no componente", loggedUser);
+	const { user, loggedUser } = useUsers();	
 	const { Panel } = Collapse;
 	const [count, setCount] = useState(0);
+
+	const now = new Date();
+	const dateAppointment = dateToTimestamp(now);
+	const history = useHistory();
+
 
 	const schema = yup.object().shape({
 		description: yup.string().required("Obrigatório descrição do exame!"),
 		date: yup.date("Formato dia/mes/ano").required("Campo obrigatório!"),
 	});
-	console.log(user.data.exams);
+
+	
 	const {
 		register,
 		handleSubmit,
@@ -46,47 +54,49 @@ const FormAddConsultation = ({ setCloseModal }) => {
 	const [exams, setExams] = useState([]);
 	const [canShowExams, setCanShowExams] = useState(false);
 	const [appointmentId, setAppointmentId] = useState("");
+	const [finished, setFinished] = useState(false);
+
 
 	useEffect(() => {
 		getAppointmentId();
-		setCount(user.data.previousDiseases.length);
+		let previous = user.data.previousDiseases?.length; 
+		setCount(previous);		
+		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user]);
 
+
+	useEffect(() => {
+		if (finished) {
+			history.push("/");
+		}
+		setFinished(false);		
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[canShowExams])
+
+	// When component is open a new appointment is created to get its id.
 	const getAppointmentId = () => {
-		// console.log("Criando Consulta");
-		const now = new Date();
-		const dateAppointment = dateToTimestamp(now);
-
-		const data = {
-			userID: user.data.id,
-			date: dateAppointment,
-			physicianlD: loggedUser.data.id,
-			physicianName: loggedUser.data.firstName,
-			medicalSpecialty: loggedUser.data.medicalSpecialty,
-			overview: "",
-		};
-
-		saluteAPI
-			.post("appointments", data)
-			.then((response) => {
-				console.log("Consulta criada com sucesso");
-
+	
+			saluteAPI
+			.post("appointments", {})
+			.then((response) => {				
 				setAppointmentId(response.data.id);
 				console.log("id consulta", appointmentId);
 			})
 			.catch((e) => {
-				console.log(e);
+				console.log('ops algo deu errado ao criar a consuta!',e);
 			});
 	};
 
 	const onSubmit = (data) => {
-		console.log("id consulta", appointmentId);
+		
 		// format date for unix stamptime
 		data.date = dateToTimestamp(data.date);
 
 		//  set other data
-		data.userId = user.data.firstName;
+		data.userId = user.data.id;
+		data.userName = user.data.firstName;		
 		data.physicianId = loggedUser.data.id;
 		data.physicianName = loggedUser.data.firstName;
 		data.physicianSpecialty = loggedUser.data.medicalSpecialty;
@@ -100,38 +110,47 @@ const FormAddConsultation = ({ setCloseModal }) => {
 	};
 
 	const sendExamsToAPI = (data) => {
-		// console.log("Enviar pedido de exame", data);
+		
 		setCanShowExams(true);
 
 		saluteAPI
 			.post(`exams?userId=${user.data.id}`, data)
-			.then((response) => {
-				// console.log("Enviado com sucesso", response);
+			.then((response) => {				
 				reset();
 			})
 			.catch((e) => {
-				console.log(e);
+				console.log("ixe, deu erro ao enviar a consulta!",e);
 			});
 	};
 
+
 	const closeConsultation = () => {
 		// Save conssultation
-
+		
 		const data = {
+			userID: user.data.id,
+			date: dateAppointment,
+			physicianlD: loggedUser.data.id,
+			physicianName: loggedUser.data.firstName,
+			medicalSpecialty: loggedUser.data.medicalSpecialty,
 			overview: overview,
 			qtyExams: exams.length,
-		};
+		};		
 
 		saluteAPI
 			.patch(`appointments/${appointmentId}`, data)
 			.then((response) => {
-				setCloseModal(true);
+				setOverview("");
+				setCanShowExams(false);
+				
 			})
 			.catch((e) => {
-				console.log(e);
+				console.log('aff... deu erro ao atualizar a consulta!',e);
+
 			});
-		setOverview("");
-		setCanShowExams(false);
+
+		setFinished(true);
+		
 	};
 
 	const writeOverview = (event) => {
@@ -203,7 +222,8 @@ const FormAddConsultation = ({ setCloseModal }) => {
 						className="date"
 						required
 						type="date"
-						placeholder="dd / mm / aaaa"
+						min = { moment(now).format("YYYY-MM-DD")}						
+						placeholder="dd/mm/aaaa"
 						{...register("date")}
 					/>
 					{errors.date && <StyledSmall>{errors.date.message}</StyledSmall>}

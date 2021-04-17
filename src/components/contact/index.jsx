@@ -1,12 +1,37 @@
-const Contact = () => {
+import {
+	PhoneContainer,
+	SectionContainer,
+	Title,
+	PhoneIcon,
+	PhoneNumber,
+	Info,
+	PhoneSection,
+	HomeIcon,
+} from "./style";
+
+const ContactSection = () => {
 	return (
-		<>
-			<h1>Contact</h1>
-			<span>8(725)246-395831</span>
-			<span>01(47)496-720623</span>
-			<span>71(359)227-711972</span>
-		</>
+		<SectionContainer>
+			
+			<Title>Contato</Title>
+			<PhoneSection />
+			<PhoneContainer>
+				<PhoneIcon />
+				<Info>SAC: </Info>
+				<PhoneNumber href="tel:0800-785-3131">0800-785-3131</PhoneNumber>
+			</PhoneContainer>
+			<PhoneContainer>
+				<PhoneIcon />
+				<Info>Empresas: </Info>
+				<PhoneNumber href="tel:4004-3132">(0xx11) 4004-3132</PhoneNumber>
+			</PhoneContainer>
+			<PhoneContainer>
+				<PhoneIcon />
+				<Info>Contrate: </Info>
+				<PhoneNumber href="tel:4004-3133">(0xx11) 4004-3133</PhoneNumber>
+			</PhoneContainer>
+		</SectionContainer>
 	);
 };
 
-export default Contact;
+export default ContactSection;

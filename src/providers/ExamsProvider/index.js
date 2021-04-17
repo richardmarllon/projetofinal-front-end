@@ -9,23 +9,21 @@ export const ExamsProvider = ({ children }) => {
 	const { loggedUser } = useUsers();
 	const [userExams, setUserExams] = useState([]);
 
-	useEffect(() => {
-		if (loggedUser) {
-			let userID = loggedUser.id;
 
-			saluteAPI
-				.get(`/exams?userId=${userID}`)
-				.then((response) => {
-					setUserExams(response.data);
-				})
-				.catch((error) => {
-					console.log(error.response);
-				});
-		}
-	}, [loggedUser]);
+	const loadApi = async () => {
+		await saluteAPI
+			.get(`/exams?userId=${loggedUser.data.id}`)
+			.then((response) => {
+				// console.log(`loaded exams API do user ${loggedUser.data.id} - ${response.data}`);
+				setUserExams(response.data);
+			})
+			.catch((error) => {
+				console.log("Erro ao carregar exames", error.response);
+			});
+	}
 
 	return (
-		<ExamsContext.Provider value={{ userExams }}>
+		<ExamsContext.Provider value={{ userExams, loadApi }}>
 			{children}
 		</ExamsContext.Provider>
 	);
