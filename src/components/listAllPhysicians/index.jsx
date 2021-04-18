@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 import { useUsers } from "../../providers/UserProvider";
 import "antd/dist/antd.css";
 import {
-	SytledContainer,	
-	SytledCardInitial,	
+	SytledContainer,
+	SytledCardInitial,
 	SytledTitle,
 	StyledPagination,
 	Avatar,
-	StyledArrow
+	StyledArrow,
 } from "./style";
 
 import doctor from "../../images/blood/doctor.jpg";
 
-
-const ListAllPhysicians = ({showAll}) => {
+const ListAllPhysicians = ({ showAll }) => {
 	const { allUsers, getAllUsers } = useUsers();
 
 	const [minValue, setMinValue] = useState(0);
@@ -35,17 +34,17 @@ const ListAllPhysicians = ({showAll}) => {
 
 	useEffect(() => {
 		getAllUsers();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
-		<>		
+		<>
 			<SytledContainer>
 				<StyledArrow
-					onClick={() => {					
+					onClick={() => {
 						showAll();
 					}}
-				/>	
+				/>
 				<SytledTitle>Médicos</SytledTitle>
 				{usersPhysicians &&
 					usersPhysicians?.length > 0 &&

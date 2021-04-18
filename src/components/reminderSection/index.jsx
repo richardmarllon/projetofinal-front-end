@@ -6,9 +6,9 @@ import moment from "moment";
 import { 
 		ReminderContainer, 
 		CardSearch,
-		StyledArrow,
+		StyledTitle,
 		SytledEnvelop,
-		SytledTitle
+		StyledArrow
 } from "./style";
 
 
@@ -26,7 +26,7 @@ const ReminderSection = ({showAll}) => {
 	const futureExams = userExams.filter((exam) => {
 		let examsDate = moment(Number(exam.date)).format("YYYY-MM-DD");		
 		return moment(examsDate).isAfter(today);
-	}).sort((a,b) => a.date - b.date);
+	});
 
 	return (		
 		<>
@@ -36,7 +36,8 @@ const ReminderSection = ({showAll}) => {
 						showAll();
 					}}
 				/>	
-				<SytledTitle>Lembretes</SytledTitle>
+				<StyledTitle>Lembretes</StyledTitle>
+				
 				<SytledEnvelop>
 					{futureExams.length < 1  ? 
 					<CardSearch>

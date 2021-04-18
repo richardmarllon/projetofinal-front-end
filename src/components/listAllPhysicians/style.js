@@ -11,6 +11,7 @@ export const SytledContainer = styled.div`
 	flex-flow: wrap;
 	justify-content: center;
 	margin: 0 20px;
+	margin-top: 0px;
 	max-height: fit-content;
 	height: fit-content;
 	padding: 1rem;
@@ -23,6 +24,7 @@ export const SytledCardInitial = styled.div`
 	max-width: 32em;
 	border: 3px solid #72d9e0;
 	margin: 0.5em;
+
 	align-items: center;
 	text-align: center;
 	justify-content: center;

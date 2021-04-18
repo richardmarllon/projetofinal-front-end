@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { HeaderContainer, LogoContainer, LogoutContainer } from "./style";
+import {
+	HeaderContainer,
+	LogoContainer,
+	LogoutContainer,
+	LogOutMobile,
+} from "./style";
 import logoHeader from "../../images/headerLogo.svg";
 import { useUsers } from "../../providers/UserProvider";
+import logout from "../../images/log-out.svg";
 
 const Header = () => {
 	const [isToken, setIsToken] = useState(true);
@@ -32,15 +38,22 @@ const Header = () => {
 
 	return (
 		<>
+			{loggedUser && (
+				<LogOutMobile onClick={logoutUserfromHome}>
+					<img src={logout} alt="log out icon" />
+					<p>sair</p>
+				</LogOutMobile>
+			)}
 			<HeaderContainer>
 				<LogoContainer>
 					<Link to="home">
-						<img src={logoHeader} />
+						<img src={logoHeader} alt="brand logo" />
 					</Link>
 				</LogoContainer>
 				{loggedUser && (
-					<LogoutContainer>
-						<Link onClick={logoutUserfromHome}>sair</Link>
+					<LogoutContainer onClick={logoutUserfromHome}>
+						<img src={logout} alt="log out icon" />
+						<Link>sair</Link>
 					</LogoutContainer>
 				)}
 			</HeaderContainer>

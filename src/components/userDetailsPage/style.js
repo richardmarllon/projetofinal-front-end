@@ -6,14 +6,14 @@ export const HomePatientContainer = styled.div`
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
-		padding: 5%;
+		padding: 3%;
 		overflow-x: hidden;
 	}
 `;
 
 export const ActionsContainer = styled.div`
 	flex-grow: 1;
-	margin: 3%;
+	margin: 1%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;

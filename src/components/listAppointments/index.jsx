@@ -10,17 +10,14 @@ import {
 	SytledTitle2,
 	ModalButton,
 	StyledPagination,
-	StyledArrow
+	StyledArrow,
 } from "./style";
 // import { Button } from "antd";
 // import { Pagination } from "antd";
 import moment from "moment";
 import AppointmentCard from "../appointmentCard";
 
-
-
-const ListAppointments = ({showAll}) => {
-
+const ListAppointments = ({ showAll }) => {
 	const { userAppointments } = useAppointments();
 	// const [isModalVisible, setIsModalVisible] = useState(false);
 	const [closeModal, setCloseModal] = useState(false);
@@ -32,7 +29,7 @@ const ListAppointments = ({showAll}) => {
 	// console.log("examsAppointment", examsAppointment);
 
 	const calcDate = (date) => {
-		date = moment(Number(date)).format("DD/MM/YYYY");	
+		date = moment(Number(date)).format("DD/MM/YYYY");
 		return date;
 	};
 
@@ -51,11 +48,11 @@ const ListAppointments = ({showAll}) => {
 
 	return (
 		<SytledContainer>
-				<StyledArrow
-					onClick={() => {					
-						showAll();
-					}}
-				/>	
+			<StyledArrow
+				onClick={() => {
+					showAll();
+				}}
+			/>
 			<SytledTitle>Histórico</SytledTitle>
 			<SytledEnvelop>
 				{userAppointments
@@ -82,7 +79,7 @@ const ListAppointments = ({showAll}) => {
 										{!closeModal && (
 											<>
 												<SytledTitle2>
-													Médico:{appointment?.firstName}
+													Médico:{appointment?.physicianName}
 												</SytledTitle2>
 												<SytledCardOverview>
 													<SytledTitle>Descrição:</SytledTitle>

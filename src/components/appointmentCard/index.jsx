@@ -3,8 +3,14 @@ import { useAppointments } from "../../providers/AppointmentsProvider";
 import "antd/dist/antd.css";
 import { Carousel } from "antd";
 import moment from "moment";
-import { SytledCardInitial, SytledTitle, SytledCardOverview } from "./style";
+import {
+	SytledCardInitial,
+	SytledTitle,
+	SytledCardOverview,
+	PdfContainer,
+} from "./style";
 import { useUsers } from "../../providers/UserProvider";
+import pdf from "../../images/Pdf.svg";
 
 const AppointmentCard = ({ AppointmentId, setCloseModal }) => {
 	const { getExamsofAppointment, examsAppointment } = useAppointments();
@@ -36,17 +42,25 @@ const AppointmentCard = ({ AppointmentId, setCloseModal }) => {
 				<SytledCardOverview key={index}>
 					<SytledTitle>Exame de : {exams?.description}</SytledTitle>
 					<p>
-						Especialidade:
+						Especialidade:&nbsp;
 						{exams?.physicianSpecialty}
 					</p>
 					<p>
-						Data:
+						Data: &nbsp;
 						{calcDate(exams?.date)}
 					</p>
-					<p>
-						Resultado:
-						{exams?.reportLink}
-					</p>
+					{exams.reportLink && (
+						<PdfContainer>
+							Resultado:&nbsp;
+							<img
+								src={pdf}
+								alt="download exam pdf icon"
+								onClick={() => {
+									window.open(`${exams.reportLink}`, "_blank");
+								}}
+							/>
+						</PdfContainer>
+					)}
 				</SytledCardOverview>
 			))}
 		</>
