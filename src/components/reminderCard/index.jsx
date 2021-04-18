@@ -8,11 +8,11 @@ const ReminderCard = ({ exam }) => {
 			<CardContainer>
 				<Title>Exame</Title>
 				<InfoContainer>
-					<Info>Descrição do Exame:</Info>
+					<Info bold >Descrição do Exame:</Info>
 					<Info>{exam.description}</Info>
 				</InfoContainer>
 				<InfoContainer>
-					<Info>data:</Info>
+					<Info bold >data:</Info>
 					<Info>{moment(exam.date).format('DD/MM/YYYY')}</Info>
 				</InfoContainer>
 			</CardContainer>

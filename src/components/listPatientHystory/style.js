@@ -11,7 +11,7 @@ export const SytledContainer = styled.div`
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-flow: wrap;
-	justify-content: center;
+	justify-content: left;
 	margin: 0 20px;
 	margin-top: 15px;
 	max-height: fit-content;
@@ -65,7 +65,7 @@ export const StyledModal = styled(Modal)`
 
 export const SytledTitle = styled.h3`
 	width: -webkit-fill-available;
-	font-size: 1.2rem;
+	font-size: 2rem;
 `;
 
 export const SytledTitle2 = styled.h3`

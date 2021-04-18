@@ -7,7 +7,6 @@ import bp from "../../images/blood/b+.svg";
 import bm from "../../images/blood/b-.svg";
 import abp from "../../images/blood/ab+.svg";
 import abm from "../../images/blood/ab-.svg";
-import ModalStyled from "../modal";
 import FormUserUpdateInfo from "../formUserUpdateInfo";
 
 export const ContainerUser = styled.div`
@@ -19,6 +18,7 @@ export const ContainerUser = styled.div`
 	flex-direction: column;
 	flex-wrap: wrap;
 	padding: 1rem;
+
 	@media (min-width: 600px) {
 		border: 3px solid #72d9e0;
 		max-width: 600px;
@@ -86,18 +86,27 @@ export const Div = styled.div`
 		width: 90%;
 		max-width: 400px;
 		p:first-child {
+			padding: 0;
 			font-size: 1.5rem;
+			font-weight: 700;
+			text-align: center;
+		}
+		p.diseases {
+			margin: 0 0 0 1rem;
+			width: fit-content;
+			font-size: 1.2rem;
 		}
 		div {
 			border: none;
 			background-color: transparent;
 		}
 		li {
+			font-size: 1.2rem;
 			text-decoration: none;
 			list-style: none;
 			text-align: left;
 			width: 95%;
-			margin: 0 auto;
+			margin-left: 1rem;
 		}
 	}
 `;
@@ -128,6 +137,7 @@ export const CardsContainer = styled.div`
 export const P = styled.p`
 	text-align: left;
 	padding-left: 1rem;
+	margin: 0;
 `;
 
 export const Button = styled.button`
