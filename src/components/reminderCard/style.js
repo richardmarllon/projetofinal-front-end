@@ -26,4 +26,5 @@ export const InfoContainer = styled.div`
 export const Info = styled.div`
 	text-align:center;
 	margin-bottom: .5vw;
+	font-weight: ${props => props.bold ? 'bold' : null};
 `;

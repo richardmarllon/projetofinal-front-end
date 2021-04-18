@@ -4,7 +4,11 @@ import ReminderCard from "../reminderCard";
 import moment from "moment";
 
 import { 
-		ReminderContainer, CardSearch,StyledArrow
+		ReminderContainer, 
+		CardSearch,
+		StyledTitle,
+		SytledEnvelop,
+		StyledArrow
 } from "./style";
 
 
@@ -26,13 +30,16 @@ const ReminderSection = ({showAll}) => {
 
 	return (		
 		<>
-			<StyledArrow
-				onClick={() => {					
-					showAll();
-				}}
-			/>	
-			<ReminderContainer>
-				{futureExams.length < 1  ? 
+			<ReminderContainer>			
+				<StyledArrow
+					onClick={() => {					
+						showAll();
+					}}
+				/>	
+				<StyledTitle>Lembretes</StyledTitle>
+				
+				<SytledEnvelop>
+					{futureExams.length < 1  ? 
 					<CardSearch>
 						<h3>Sem exames para ser feito!</h3>			
 					</CardSearch>
@@ -47,6 +54,7 @@ const ReminderSection = ({showAll}) => {
 						}						
 					</>
 				}
+				</SytledEnvelop>
 			</ReminderContainer>
 		</>
 	);
