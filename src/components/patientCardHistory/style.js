@@ -53,3 +53,5 @@ export const SytledTitle2 = styled.h3`
 	width: -webkit-fill-available;
 	font-size: 1.2rem;
 `;
+
+
