@@ -107,7 +107,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 	const [buttonMsg, setButtonMsg] = useState("Salvar e Atualizar");
 
 	const onSubmit = (data) => {
-		setButtonMsg("Analizando ...");
+		
 		// format cpf
 		const _cpf = formatCPF(data.cpf);
 		if (!_cpf) {
@@ -139,6 +139,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 			setBloodError(false);
 		}
 
+		setButtonMsg("Analizando ...");
 		// handler pragnant to false or true
 		data.pregnant === "true" ? (data.pregnant = true) : (data.pregnant = false);
 
@@ -150,12 +151,12 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 
 		// format date for milliseconds
 		data.birthDate = dateToTimestamp(data.birthDate);
-
-		setButtonMsg("Enviando ...");
 		setUserRegister(data);
 	};
 
+	
 	const setUserRegister = (data) => {
+		setButtonMsg("Enviando ...");
 		saluteAPI
 			.patch(`/users/${id}`, data)
 			.then((response) => {
