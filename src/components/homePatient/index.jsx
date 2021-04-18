@@ -23,21 +23,6 @@ const HomePatient = () => {
 		setIsHistoric(false);
 	};
 
-	// const handleClickReminders = () => {
-	// 	setIsRemember(!isRemember);
-	// 	setIsShow(!isShow);
-	// };
-
-	// const handleClickAllPhysician = () => {
-	// 	setIsAllPhysician(!isAllPhysician);
-	// 	setIsShow(!isShow);
-	// };
-
-	// const handleClickHistoric = () => {
-	// 	setIsHistoric(!isHistoric);
-	// 	setIsShow(!isShow);
-	// };
-
 	const handleClick = () => {
 		setIsShow(!isShow);
 	};
