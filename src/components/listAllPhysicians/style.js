@@ -79,4 +79,6 @@ export const SytledTitle = styled.h3`
 
 export const StyledArrow = styled(ArrowLeftOutlined)`
 	font-size: 2rem;
+	text-align: left;
+	width: 100%;
 `;
