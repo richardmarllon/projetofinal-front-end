@@ -48,11 +48,11 @@ export const AppointmentsProvider = ({ children }) => {
 	useEffect(() => {
 		if (loggedUser) {
 			let userID = loggedUser.data.id;
-			console.log('apont useEffect _ID', userID)
+			console.log("apont useEffect _ID", userID);
 			saluteAPI
 				.get(`/appointments?userID=${userID}`)
 				.then((response) => {
-					console.log("appoint_data", response.data)
+					console.log("appoint_data", response.data);
 					setUserAppointments(response.data);
 				})
 				.catch((error) => {

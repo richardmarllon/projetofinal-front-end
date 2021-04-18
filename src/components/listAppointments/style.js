@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { Pagination } from "antd";
 import { Modal } from "antd";
-import ModalStyled from "../modal";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-
+import ModalStyled from "../modal";
 
 export const SytledContainer = styled.div`
 	border-radius: 20px;

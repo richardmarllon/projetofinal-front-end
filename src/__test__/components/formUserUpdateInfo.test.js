@@ -62,10 +62,7 @@ describe("Should call handleSubmit", () => {
 		const lastName = screen.getByTestId("lastNameTestId");
 		const birthDate = screen.getByTestId("birthDateTestId");
 		const gender = screen.getByTestId("genderTestId");
-		const pregnant = screen.getByTestId("pregnantTestId");
 		const cpf = screen.getByTestId("cpfTestId");
-		// const crm = screen.getByTestId("crmTestId");
-		// const medicalSpecialty = screen.getByTestId("medicalSpecialtyTestId");
 		const allergies = screen.getByTestId("allergiesTestId");
 		const bloodType = screen.getByTestId("bloodTypeTestId");
 		const address = screen.getByTestId("addressTestId");
@@ -76,10 +73,7 @@ describe("Should call handleSubmit", () => {
 		userEvent.type(lastName, "teste");
 		userEvent.type(birthDate, "teste");
 		userEvent.type(gender, "teste");
-		userEvent.type(pregnant, "teste");
 		userEvent.type(cpf, "12345678998");
-		// userEvent.type(crm, "12345678998");
-		// userEvent.type(medicalSpecialty, "teste");
 		userEvent.type(allergies, "teste");
 		userEvent.type(bloodType, "A+");
 		userEvent.type(address, "teste,teste");

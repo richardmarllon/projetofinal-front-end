@@ -28,10 +28,7 @@ import {
 	StyledLabelForm,
 } from "../formUserUpdateInfo/style";
 
-
-
 const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
-
 	const { loggedUser, getLoggedUserData } = useUsers();
 	const history = useHistory();
 	const [finished, setFinished] = useState(false);
@@ -42,9 +39,8 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 			history.push("/");
 		}
 		setFinished(false);
-	// eslint-disable-next-line react-hooks/exhaustive-deps	
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loggedUser]);
-
 
 	const schema = yup.object().shape({
 		firstName: yup.string().required("Campo obrigatório"),
@@ -54,10 +50,9 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 			.string()
 			.min(11, "CPF com erro!")
 			.max(14, "CPF com erro!")
-			.required("Campo obrigatório!")		
+			.required("Campo obrigatório!"),
 	});
-	
-	
+
 	const {
 		firstName,
 		lastName,
@@ -76,14 +71,13 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 		cellphoneNumber,
 	} = loggedUser.data || "";
 
-	
-	const birth = moment(Number(birthDate)).format("YYYY-MM-DD");	
-		
+	const birth = moment(Number(birthDate)).format("YYYY-MM-DD");
+
 	const [inputUser, setInputUser] = useState({
 		firstName: firstName,
 		lastName: lastName,
 		birthDate: birth,
-	  gender: gender,
+		gender: gender,
 		pregnant: pregnant,
 		cpf,
 		crm,
@@ -93,7 +87,6 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 		address,
 		cellphoneNumber,
 	});
-
 
 	const {
 		register,
@@ -113,8 +106,6 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 	const [genderError, setGenderError] = useState(false);
 	const [buttonMsg, setButtonMsg] = useState("Salvar e Atualizar");
 
-
-
 	const onSubmit = (data) => {
 		setButtonMsg("Analizando ...");
 		// format cpf
@@ -131,7 +122,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 			return;
 		}
 
-		if(data.gender === "empty"){
+		if (data.gender === "empty") {
 			setGenderError(true);
 			return;
 		}
@@ -163,12 +154,11 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 		setButtonMsg("Enviando ...");
 		setUserRegister(data);
 	};
-	
 
 	const setUserRegister = (data) => {
 		saluteAPI
 			.patch(`/users/${id}`, data)
-			.then((response) => {				
+			.then((response) => {
 				setButtonMsg("Atualizado.");
 				getLoggedUserData(id);
 				setFinished(true);
@@ -178,15 +168,14 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 			});
 	};
 
-
 	const handleUserGender = (event) => {
 		const option = event.target.value;
 
 		// target.options... if 0 is female then show pregnant fied.
-		console.log('option', option)
-		option === 'female' ? setIsWoman(true) : setIsWoman(false);
+		console.log("option", option);
+		option === "female" ? setIsWoman(true) : setIsWoman(false);
 		setInputUser([inputUser.gender, event.target.value]);
-		
+
 		// setGenderError is disable, because the user is typing.
 		setGenderError(false);
 	};
@@ -205,16 +194,16 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 
 	const handlePhone = (event) => {
 		// setPhoneError is disable, because the user is typing.
-		setPhoneError(false);		
-		setInputUser([inputUser.cellphoneNumber, event.target.value]);		
+		setPhoneError(false);
+		setInputUser([inputUser.cellphoneNumber, event.target.value]);
 	};
-
 
 	return (
 		<>
 			<StyledForm
+				data-testid="formTestId"
 				onSubmit={handleSubmit(onSubmit)}
-				type={history.location.pathname === "/home" ? "modal" : "page"}
+				type={history?.location.pathname === "/home" ? "modal" : "page"}
 			>
 				<LogoContainer>
 					<LogoTag src={logo} />
@@ -229,6 +218,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 					<InputContainer>
 						<StyledLabelForm for="name">primeiro nome:</StyledLabelForm>
 						<StyledInput
+							data-testid="firstNameTestId"
 							id="name"
 							required
 							type="text"
@@ -247,6 +237,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 					<InputContainer>
 						<StyledLabelForm for="lastName">último nome:</StyledLabelForm>
 						<StyledInput
+							data-testid="lastNameTestId"
 							id="lastName"
 							required
 							type="text"
@@ -265,6 +256,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 					<InputContainer className="date">
 						<StyledLabelForm for="birth">Data de nascimento:</StyledLabelForm>
 						<StyledInput
+							data-testid="birthDateTestId"
 							required
 							id="birth"
 							type="date"
@@ -282,6 +274,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 					<InputContainer className={!isPhysician && "personal"}>
 						<StyledLabelForm for="cpf">CPF:</StyledLabelForm>
 						<StyledInput
+							data-testid="cpfTestId"
 							id="cpf"
 							className="cpf"
 							required
@@ -347,6 +340,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 					<InputContainer>
 						<StyledLabelForm for="address">endereço:</StyledLabelForm>
 						<StyledInput
+							data-testid="addressTestId"
 							id="address"
 							required
 							type="text"
@@ -364,6 +358,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 					<InputContainer>
 						<StyledLabelForm for="phone">telefone:</StyledLabelForm>
 						<StyledInput
+							data-testid="cellphoneNumberTestId"
 							id="phone"
 							required
 							type="text"
@@ -385,6 +380,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 					<InputContainer>
 						<StyledLabelForm for="allergies">alergias:</StyledLabelForm>
 						<StyledInput
+							data-testid="allergiesTestId"
 							id="allergies"
 							type="text"
 							placeholder="Ex: lactose, glúten, etc."
@@ -398,6 +394,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 					<InputContainer className="bloodType">
 						<StyledLabelForm for="blood">tipo sanguíneo:</StyledLabelForm>
 						<StyledSelect
+							data-testid="bloodTypeTestId"
 							id="blood"
 							value={inputUser.bloodType}
 							{...register("bloodType")}
@@ -421,7 +418,8 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 						<InputContainer className="type">
 							<StyledLabelForm for="gender">gênero:</StyledLabelForm>
 							<StyledSelect
-								id="gender"								
+								data-testid="genderTestId"
+								id="gender"
 								{...register("gender")}
 								value={inputUser.gender}
 								onChange={handleUserGender}
@@ -430,11 +428,7 @@ const FormUserUpdateInfo = ({ setCloseModal, openModal }) => {
 								<option value="female">Mulher</option>
 								<option value="male">Homem</option>
 							</StyledSelect>
-							{genderError && (
-									<StyledSmall>
-										Escolha obrigatória!
-									</StyledSmall>
-							)}
+							{genderError && <StyledSmall>Escolha obrigatória!</StyledSmall>}
 						</InputContainer>
 
 						{isWoman && (
