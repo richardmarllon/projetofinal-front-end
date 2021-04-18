@@ -30,14 +30,13 @@ const ReminderSection = ({showAll}) => {
 
 	return (		
 		<>
-			<ReminderContainer>
-			
+			<ReminderContainer>			
 				<StyledArrow
 					onClick={() => {					
 						showAll();
 					}}
 				/>	
-				<SytledTitle>Meus Lembretes</SytledTitle>
+				<SytledTitle>Lembretes</SytledTitle>
 				<SytledEnvelop>
 					{futureExams.length < 1  ? 
 					<CardSearch>
