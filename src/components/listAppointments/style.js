@@ -11,7 +11,6 @@ export const SytledContainer = styled.div`
 	display: flex;
 	-webkit-flex-direction: column;
 	flex-flow: wrap;
-	justify-content: center;
 	margin: 0 20px;
 	max-height: fit-content;
 	height: fit-content;
@@ -64,7 +63,7 @@ export const StyledModal = styled(Modal)`
 
 export const SytledTitle = styled.h3`
 	width: -webkit-fill-available;
-	font-size: 1.2rem;
+	font-size: 2rem;
 `;
 
 export const SytledTitle2 = styled.h3`
@@ -85,4 +84,12 @@ export const ModalButton = styled(ModalStyled)`
 
 export const StyledArrow = styled(ArrowLeftOutlined)`
 	font-size: 2rem;
+`;
+
+export const Title = styled.h3`
+	min-width: 100%;
+	text-align: center;
+	background-color: #72d9e0;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
 `;

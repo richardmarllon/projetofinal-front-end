@@ -3,7 +3,13 @@ import { useAppointments } from "../../providers/AppointmentsProvider";
 import "antd/dist/antd.css";
 import { Carousel } from "antd";
 import moment from "moment";
-import { SytledCardInitial, SytledTitle, SytledCardOverview } from "./style";
+import {
+	SytledCardInitial,
+	SytledTitle,
+	SytledCardOverview,
+	PdfContainer,
+} from "./style";
+import pdf from "../../images/Pdf.svg";
 import { useUsers } from "../../providers/UserProvider";
 
 const PatientCardHistory = ({ AppointmentId, setCloseModal }) => {
@@ -43,10 +49,18 @@ const PatientCardHistory = ({ AppointmentId, setCloseModal }) => {
 						Data:
 						{calcDate(exams?.date)}
 					</p>
-					<p>
-						Resultado:
-						{exams?.reportLink}
-					</p>
+					{exams.reportLink && (
+						<PdfContainer>
+							Resultado:&nbsp;
+							<img
+								src={pdf}
+								alt="download exam pdf icon"
+								onClick={() => {
+									window.open(`${exams.reportLink}`, "_blank");
+								}}
+							/>
+						</PdfContainer>
+					)}
 				</SytledCardOverview>
 			))}
 		</>
