@@ -36,7 +36,7 @@ const PatientCardHistory = ({ AppointmentId, setCloseModal }) => {
 				<SytledCardOverview key={index}>
 					<SytledTitle>Exame de : {exams?.description}</SytledTitle>
 					<p>
-						Especialidade:
+						Especialidade: &nbsp;
 						{exams?.physicianSpecialty}
 					</p>
 					<p>
