@@ -108,15 +108,21 @@ const UserBasicInfo = () => {
 					</Div>
 				</CardsContainer>
 				<Div className="details">
-					<P>detalhes:</P>
-					{loggedUser.data.userType === "physician" && "Médico"}
+					<P>Detalhes</P>
+					{loggedUser.data.userType === "physician" && <b>Médico</b>}
 					{loggedUser.data.allergies && (
-						<P>alergico a: {loggedUser.data.allergies}</P>
+						<P>
+							<b>Alergias:</b> {loggedUser.data.allergies}
+						</P>
 					)}
-					{loggedUser.data.pregnant && <P>Grávida: Sim</P>}
+					{loggedUser.data.pregnant && (
+						<P>
+							<b>Grávida:</b> Sim
+						</P>
+					)}
 					{loggedUser.data.previousDiseases && (
 						<Div>
-							Doenças:
+							<P className="diseases">Doenças:</P>
 							<Ul>
 								{chronicDisease.map((chronic, index) => (
 									<Li key={index}>{chronic} </Li>
@@ -125,8 +131,6 @@ const UserBasicInfo = () => {
 						</Div>
 					)}
 				</Div>
-
-				<Button className="vacina">vacinas</Button>
 			</ContainerUser>
 		</>
 	);

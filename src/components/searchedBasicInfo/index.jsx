@@ -90,12 +90,21 @@ const SearchedBasicInfo = () => {
 					</Div>
 				</CardsContainer>
 				<Div className="details">
-					<P>detalhes:</P>
-					{user.data.allergies && <P>alergico a: {user.data.allergies}</P>}
-					{user.data.pregnant && <P>Grávida: Sim</P>}
+					<P>Detalhes</P>
+					{user.data.userType === "physician" && <b>Médico</b>}
+					{user.data.allergies && (
+						<P>
+							<b>Alergias:</b> {user.data.allergies}
+						</P>
+					)}
+					{user.data.pregnant && (
+						<P>
+							<b>Grávida:</b> Sim
+						</P>
+					)}
 					{user.data.previousDiseases && (
 						<Div>
-							Doenças:
+							<P className="diseases">Doenças:</P>
 							<Ul>
 								{chronicDisease.map((chronic, index) => (
 									<Li key={index}>{chronic} </Li>
@@ -104,7 +113,6 @@ const SearchedBasicInfo = () => {
 						</Div>
 					)}
 				</Div>
-				<Button className="vacina">vacinas</Button>
 			</ContainerUser>
 		</>
 	);
