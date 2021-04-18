@@ -12,7 +12,7 @@ const Footer = () => {
 				<InfoContainer>
 					<span>Todos os direitos reservados</span>
 					<span>
-						Desenvolvido por: Franklin, Graziela, Illian, Richard e Suellen
+						Desenvolvido por: Franklin, Graziela, Illian e Richard
 					</span>
 				</InfoContainer>
 			</FooterContainer>
