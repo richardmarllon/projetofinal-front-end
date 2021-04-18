@@ -54,4 +54,9 @@ export const SytledTitle2 = styled.h3`
 	font-size: 1.2rem;
 `;
 
-
+export const PdfContainer = styled.div`
+	img {
+		cursor: pointer;
+		height: 3rem;
+	}
+`;

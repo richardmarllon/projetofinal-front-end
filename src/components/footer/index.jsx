@@ -11,9 +11,7 @@ const Footer = () => {
 				</LinkContainer>
 				<InfoContainer>
 					<span>Todos os direitos reservados</span>
-					<span>
-						Desenvolvido por: Franklin, Graziela, Illian e Richard
-					</span>
+					<span>Desenvolvido por: Franklin, Graziela, Illian e Richard.</span>
 				</InfoContainer>
 			</FooterContainer>
 		</>
