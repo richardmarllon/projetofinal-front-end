@@ -78,23 +78,34 @@ export const Div = styled.div`
 	}
 	&.details {
 		display: flex;
+		flex-wrap: wrap;
+		padding-left: 1rem;
 		flex-direction: column;
 		min-height: 8rem;
 		width: 90%;
 		max-width: 400px;
 		p:first-child {
+			padding: 0;
 			font-size: 1.5rem;
+			font-weight: 700;
+			text-align: center;
+		}
+		p.diseases {
+			margin: 0 0 0 1rem;
+			width: fit-content;
+			font-size: 1.2rem;
 		}
 		div {
 			border: none;
 			background-color: transparent;
 		}
 		li {
+			font-size: 1.2rem;
 			text-decoration: none;
 			list-style: none;
 			text-align: left;
 			width: 95%;
-			margin: 0 auto;
+			margin-left: 1rem;
 		}
 	}
 `;

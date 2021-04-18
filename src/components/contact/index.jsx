@@ -22,7 +22,7 @@ const ContactSection = () => {
 			</PhoneContainer>
 			<PhoneContainer>
 				<PhoneIcon />
-				<Info>Empresas: </Info>
+				<Info>Empresas: </Info>s
 				<PhoneNumber href="tel:4004-3132">(0xx11) 4004-3132</PhoneNumber>
 			</PhoneContainer>
 			<PhoneContainer>
