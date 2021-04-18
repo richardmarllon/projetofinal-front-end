@@ -21,20 +21,24 @@ const HomePatient = () => {
 		setIsRemember(false);
 		setIsAllPhysician(false);
 		setIsHistoric(false);
-	}
-
-	const handleClickReminders = () => {
-		setIsRemember(!isRemember);
-		setIsShow(!isShow);
 	};
 
-	const handleClickAllPhysician = () => {
-		setIsAllPhysician(!isAllPhysician);
-		setIsShow(!isShow);
-	};
+	// const handleClickReminders = () => {
+	// 	setIsRemember(!isRemember);
+	// 	setIsShow(!isShow);
+	// };
 
-	const handleClickHistoric = () => {
-		setIsHistoric(!isHistoric);
+	// const handleClickAllPhysician = () => {
+	// 	setIsAllPhysician(!isAllPhysician);
+	// 	setIsShow(!isShow);
+	// };
+
+	// const handleClickHistoric = () => {
+	// 	setIsHistoric(!isHistoric);
+	// 	setIsShow(!isShow);
+	// };
+
+	const handleClick = () => {
 		setIsShow(!isShow);
 	};
 
@@ -45,37 +49,43 @@ const HomePatient = () => {
 
 				{isRemember && (
 					<ActionsContainer>
-						<ReminderSection showAll={showAll}/>
+						<ReminderSection showAll={showAll} />
 					</ActionsContainer>
 				)}
 
 				{isAllPhysician && (
 					<ActionsContainer>
-						<ListAllPhysicians showAll={showAll}/>
+						<ListAllPhysicians showAll={showAll} />
 					</ActionsContainer>
 				)}
 
 				{isHistoric && (
 					<ActionsContainer>
-						<ListAppointments showAll={showAll}/>
+						<ListAppointments showAll={showAll} />
 					</ActionsContainer>
 				)}
 
 				{isShow && (
 					<ActionsContainer>
 						<BtnContainer>
-							<StyledBtn onClick={handleClickReminders}>
+							<StyledBtn
+								onClick={() => handleClick(setIsRemember(!isRemember))}
+							>
 								Meus Lembretes
 							</StyledBtn>
 						</BtnContainer>
 
 						<BtnContainer>
-							<StyledBtn onClick={handleClickAllPhysician}>
+							<StyledBtn
+								onClick={() => handleClick(setIsAllPhysician(!isAllPhysician))}
+							>
 								Ver todos médicos
 							</StyledBtn>
 						</BtnContainer>
 						<BtnContainer>
-							<StyledBtn onClick={handleClickHistoric}>
+							<StyledBtn
+								onClick={() => handleClick(setIsHistoric(!isHistoric))}
+							>
 								Meu histórico
 							</StyledBtn>
 						</BtnContainer>
